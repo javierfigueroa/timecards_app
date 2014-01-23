@@ -3,7 +3,7 @@
 //  JAFTimecardPrototype
 //
 //  Created by Javier Figueroa on 7/9/13.
-//  Copyright (c) 2013 Mainloop LLC. All rights reserved.
+//  Copyright (c) 2013 Javier Figueroa. All rights reserved.
 //
 
 #import "JAFLoginViewController.h"
@@ -11,11 +11,21 @@
 #import "JAFAPIClient.h"
 #import "JAFUser.h"
 
+
 @interface JAFLoginViewController ()
+
+@property (nonatomic) CGRect originalCompanyTextFrame;
+@property (nonatomic) CGRect originalUsernameTextFrame;
+@property (nonatomic) CGRect originalPasswordTextFrame;
 
 @end
 
 @implementation JAFLoginViewController
+
++ (JAFLoginViewController *)controller
+{
+    return [[JAFLoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,7 +39,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    self.navigationController.navigationBarHidden = YES;
+//    self.originalCompanyTextFrame = self.companyCodeTextField.frame;
+//    self.originalUsernameTextFrame = self.usernameTextField.frame;
+//    self.originalPasswordTextFrame = self.passwordTextField.frame;
+    
+    [self registerForKeyboardNotifications];
+    
+    UIImage *greenButtonImage = [UIImage imageNamed:@"green-btn"];
+    UIImage *stretchableGreenButton = [greenButtonImage stretchableImageWithLeftCapWidth:22 topCapHeight:0];
+    [self.signInButton setBackgroundImage:stretchableGreenButton forState:UIControlStateNormal];
+}
+
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
 }
 
 - (void)didReceiveMemoryWarning
@@ -54,6 +80,7 @@
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             [userDefaults setBool:YES forKey:@"logged_in"];
             [self dismissViewControllerAnimated:YES completion:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kUserLoggedInNotification object:nil];
             
         }else{
             [SVProgressHUD showErrorWithStatus:@"Error logging in, check your username and password and try again"];
@@ -62,6 +89,94 @@
     
     
 }
+
+- (IBAction)didPressForgot:(id)sender {
+    [[[UIAlertView alloc] initWithTitle:@"Not Available" message:@"This feature is not available yet" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+}
+
+- (void)registerForKeyboardNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+    
+}
+
+// Called when the UIKeyboardDidShowNotification is sent.
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    [self slideTextFieldsUp:kbSize.height];
+}
+
+// Called when the UIKeyboardWillHideNotification is sent
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    [self slideDownTextFields:kbSize.height];
+}
+
+- (void)slideTextFieldsUp:(int)offset
+{
+    if (CGRectEqualToRect(CGRectZero, self.originalCompanyTextFrame)) {
+        self.originalCompanyTextFrame = self.companyCodeTextField.frame;
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationCurveLinear | UIViewAnimationOptionCurveEaseIn animations:^{
+            int padding = self.titleLabel.frame.size.height + 30;
+            self.companyCodeTextField.frame = CGRectOffset(self.companyCodeTextField.frame, 0, -offset + padding);
+            self.usernameTextField.frame = CGRectOffset(self.usernameTextField.frame, 0, -offset + padding);
+            self.passwordTextField.frame = CGRectOffset(self.passwordTextField.frame, 0, -offset + padding);
+            self.logoImageView.frame = CGRectOffset(self.logoImageView.frame, 0, -offset + padding);
+            
+            self.companyCodeBg.frame = CGRectOffset(self.companyCodeBg.frame, 0, -offset + padding);
+            self.usernameBg.frame = CGRectOffset(self.usernameBg.frame, 0, -offset + padding);
+            self.passwordBg.frame = CGRectOffset(self.passwordBg.frame, 0, -offset + padding);
+            self.titleLabel.frame = CGRectOffset(self.titleLabel.frame, 0, -offset + padding);
+            
+//            self.logoImageView.alpha = 0;
+            self.signInButton.alpha = 0;
+            self.forgotButton.alpha = 0;
+            
+        } completion:^(BOOL finished) {
+//            self.logoImageView.hidden = YES;
+            self.signInButton.hidden = YES;
+            self.forgotButton.hidden = YES;
+        }];
+    }
+}
+
+- (void)slideDownTextFields:(int)offset
+{
+    if (!CGRectEqualToRect(CGRectZero, self.originalCompanyTextFrame)) {
+        self.originalCompanyTextFrame = CGRectZero;
+        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            int padding = self.titleLabel.frame.size.height + 30;
+            self.companyCodeTextField.frame = CGRectOffset(self.companyCodeTextField.frame, 0, offset - padding);
+            self.usernameTextField.frame = CGRectOffset(self.usernameTextField.frame, 0, offset - padding);
+            self.passwordTextField.frame = CGRectOffset(self.passwordTextField.frame, 0, offset - padding);
+            self.companyCodeBg.frame = CGRectOffset(self.companyCodeBg.frame, 0, offset - padding);
+            self.logoImageView.frame = CGRectOffset(self.logoImageView.frame, 0, offset - padding);
+            self.usernameBg.frame = CGRectOffset(self.usernameBg.frame, 0, offset - padding);
+            self.passwordBg.frame = CGRectOffset(self.passwordBg.frame, 0, offset - padding);
+            self.titleLabel.frame = CGRectOffset(self.titleLabel.frame, 0, offset - padding);
+            
+//            self.logoImageView.alpha = 1;
+            self.signInButton.alpha = 1;
+            self.forgotButton.alpha = 1;
+            
+        } completion:^(BOOL finished) {
+//            self.logoImageView.hidden = NO;
+            self.signInButton.hidden = NO;
+            self.forgotButton.hidden = NO;
+        }];
+    }
+}
+
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {

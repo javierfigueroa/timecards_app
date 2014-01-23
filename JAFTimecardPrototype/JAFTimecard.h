@@ -3,7 +3,7 @@
 //  JAFTimecardPrototype
 //
 //  Created by Javier Figueroa on 7/22/13.
-//  Copyright (c) 2013 Mainloop LLC. All rights reserved.
+//  Copyright (c) 2013 Javier Figueroa. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -40,10 +40,13 @@
 @property (nonatomic, strong) NSNumber *latitudeIn;
 @property (nonatomic, strong) NSNumber *latitudeOut;
 @property (nonatomic, strong) NSNumber *ID;
+@property (nonatomic, strong) NSString *projectID;
 @property (nonatomic, strong) UIImage *photoIn;
 @property (nonatomic, strong) UIImage *photoOut;
 
 - (id)initWithAttributes:(NSDictionary*)data;
+
++ (void)assignProject:(JAFTimecard*)timecard projectID:(NSNumber*)ID completion:(void (^)(JAFTimecard *timecard, NSError *error))block;
 
 + (void)getTodaysTimecardWithCompletion:(void (^)(JAFTimecard *timecard, NSError *error))block;
 

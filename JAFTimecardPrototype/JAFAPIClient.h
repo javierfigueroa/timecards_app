@@ -3,14 +3,14 @@
 //  JAFTimecardPrototype
 //
 //  Created by Javier Figueroa on 7/22/13.
-//  Copyright (c) 2013 Mainloop LLC. All rights reserved.
+//  Copyright (c) 2013 Javier Figueroa. All rights reserved.
 //
 
-#import "AFHTTPClient.h"
+#import "AFHTTPRequestOperationManager.h"
 
-@interface JAFAPIClient : AFHTTPClient
+@interface JAFAPIClient : NSObject
 
-+ (JAFAPIClient *)sharedClient;
++ (AFHTTPRequestOperationManager *)sharedClient;
 
 + (void)setAPIDomain:(NSString*)domain;
 

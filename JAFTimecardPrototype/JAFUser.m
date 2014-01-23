@@ -3,7 +3,7 @@
 //  JAFTimecardPrototype
 //
 //  Created by Javier Figueroa on 7/22/13.
-//  Copyright (c) 2013 Mainloop LLC. All rights reserved.
+//  Copyright (c) 2013 Javier Figueroa. All rights reserved.
 //
 
 #import "JAFUser.h"
@@ -28,7 +28,7 @@
 + (void)login:(NSString*)username andPassword:(NSString*)password completion:(void (^)(JAFUser *user, NSError *error))block
 {
     NSDictionary *parameters = @{@"user[email]":username, @"user[password]":password};
-    [[JAFAPIClient sharedClient] postPath:@"users/sign_in.json" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[JAFAPIClient sharedClient] POST:@"users/sign_in.json" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //        {
         //            "last_name": "a1",
         //            "id": 2,

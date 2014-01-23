@@ -3,7 +3,7 @@
 //  JAFTimecardPrototype
 //
 //  Created by Javier Figueroa on 7/9/13.
-//  Copyright (c) 2013 Mainloop LLC. All rights reserved.
+//  Copyright (c) 2013 Javier Figueroa. All rights reserved.
 //
 
 #import "JAFAppDelegate.h"
@@ -17,13 +17,13 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
-    JAFActionsViewController *actionsController = [[JAFActionsViewController alloc] init];
+    JAFActionsViewController *actionsController = [JAFActionsViewController controller];
     UINavigationController *actionsNavController = [[UINavigationController alloc]initWithRootViewController:actionsController];
+    [actionsNavController setNavigationBarHidden:YES];
     
     
     self.window.rootViewController = actionsNavController;
     [self.window makeKeyAndVisible];
-    
     
     return YES;
 }

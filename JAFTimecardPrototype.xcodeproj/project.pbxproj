@@ -8,6 +8,33 @@
 
 /* Begin PBXBuildFile section */
 		031AAA3985EB47EFB14CDFE8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CDFF5C7C9094A6CB2D116D1 /* libPods.a */; };
+		3B1EDE07182FF08A00C258F6 /* JAFProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1EDE06182FF08A00C258F6 /* JAFProject.m */; };
+		3B1EDE0918303AC900C258F6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B1EDE0818303AC900C258F6 /* Images.xcassets */; };
+		3B1EDE2318303B8F00C258F6 /* calendar-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B1EDE0B18303B8F00C258F6 /* calendar-icon@2x.png */; };
+		3B1EDE2418303B8F00C258F6 /* clock-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B1EDE0C18303B8F00C258F6 /* clock-icon@2x.png */; };
+		3B1EDE2518303B8F00C258F6 /* dropdown-btn@2x.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B1EDE0D18303B8F00C258F6 /* dropdown-btn@2x.gif */; };
+		3B1EDE2618303B8F00C258F6 /* form-text-field@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B1EDE0E18303B8F00C258F6 /* form-text-field@2x.png */; };
+		3B1EDE2718303B8F00C258F6 /* green-arrow-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B1EDE0F18303B8F00C258F6 /* green-arrow-icon@2x.png */; };
+		3B1EDE2818303B8F00C258F6 /* green-btn-left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B1EDE1018303B8F00C258F6 /* green-btn-left@2x.png */; };
+		3B1EDE2918303B8F00C258F6 /* green-btn-middle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B1EDE1118303B8F00C258F6 /* green-btn-middle@2x.png */; };
+		3B1EDE2A18303B8F00C258F6 /* green-btn-right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B1EDE1218303B8F00C258F6 /* green-btn-right@2x.png */; };
+		3B1EDE2B18303B8F00C258F6 /* green-btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B1EDE1318303B8F00C258F6 /* green-btn@2x.png */; };
+		3B1EDE2C18303B8F00C258F6 /* green-outlined-btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B1EDE1418303B8F00C258F6 /* green-outlined-btn@2x.png */; };
+		3B1EDE2D18303B8F00C258F6 /* green-outlined-left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B1EDE1518303B8F00C258F6 /* green-outlined-left@2x.png */; };
+		3B1EDE2E18303B8F00C258F6 /* green-outlined-middle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B1EDE1618303B8F00C258F6 /* green-outlined-middle@2x.png */; };
+		3B1EDE2F18303B8F00C258F6 /* green-outlined-right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B1EDE1718303B8F00C258F6 /* green-outlined-right@2x.png */; };
+		3B1EDE3018303B8F00C258F6 /* large-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B1EDE1818303B8F00C258F6 /* large-arrow@2x.png */; };
+		3B1EDE3118303B8F00C258F6 /* Profile-Avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B1EDE1918303B8F00C258F6 /* Profile-Avatar.png */; };
+		3B1EDE3218303B8F00C258F6 /* red-arrow-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B1EDE1A18303B8F00C258F6 /* red-arrow-icon@2x.png */; };
+		3B1EDE3318303B8F00C258F6 /* red-btn-left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B1EDE1B18303B8F00C258F6 /* red-btn-left@2x.png */; };
+		3B1EDE3418303B8F00C258F6 /* red-btn-middle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B1EDE1C18303B8F00C258F6 /* red-btn-middle@2x.png */; };
+		3B1EDE3518303B8F00C258F6 /* red-btn-right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B1EDE1D18303B8F00C258F6 /* red-btn-right@2x.png */; };
+		3B1EDE3618303B8F00C258F6 /* red-btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B1EDE1E18303B8F00C258F6 /* red-btn@2x.png */; };
+		3B1EDE3718303B8F00C258F6 /* red-outlined-btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B1EDE1F18303B8F00C258F6 /* red-outlined-btn@2x.png */; };
+		3B1EDE3818303B8F00C258F6 /* red-outlined-left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B1EDE2018303B8F00C258F6 /* red-outlined-left@2x.png */; };
+		3B1EDE3918303B8F00C258F6 /* red-outlined-middle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B1EDE2118303B8F00C258F6 /* red-outlined-middle@2x.png */; };
+		3B1EDE3A18303B8F00C258F6 /* red-outlined-right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B1EDE2218303B8F00C258F6 /* red-outlined-right@2x.png */; };
+		3B1EDE3C18303BE100C258F6 /* login-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B1EDE3B18303BE100C258F6 /* login-icon@2x.png */; };
 		3B3BE34F179DB81C0085E74D /* JAFAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3BE34E179DB81C0085E74D /* JAFAPIClient.m */; };
 		3B3BE357179DBC0F0085E74D /* JAFTimecard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3BE356179DBC0F0085E74D /* JAFTimecard.m */; };
 		3B3BE35A179DC6AF0085E74D /* JAFUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3BE359179DC6AF0085E74D /* JAFUser.m */; };
@@ -21,16 +48,51 @@
 		3B641B94178D05F7002D33D4 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B641B93178D05F7002D33D4 /* Default@2x.png */; };
 		3B641B96178D05F7002D33D4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B641B95178D05F7002D33D4 /* Default-568h@2x.png */; };
 		3B641BA0178D0633002D33D4 /* JAFLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B641B9E178D0633002D33D4 /* JAFLoginViewController.m */; };
-		3B641BA1178D0633002D33D4 /* JAFLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B641B9F178D0633002D33D4 /* JAFLoginViewController.xib */; };
 		3B641BA5178D0704002D33D4 /* JAFActionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B641BA3178D0704002D33D4 /* JAFActionsViewController.m */; };
-		3B641BA6178D0704002D33D4 /* JAFActionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B641BA4178D0704002D33D4 /* JAFActionsViewController.xib */; };
-		3B641BAA178D0716002D33D4 /* JAFSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B641BA8178D0716002D33D4 /* JAFSummaryViewController.m */; };
-		3B641BAB178D0716002D33D4 /* JAFSummaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B641BA9178D0716002D33D4 /* JAFSummaryViewController.xib */; };
 		3B641BAD178E10F4002D33D4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B641BAC178E10F4002D33D4 /* CoreLocation.framework */; };
+		3BEC8ECD182D0F8F0075FD26 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BEC8ECC182D0F8F0075FD26 /* LoginViewController.xib */; };
+		3BEC8ECF182D11940075FD26 /* TimecardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BEC8ECE182D11940075FD26 /* TimecardViewController.xib */; };
+		3BF11B9E1835BB8100F1737F /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BF11B9B1835BB8100F1737F /* OpenSans-Bold.ttf */; };
+		3BF11B9F1835BB8100F1737F /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BF11B9C1835BB8100F1737F /* OpenSans-Light.ttf */; };
+		3BF11BA01835BB8100F1737F /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BF11B9D1835BB8100F1737F /* OpenSans-Regular.ttf */; };
+		3BF11BA41835BC3E00F1737F /* JAFTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF11BA31835BC3E00F1737F /* JAFTextField.m */; };
+		3BF11BA71835BDBA00F1737F /* JAFTitleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF11BA61835BDBA00F1737F /* JAFTitleLabel.m */; };
+		3BF11BAA1835C38A00F1737F /* JAFButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF11BA91835C38A00F1737F /* JAFButton.m */; };
+		3BF11BAD1835CD5300F1737F /* logout-icon-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BF11BAB1835CD5300F1737F /* logout-icon-50@2x.png */; };
+		3BF11BAE1835CD5300F1737F /* logout-icon-selected-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BF11BAC1835CD5300F1737F /* logout-icon-selected-50@2x.png */; };
+		3BF11BB01835D6FB00F1737F /* white-btn-left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BF11BAF1835D6FB00F1737F /* white-btn-left@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3156D13D4F5B42B28B5ACA2A /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		3B1EDE05182FF08A00C258F6 /* JAFProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAFProject.h; sourceTree = "<group>"; };
+		3B1EDE06182FF08A00C258F6 /* JAFProject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAFProject.m; sourceTree = "<group>"; };
+		3B1EDE0818303AC900C258F6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		3B1EDE0B18303B8F00C258F6 /* calendar-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar-icon@2x.png"; sourceTree = "<group>"; };
+		3B1EDE0C18303B8F00C258F6 /* clock-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock-icon@2x.png"; sourceTree = "<group>"; };
+		3B1EDE0D18303B8F00C258F6 /* dropdown-btn@2x.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "dropdown-btn@2x.gif"; sourceTree = "<group>"; };
+		3B1EDE0E18303B8F00C258F6 /* form-text-field@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "form-text-field@2x.png"; sourceTree = "<group>"; };
+		3B1EDE0F18303B8F00C258F6 /* green-arrow-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green-arrow-icon@2x.png"; sourceTree = "<group>"; };
+		3B1EDE1018303B8F00C258F6 /* green-btn-left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green-btn-left@2x.png"; sourceTree = "<group>"; };
+		3B1EDE1118303B8F00C258F6 /* green-btn-middle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green-btn-middle@2x.png"; sourceTree = "<group>"; };
+		3B1EDE1218303B8F00C258F6 /* green-btn-right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green-btn-right@2x.png"; sourceTree = "<group>"; };
+		3B1EDE1318303B8F00C258F6 /* green-btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green-btn@2x.png"; sourceTree = "<group>"; };
+		3B1EDE1418303B8F00C258F6 /* green-outlined-btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green-outlined-btn@2x.png"; sourceTree = "<group>"; };
+		3B1EDE1518303B8F00C258F6 /* green-outlined-left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green-outlined-left@2x.png"; sourceTree = "<group>"; };
+		3B1EDE1618303B8F00C258F6 /* green-outlined-middle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green-outlined-middle@2x.png"; sourceTree = "<group>"; };
+		3B1EDE1718303B8F00C258F6 /* green-outlined-right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green-outlined-right@2x.png"; sourceTree = "<group>"; };
+		3B1EDE1818303B8F00C258F6 /* large-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "large-arrow@2x.png"; sourceTree = "<group>"; };
+		3B1EDE1918303B8F00C258F6 /* Profile-Avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Profile-Avatar.png"; sourceTree = "<group>"; };
+		3B1EDE1A18303B8F00C258F6 /* red-arrow-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red-arrow-icon@2x.png"; sourceTree = "<group>"; };
+		3B1EDE1B18303B8F00C258F6 /* red-btn-left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red-btn-left@2x.png"; sourceTree = "<group>"; };
+		3B1EDE1C18303B8F00C258F6 /* red-btn-middle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red-btn-middle@2x.png"; sourceTree = "<group>"; };
+		3B1EDE1D18303B8F00C258F6 /* red-btn-right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red-btn-right@2x.png"; sourceTree = "<group>"; };
+		3B1EDE1E18303B8F00C258F6 /* red-btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red-btn@2x.png"; sourceTree = "<group>"; };
+		3B1EDE1F18303B8F00C258F6 /* red-outlined-btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red-outlined-btn@2x.png"; sourceTree = "<group>"; };
+		3B1EDE2018303B8F00C258F6 /* red-outlined-left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red-outlined-left@2x.png"; sourceTree = "<group>"; };
+		3B1EDE2118303B8F00C258F6 /* red-outlined-middle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red-outlined-middle@2x.png"; sourceTree = "<group>"; };
+		3B1EDE2218303B8F00C258F6 /* red-outlined-right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red-outlined-right@2x.png"; sourceTree = "<group>"; };
+		3B1EDE3B18303BE100C258F6 /* login-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-icon@2x.png"; sourceTree = "<group>"; };
 		3B3BE34D179DB81C0085E74D /* JAFAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAFAPIClient.h; sourceTree = "<group>"; };
 		3B3BE34E179DB81C0085E74D /* JAFAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAFAPIClient.m; sourceTree = "<group>"; };
 		3B3BE355179DBC0F0085E74D /* JAFTimecard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAFTimecard.h; sourceTree = "<group>"; };
@@ -52,14 +114,23 @@
 		3B641B95178D05F7002D33D4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		3B641B9D178D0633002D33D4 /* JAFLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAFLoginViewController.h; sourceTree = "<group>"; };
 		3B641B9E178D0633002D33D4 /* JAFLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAFLoginViewController.m; sourceTree = "<group>"; };
-		3B641B9F178D0633002D33D4 /* JAFLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JAFLoginViewController.xib; sourceTree = "<group>"; };
 		3B641BA2178D0704002D33D4 /* JAFActionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAFActionsViewController.h; sourceTree = "<group>"; };
 		3B641BA3178D0704002D33D4 /* JAFActionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAFActionsViewController.m; sourceTree = "<group>"; };
-		3B641BA4178D0704002D33D4 /* JAFActionsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JAFActionsViewController.xib; sourceTree = "<group>"; };
-		3B641BA7178D0716002D33D4 /* JAFSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAFSummaryViewController.h; sourceTree = "<group>"; };
-		3B641BA8178D0716002D33D4 /* JAFSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAFSummaryViewController.m; sourceTree = "<group>"; };
-		3B641BA9178D0716002D33D4 /* JAFSummaryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JAFSummaryViewController.xib; sourceTree = "<group>"; };
 		3B641BAC178E10F4002D33D4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		3BEC8ECC182D0F8F0075FD26 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		3BEC8ECE182D11940075FD26 /* TimecardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimecardViewController.xib; sourceTree = "<group>"; };
+		3BF11B9B1835BB8100F1737F /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		3BF11B9C1835BB8100F1737F /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
+		3BF11B9D1835BB8100F1737F /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		3BF11BA21835BC3E00F1737F /* JAFTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAFTextField.h; sourceTree = "<group>"; };
+		3BF11BA31835BC3E00F1737F /* JAFTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAFTextField.m; sourceTree = "<group>"; };
+		3BF11BA51835BDBA00F1737F /* JAFTitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAFTitleLabel.h; sourceTree = "<group>"; };
+		3BF11BA61835BDBA00F1737F /* JAFTitleLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAFTitleLabel.m; sourceTree = "<group>"; };
+		3BF11BA81835C38A00F1737F /* JAFButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAFButton.h; sourceTree = "<group>"; };
+		3BF11BA91835C38A00F1737F /* JAFButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAFButton.m; sourceTree = "<group>"; };
+		3BF11BAB1835CD5300F1737F /* logout-icon-50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logout-icon-50@2x.png"; sourceTree = "<group>"; };
+		3BF11BAC1835CD5300F1737F /* logout-icon-selected-50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logout-icon-selected-50@2x.png"; sourceTree = "<group>"; };
+		3BF11BAF1835D6FB00F1737F /* white-btn-left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white-btn-left@2x.png"; sourceTree = "<group>"; };
 		8CDFF5C7C9094A6CB2D116D1 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -79,6 +150,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B1EDE0A18303B8F00C258F6 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				3BF11BAF1835D6FB00F1737F /* white-btn-left@2x.png */,
+				3BF11BAB1835CD5300F1737F /* logout-icon-50@2x.png */,
+				3BF11BAC1835CD5300F1737F /* logout-icon-selected-50@2x.png */,
+				3B1EDE3B18303BE100C258F6 /* login-icon@2x.png */,
+				3B1EDE0B18303B8F00C258F6 /* calendar-icon@2x.png */,
+				3B1EDE0C18303B8F00C258F6 /* clock-icon@2x.png */,
+				3B1EDE0D18303B8F00C258F6 /* dropdown-btn@2x.gif */,
+				3B1EDE0E18303B8F00C258F6 /* form-text-field@2x.png */,
+				3B1EDE0F18303B8F00C258F6 /* green-arrow-icon@2x.png */,
+				3B1EDE1018303B8F00C258F6 /* green-btn-left@2x.png */,
+				3B1EDE1118303B8F00C258F6 /* green-btn-middle@2x.png */,
+				3B1EDE1218303B8F00C258F6 /* green-btn-right@2x.png */,
+				3B1EDE1318303B8F00C258F6 /* green-btn@2x.png */,
+				3B1EDE1418303B8F00C258F6 /* green-outlined-btn@2x.png */,
+				3B1EDE1518303B8F00C258F6 /* green-outlined-left@2x.png */,
+				3B1EDE1618303B8F00C258F6 /* green-outlined-middle@2x.png */,
+				3B1EDE1718303B8F00C258F6 /* green-outlined-right@2x.png */,
+				3B1EDE1818303B8F00C258F6 /* large-arrow@2x.png */,
+				3B1EDE1918303B8F00C258F6 /* Profile-Avatar.png */,
+				3B1EDE1A18303B8F00C258F6 /* red-arrow-icon@2x.png */,
+				3B1EDE1B18303B8F00C258F6 /* red-btn-left@2x.png */,
+				3B1EDE1C18303B8F00C258F6 /* red-btn-middle@2x.png */,
+				3B1EDE1D18303B8F00C258F6 /* red-btn-right@2x.png */,
+				3B1EDE1E18303B8F00C258F6 /* red-btn@2x.png */,
+				3B1EDE1F18303B8F00C258F6 /* red-outlined-btn@2x.png */,
+				3B1EDE2018303B8F00C258F6 /* red-outlined-left@2x.png */,
+				3B1EDE2118303B8F00C258F6 /* red-outlined-middle@2x.png */,
+				3B1EDE2218303B8F00C258F6 /* red-outlined-right@2x.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
 		3B641B73178D05F7002D33D4 = {
 			isa = PBXGroup;
 			children = (
@@ -112,24 +218,26 @@
 		3B641B85178D05F7002D33D4 /* JAFTimecardPrototype */ = {
 			isa = PBXGroup;
 			children = (
+				3B1EDE0A18303B8F00C258F6 /* Images */,
+				3B641B86178D05F7002D33D4 /* Supporting Files */,
+				3BF11BA11835BC2B00F1737F /* Views */,
 				3B641B8E178D05F7002D33D4 /* JAFAppDelegate.h */,
 				3B641B8F178D05F7002D33D4 /* JAFAppDelegate.m */,
-				3B641B86178D05F7002D33D4 /* Supporting Files */,
 				3B641B9D178D0633002D33D4 /* JAFLoginViewController.h */,
 				3B641B9E178D0633002D33D4 /* JAFLoginViewController.m */,
-				3B641B9F178D0633002D33D4 /* JAFLoginViewController.xib */,
 				3B641BA2178D0704002D33D4 /* JAFActionsViewController.h */,
 				3B641BA3178D0704002D33D4 /* JAFActionsViewController.m */,
-				3B641BA4178D0704002D33D4 /* JAFActionsViewController.xib */,
-				3B641BA7178D0716002D33D4 /* JAFSummaryViewController.h */,
-				3B641BA8178D0716002D33D4 /* JAFSummaryViewController.m */,
-				3B641BA9178D0716002D33D4 /* JAFSummaryViewController.xib */,
 				3B3BE34D179DB81C0085E74D /* JAFAPIClient.h */,
 				3B3BE34E179DB81C0085E74D /* JAFAPIClient.m */,
 				3B3BE355179DBC0F0085E74D /* JAFTimecard.h */,
 				3B3BE356179DBC0F0085E74D /* JAFTimecard.m */,
 				3B3BE358179DC6AF0085E74D /* JAFUser.h */,
 				3B3BE359179DC6AF0085E74D /* JAFUser.m */,
+				3BEC8ECC182D0F8F0075FD26 /* LoginViewController.xib */,
+				3BEC8ECE182D11940075FD26 /* TimecardViewController.xib */,
+				3B1EDE05182FF08A00C258F6 /* JAFProject.h */,
+				3B1EDE06182FF08A00C258F6 /* JAFProject.m */,
+				3B1EDE0818303AC900C258F6 /* Images.xcassets */,
 			);
 			path = JAFTimecardPrototype;
 			sourceTree = "<group>";
@@ -137,6 +245,9 @@
 		3B641B86178D05F7002D33D4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3BF11B9B1835BB8100F1737F /* OpenSans-Bold.ttf */,
+				3BF11B9C1835BB8100F1737F /* OpenSans-Light.ttf */,
+				3BF11B9D1835BB8100F1737F /* OpenSans-Regular.ttf */,
 				3B641B87178D05F7002D33D4 /* JAFTimecardPrototype-Info.plist */,
 				3B641B88178D05F7002D33D4 /* InfoPlist.strings */,
 				3B641B8B178D05F7002D33D4 /* main.m */,
@@ -146,6 +257,19 @@
 				3B641B95178D05F7002D33D4 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3BF11BA11835BC2B00F1737F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3BF11BA21835BC3E00F1737F /* JAFTextField.h */,
+				3BF11BA31835BC3E00F1737F /* JAFTextField.m */,
+				3BF11BA51835BDBA00F1737F /* JAFTitleLabel.h */,
+				3BF11BA61835BDBA00F1737F /* JAFTitleLabel.m */,
+				3BF11BA81835C38A00F1737F /* JAFButton.h */,
+				3BF11BA91835C38A00F1737F /* JAFButton.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -178,7 +302,12 @@
 			attributes = {
 				CLASSPREFIX = JAF;
 				LastUpgradeCheck = 0460;
-				ORGANIZATIONNAME = "Mainloop LLC";
+				ORGANIZATIONNAME = "Javier Figueroa";
+				TargetAttributes = {
+					3B641B7B178D05F7002D33D4 = {
+						DevelopmentTeam = RND85PHW7R;
+					};
+				};
 			};
 			buildConfigurationList = 3B641B77178D05F7002D33D4 /* Build configuration list for PBXProject "JAFTimecardPrototype" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -202,13 +331,44 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B1EDE3518303B8F00C258F6 /* red-btn-right@2x.png in Resources */,
+				3B1EDE3218303B8F00C258F6 /* red-arrow-icon@2x.png in Resources */,
+				3B1EDE2918303B8F00C258F6 /* green-btn-middle@2x.png in Resources */,
+				3B1EDE2F18303B8F00C258F6 /* green-outlined-right@2x.png in Resources */,
+				3BF11B9F1835BB8100F1737F /* OpenSans-Light.ttf in Resources */,
+				3B1EDE3818303B8F00C258F6 /* red-outlined-left@2x.png in Resources */,
+				3B1EDE2618303B8F00C258F6 /* form-text-field@2x.png in Resources */,
+				3B1EDE3718303B8F00C258F6 /* red-outlined-btn@2x.png in Resources */,
+				3BEC8ECD182D0F8F0075FD26 /* LoginViewController.xib in Resources */,
+				3B1EDE2518303B8F00C258F6 /* dropdown-btn@2x.gif in Resources */,
+				3BF11BA01835BB8100F1737F /* OpenSans-Regular.ttf in Resources */,
+				3B1EDE3A18303B8F00C258F6 /* red-outlined-right@2x.png in Resources */,
+				3BF11BAD1835CD5300F1737F /* logout-icon-50@2x.png in Resources */,
+				3B1EDE3018303B8F00C258F6 /* large-arrow@2x.png in Resources */,
+				3BF11B9E1835BB8100F1737F /* OpenSans-Bold.ttf in Resources */,
+				3B1EDE2A18303B8F00C258F6 /* green-btn-right@2x.png in Resources */,
+				3B1EDE2818303B8F00C258F6 /* green-btn-left@2x.png in Resources */,
+				3B1EDE2318303B8F00C258F6 /* calendar-icon@2x.png in Resources */,
 				3B641B8A178D05F7002D33D4 /* InfoPlist.strings in Resources */,
+				3B1EDE3118303B8F00C258F6 /* Profile-Avatar.png in Resources */,
+				3B1EDE3318303B8F00C258F6 /* red-btn-left@2x.png in Resources */,
+				3B1EDE0918303AC900C258F6 /* Images.xcassets in Resources */,
 				3B641B92178D05F7002D33D4 /* Default.png in Resources */,
+				3BF11BAE1835CD5300F1737F /* logout-icon-selected-50@2x.png in Resources */,
+				3B1EDE2718303B8F00C258F6 /* green-arrow-icon@2x.png in Resources */,
+				3B1EDE3918303B8F00C258F6 /* red-outlined-middle@2x.png in Resources */,
 				3B641B94178D05F7002D33D4 /* Default@2x.png in Resources */,
+				3B1EDE2E18303B8F00C258F6 /* green-outlined-middle@2x.png in Resources */,
 				3B641B96178D05F7002D33D4 /* Default-568h@2x.png in Resources */,
-				3B641BA1178D0633002D33D4 /* JAFLoginViewController.xib in Resources */,
-				3B641BA6178D0704002D33D4 /* JAFActionsViewController.xib in Resources */,
-				3B641BAB178D0716002D33D4 /* JAFSummaryViewController.xib in Resources */,
+				3B1EDE2418303B8F00C258F6 /* clock-icon@2x.png in Resources */,
+				3B1EDE3418303B8F00C258F6 /* red-btn-middle@2x.png in Resources */,
+				3BEC8ECF182D11940075FD26 /* TimecardViewController.xib in Resources */,
+				3BF11BB01835D6FB00F1737F /* white-btn-left@2x.png in Resources */,
+				3B1EDE2C18303B8F00C258F6 /* green-outlined-btn@2x.png in Resources */,
+				3B1EDE3618303B8F00C258F6 /* red-btn@2x.png in Resources */,
+				3B1EDE3C18303BE100C258F6 /* login-icon@2x.png in Resources */,
+				3B1EDE2B18303B8F00C258F6 /* green-btn@2x.png in Resources */,
+				3B1EDE2D18303B8F00C258F6 /* green-outlined-left@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,11 +413,14 @@
 				3B641B8C178D05F7002D33D4 /* main.m in Sources */,
 				3B641B90178D05F7002D33D4 /* JAFAppDelegate.m in Sources */,
 				3B641BA0178D0633002D33D4 /* JAFLoginViewController.m in Sources */,
+				3BF11BA71835BDBA00F1737F /* JAFTitleLabel.m in Sources */,
+				3BF11BAA1835C38A00F1737F /* JAFButton.m in Sources */,
 				3B641BA5178D0704002D33D4 /* JAFActionsViewController.m in Sources */,
-				3B641BAA178D0716002D33D4 /* JAFSummaryViewController.m in Sources */,
+				3BF11BA41835BC3E00F1737F /* JAFTextField.m in Sources */,
 				3B3BE34F179DB81C0085E74D /* JAFAPIClient.m in Sources */,
 				3B3BE357179DBC0F0085E74D /* JAFTimecard.m in Sources */,
 				3B3BE35A179DC6AF0085E74D /* JAFUser.m in Sources */,
+				3B1EDE07182FF08A00C258F6 /* JAFProject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,10 +498,15 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3156D13D4F5B42B28B5ACA2A /* Pods.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Javier Figueroa (B957FHX2SD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Javier Figueroa (B957FHX2SD)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JAFTimecardPrototype/JAFTimecardPrototype-Prefix.pch";
 				INFOPLIST_FILE = "JAFTimecardPrototype/JAFTimecardPrototype-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "9955A495-FFF9-4B54-B709-263725D053AD";
 				USER_HEADER_SEARCH_PATHS = "${PODS_PUBLIC_HEADERS_SEARCH_PATHS}";
 				WRAPPER_EXTENSION = app;
 			};
@@ -348,14 +516,15 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3156D13D4F5B42B28B5ACA2A /* Pods.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Javier Figueroa (RND85PHW7R)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Javier Figueroa (RND85PHW7R)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JAFTimecardPrototype/JAFTimecardPrototype-Prefix.pch";
 				INFOPLIST_FILE = "JAFTimecardPrototype/JAFTimecardPrototype-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "8A64E844-967F-46DF-8C00-27AC7B4DB9D9";
 				USER_HEADER_SEARCH_PATHS = "${PODS_PUBLIC_HEADERS_SEARCH_PATHS}";
 				WRAPPER_EXTENSION = app;
 			};

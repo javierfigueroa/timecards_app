@@ -3,7 +3,7 @@
 //  JAFTimecardPrototype
 //
 //  Created by Javier Figueroa on 7/22/13.
-//  Copyright (c) 2013 Mainloop LLC. All rights reserved.
+//  Copyright (c) 2013 Javier Figueroa. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
