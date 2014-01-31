@@ -61,6 +61,8 @@
 		3BF11BAD1835CD5300F1737F /* logout-icon-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BF11BAB1835CD5300F1737F /* logout-icon-50@2x.png */; };
 		3BF11BAE1835CD5300F1737F /* logout-icon-selected-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BF11BAC1835CD5300F1737F /* logout-icon-selected-50@2x.png */; };
 		3BF11BB01835D6FB00F1737F /* white-btn-left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BF11BAF1835D6FB00F1737F /* white-btn-left@2x.png */; };
+		C66BBC121891BF9700C7502B /* JAFProjectsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C66BBC111891BF9700C7502B /* JAFProjectsViewController.m */; };
+		C66BBC141891C2F200C7502B /* ProjectsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C66BBC131891C2F200C7502B /* ProjectsViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -132,6 +134,9 @@
 		3BF11BAC1835CD5300F1737F /* logout-icon-selected-50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logout-icon-selected-50@2x.png"; sourceTree = "<group>"; };
 		3BF11BAF1835D6FB00F1737F /* white-btn-left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white-btn-left@2x.png"; sourceTree = "<group>"; };
 		8CDFF5C7C9094A6CB2D116D1 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C66BBC101891BF9700C7502B /* JAFProjectsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAFProjectsViewController.h; sourceTree = "<group>"; };
+		C66BBC111891BF9700C7502B /* JAFProjectsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAFProjectsViewController.m; sourceTree = "<group>"; };
+		C66BBC131891C2F200C7502B /* ProjectsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProjectsViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -238,6 +243,9 @@
 				3B1EDE05182FF08A00C258F6 /* JAFProject.h */,
 				3B1EDE06182FF08A00C258F6 /* JAFProject.m */,
 				3B1EDE0818303AC900C258F6 /* Images.xcassets */,
+				C66BBC101891BF9700C7502B /* JAFProjectsViewController.h */,
+				C66BBC111891BF9700C7502B /* JAFProjectsViewController.m */,
+				C66BBC131891C2F200C7502B /* ProjectsViewController.xib */,
 			);
 			path = JAFTimecardPrototype;
 			sourceTree = "<group>";
@@ -362,6 +370,7 @@
 				3B641B96178D05F7002D33D4 /* Default-568h@2x.png in Resources */,
 				3B1EDE2418303B8F00C258F6 /* clock-icon@2x.png in Resources */,
 				3B1EDE3418303B8F00C258F6 /* red-btn-middle@2x.png in Resources */,
+				C66BBC141891C2F200C7502B /* ProjectsViewController.xib in Resources */,
 				3BEC8ECF182D11940075FD26 /* TimecardViewController.xib in Resources */,
 				3BF11BB01835D6FB00F1737F /* white-btn-left@2x.png in Resources */,
 				3B1EDE2C18303B8F00C258F6 /* green-outlined-btn@2x.png in Resources */,
@@ -412,6 +421,7 @@
 			files = (
 				3B641B8C178D05F7002D33D4 /* main.m in Sources */,
 				3B641B90178D05F7002D33D4 /* JAFAppDelegate.m in Sources */,
+				C66BBC121891BF9700C7502B /* JAFProjectsViewController.m in Sources */,
 				3B641BA0178D0633002D33D4 /* JAFLoginViewController.m in Sources */,
 				3BF11BA71835BDBA00F1737F /* JAFTitleLabel.m in Sources */,
 				3BF11BAA1835C38A00F1737F /* JAFButton.m in Sources */,
@@ -500,8 +510,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Javier Figueroa (B957FHX2SD)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Javier Figueroa (B957FHX2SD)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JAFTimecardPrototype/JAFTimecardPrototype-Prefix.pch";
 				INFOPLIST_FILE = "JAFTimecardPrototype/JAFTimecardPrototype-Info.plist";
@@ -518,8 +528,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Javier Figueroa (RND85PHW7R)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Javier Figueroa (RND85PHW7R)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JAFTimecardPrototype/JAFTimecardPrototype-Prefix.pch";
 				INFOPLIST_FILE = "JAFTimecardPrototype/JAFTimecardPrototype-Info.plist";

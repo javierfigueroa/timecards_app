@@ -25,8 +25,12 @@
 }
 
 
-+ (void)login:(NSString*)username andPassword:(NSString*)password completion:(void (^)(JAFUser *user, NSError *error))block
++ (void)login:(NSString*)username andPassword:(NSString*)password andCompany:(NSString *)company completion:(void (^)(JAFUser *, NSError *))block
 {
+    
+    NSString *cleanDomain = [company stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    [JAFAPIClient setAPIDomain:cleanDomain];
+    
     NSDictionary *parameters = @{@"user[email]":username, @"user[password]":password};
     [[JAFAPIClient sharedClient] POST:@"users/sign_in.json" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //        {
@@ -41,6 +45,7 @@
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         JAFUser *user = [[JAFUser alloc] initWithAttributes:JSON];
         user.password = password;
+        user.company = cleanDomain;
         
         NSData *myEncodedUser = [NSKeyedArchiver archivedDataWithRootObject:user];
         [defaults setObject:myEncodedUser forKey:@"user"];
@@ -67,6 +72,7 @@
     [aCoder encodeObject:self.username forKey:@"username"];
     [aCoder encodeObject:self.password forKey:@"password"];
     [aCoder encodeObject:self.authToken forKey:@"auth_token"];
+    [aCoder encodeObject:self.company forKey:@"company"];
     
 }
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -79,6 +85,7 @@
         self.password = [aDecoder decodeObjectForKey:@"password"];
         self.ID = [aDecoder decodeObjectForKey:@"id"];
         self.authToken = [aDecoder decodeObjectForKey:@"auth_token"];
+        self.company = [aDecoder decodeObjectForKey:@"company"];
     }
     
     return self;

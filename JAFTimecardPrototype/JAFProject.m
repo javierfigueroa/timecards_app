@@ -32,10 +32,13 @@
         JAFProject *none = [[JAFProject alloc] init];
         none.ID = [NSNumber numberWithInt:0];
         none.name = @"Unassigned";
-        [projects addObject:none];
         
         for (NSDictionary *projectJSON in JSON) {
             [projects addObject:[[JAFProject alloc] initWithAttributes:projectJSON]];
+        }
+        
+        if (projects.count > 0) {
+            [projects insertObject:none atIndex:0];
         }
         
         if (block) {

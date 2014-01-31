@@ -21,6 +21,11 @@
     UINavigationController *actionsNavController = [[UINavigationController alloc]initWithRootViewController:actionsController];
     [actionsNavController setNavigationBarHidden:YES];
     
+    UIColor *backgroundColor = [UIColor colorWithRed:28.0/255.0 green:35.0/255.0 blue:41.0/255.0 alpha:1];
+    UIColor *textColor = [UIColor colorWithRed:170.0/255.0 green:179.0/255.0 blue:188.0/255.0 alpha:1];
+    [[UINavigationBar appearance] setTintColor:textColor];
+    [[UINavigationBar appearance] setBarTintColor:backgroundColor];
+    [[UINavigationBar appearance] setBackgroundColor:[UIColor clearColor]];
     
     self.window.rootViewController = actionsNavController;
     [self.window makeKeyAndVisible];

@@ -45,6 +45,15 @@
 //    self.originalUsernameTextFrame = self.usernameTextField.frame;
 //    self.originalPasswordTextFrame = self.passwordTextField.frame;
     
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSData *myEncodedObject = [userDefaults objectForKey:@"user"];
+    JAFUser *user = [NSKeyedUnarchiver unarchiveObjectWithData: myEncodedObject];
+    if (user) {
+        self.companyCodeTextField.text = user.company;
+        self.usernameTextField.text = user.username;
+    }
+    
     [self registerForKeyboardNotifications];
     
     UIImage *greenButtonImage = [UIImage imageNamed:@"green-btn"];
@@ -73,8 +82,7 @@
     }
     
     [SVProgressHUD showWithStatus:@"Logging in" maskType:SVProgressHUDMaskTypeGradient];
-    [JAFAPIClient setAPIDomain:self.companyCodeTextField.text];
-    [JAFUser login:self.usernameTextField.text andPassword:self.passwordTextField.text completion:^(JAFUser *user, NSError *error) {
+    [JAFUser login:self.usernameTextField.text andPassword:self.passwordTextField.text andCompany:self.companyCodeTextField.text completion:^(JAFUser *user, NSError *error) {
         [SVProgressHUD dismiss];
         if (!error) {
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];

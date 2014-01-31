@@ -13,6 +13,7 @@
 #import "SVProgressHUD.h"
 #import "JAFUser.h"
 #import "JAFProject.h"
+#import "JAFProjectsViewController.h"
 
 NSString *const kStartLocationServicesNotification = @"kStartLocationServicesNotification";
 NSString *const kStopLocationServicesNotification = @"kStopLocationServicesNotification";
@@ -28,11 +29,27 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
 
 @end
 
+
 @implementation JAFActionsViewController
 
 + (JAFActionsViewController*)controller
 {
     return [[JAFActionsViewController alloc] initWithNibName:@"TimecardViewController" bundle:nil];
+}
+
+- (void)setProject:(JAFProject *)project
+{
+    _project = project;
+    
+    [JAFTimecard assignProject:self.timecard projectID:project.ID completion:^(JAFTimecard *timecard, NSError *error) {
+        if (!error) {
+            [SVProgressHUD showSuccessWithStatus:@"Project assigned"];
+            [self.secondaryActionButton setTitle:project.name forState:UIControlStateNormal];
+            [self didPressCancelPicker:nil];
+        }else{
+            [[[UIAlertView alloc] initWithTitle:@"Project not assigned" message:@"Something went wrong, try again later" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+    }];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -73,6 +90,7 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self getProjects];
 }
 
@@ -86,6 +104,7 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
 
 - (void)configureView
 {
+    
     UIImage *greenButtonImage = [UIImage imageNamed:@"green-btn"];
     UIImage *stretchableGreenButton = [greenButtonImage stretchableImageWithLeftCapWidth:22 topCapHeight:0];
     [self.primaryActionButton setBackgroundImage:stretchableGreenButton forState:UIControlStateNormal];
@@ -94,6 +113,8 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
     UIImage *whiteButtonImage = [UIImage imageNamed:@"white-btn-left"];
     UIImage *stretchableWhiteButton = [whiteButtonImage stretchableImageWithLeftCapWidth:22 topCapHeight:0];
     [self.secondaryActionButton setBackgroundImage:stretchableWhiteButton forState:UIControlStateNormal];
+    self.secondaryActionButton.hidden = YES;
+    self.secondaryActionButton.alpha = 0;
     
     UIImage *greenOutlinedButtonImage = [UIImage imageNamed:@"green-outlined-btn"];
     UIImage *stretchableOutlinedGreenButton = [greenOutlinedButtonImage stretchableImageWithLeftCapWidth:22 topCapHeight:0];
@@ -105,14 +126,11 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
     self.coachLabel.font = [UIFont fontWithName:@"OpenSans-Light" size:self.coachLabel.font.pointSize];
     self.timeLabel.font = [UIFont fontWithName:@"OpenSans-Bold" size:self.timeLabel.font.pointSize];
     self.timeLoggedLabel.font = [UIFont fontWithName:@"OpenSans" size:self.timeLoggedLabel.font.pointSize];
-    self.pickerTitleLabel.font = [UIFont fontWithName:@"OpenSans-Bold" size:self.pickerTitleLabel.font.pointSize];
-    self.pickerAssignButton.titleLabel.font = [UIFont fontWithName:@"OpenSans" size:self.pickerAssignButton.titleLabel.font.pointSize];
-    self.pickerCancelButton.titleLabel.font = [UIFont fontWithName:@"OpenSans" size:self.pickerCancelButton.titleLabel.font.pointSize];
 }
 
 - (void)getTimecard
 {
-    if ([self clockingIn]) {
+    if (![self isClockedIn] && self.timecard) {
         [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
     }
     
@@ -130,6 +148,7 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
         }
         
         [self setState];
+        [self configureSecondaryButton];
     }];
 }
 
@@ -138,21 +157,32 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
     [JAFProject getProjectsWithCompletion:^(NSArray *projects, NSError *error) {
         if (!error) {
             self.projects = [NSArray arrayWithArray:projects];
-            if ([self.timecard.projectID intValue] > 0) {
-                for(JAFProject *project in projects) {
-                    if ([project.ID intValue] == [self.timecard.projectID intValue]) {
-                        [self.secondaryActionButton setTitle:project.name forState:UIControlStateNormal];
-                        break;
-                    }
-                }
-            }
+            [self configureSecondaryButton];
         }
     }];
 }
 
-- (BOOL)clockingIn
+- (void)configureSecondaryButton
 {
-    return !self.timecard.timestampIn;
+    if ([self isClockedIn] && self.projects.count > 0) {
+        self.secondaryActionButton.hidden = NO;
+        self.secondaryActionButton.alpha = 1;
+    }
+    
+    if (self.timecard.projectID != (id)[NSNull null] && [self.timecard.projectID intValue] > 0) {
+        for(JAFProject *project in self.projects) {
+            BOOL exists = self.project ? [project.ID intValue] == [self.project.ID intValue] : [project.ID intValue] == [self.timecard.projectID intValue];
+            if (exists) {
+                [self.secondaryActionButton setTitle:project.name forState:UIControlStateNormal];
+                break;
+            }
+        }
+    }
+}
+
+- (BOOL)isClockedIn
+{
+    return self.timecard.timestampIn != nil;
 }
 
 - (void)showLoginController
@@ -160,17 +190,6 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
     JAFLoginViewController *loginController = [JAFLoginViewController controller];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginController];
     [self presentViewController:navController animated:YES completion:nil];
-}
-
-- (void)refreshProjectsPicker {
-    [self.projectsPicker reloadAllComponents];
-    
-    self.pickerContainerView.alpha = 0;
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.pickerContainerView.alpha = 1;
-        self.pickerContainerView.hidden = NO;
-    } completion:nil];
-    [self.projectsPicker selectRow:0 inComponent:0 animated:YES];
 }
 
 #pragma mark - Actions
@@ -183,16 +202,16 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
     if (self.projects.count == 0) {
         [self getProjects];
     }else{
-        [self refreshProjectsPicker];
+        JAFProjectsViewController *projectsController = [[JAFProjectsViewController alloc] initWithProjects:self.projects];
+        projectsController.actionsController = self;
+        [self.navigationController pushViewController:projectsController animated:YES];
     }
 }
 
 
 - (IBAction)didPressSignOut:(id)sender {
-    self.timecard = nil; //clear timecard
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setBool:NO forKey:@"logged_in"];
-    [self showLoginController];
+    UIActionSheet *alert = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:NSLocalizedString(@"Sign Out", nil) otherButtonTitles:nil];
+    [alert showInView:self.view];
 }
 
 - (IBAction)didPressCancelPicker:(id)sender {
@@ -201,22 +220,6 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
     } completion:^(BOOL finished) {
         
         self.pickerContainerView.hidden = YES;
-    }];
-}
-
-- (IBAction)didAssignProject:(id)sender {
-    NSInteger row = [self.projectsPicker selectedRowInComponent:0];
-    JAFProject *project = (JAFProject*)self.projects[row];
-    
-    [JAFTimecard assignProject:self.timecard projectID:project.ID completion:^(JAFTimecard *timecard, NSError *error) {
-        if (!error) {
-            [SVProgressHUD showSuccessWithStatus:@"Project assigned"];
-            [self.secondaryActionButton setTitle:project.name forState:UIControlStateNormal];
-            [self didPressCancelPicker:nil];
-        }else{
-            [[[UIAlertView alloc] initWithTitle:@"Project not assigned" message:@"Something went wrong, try again later" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-        }
-        
     }];
 }
 
@@ -307,28 +310,8 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
     
     // Remove views
     [picker dismissViewControllerAnimated:YES completion:^{
-        [SVProgressHUD showWithStatus:([self clockingIn] ? @"Clocking in..." : @"Clocking out...") maskType:SVProgressHUDMaskTypeGradient];
-        if ([self clockingIn]) {
-            
-            self.timecard.timestampIn = [NSDate date];
-            self.timecard.latitudeIn = [NSNumber numberWithDouble:self.location.coordinate.latitude];
-            self.timecard.longitudeIn = [NSNumber numberWithDouble:self.location.coordinate.longitude];
-            self.timecard.photoIn = image;
-            
-            [JAFTimecard clockIn:self.timecard completion:^(JAFTimecard *timecard, NSError *error) {
-                [SVProgressHUD dismiss];
-                if (!error) {
-                    self.timecard = timecard;
-                    [SVProgressHUD showSuccessWithStatus:@"All set!"];
-                    [self setState];
-                    [self startTimer];
-                    
-                }else{
-                    [SVProgressHUD showErrorWithStatus:@"Something went wrong, please try again or contact administrator"];
-                }
-            }];
-        }else{
-            
+        [SVProgressHUD showWithStatus:([self isClockedIn] ? @"Clocking out..." : @"Clocking in...") maskType:SVProgressHUDMaskTypeGradient];
+        if ([self isClockedIn]) {
             self.timecard.timestampOut = [NSDate date];
             self.timecard.latitudeOut = [NSNumber numberWithDouble:self.location.coordinate.latitude];
             self.timecard.longitudeOut = [NSNumber numberWithDouble:self.location.coordinate.longitude];
@@ -344,6 +327,24 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
                     if (timer) {
                         [timer invalidate];
                     }
+                }else{
+                    [SVProgressHUD showErrorWithStatus:@"Something went wrong, please try again or contact administrator"];
+                }
+            }];
+        }else{
+            self.timecard.timestampIn = [NSDate date];
+            self.timecard.latitudeIn = [NSNumber numberWithDouble:self.location.coordinate.latitude];
+            self.timecard.longitudeIn = [NSNumber numberWithDouble:self.location.coordinate.longitude];
+            self.timecard.photoIn = image;
+            
+            [JAFTimecard clockIn:self.timecard completion:^(JAFTimecard *timecard, NSError *error) {
+                [SVProgressHUD dismiss];
+                if (!error) {
+                    self.timecard = timecard;
+                    [SVProgressHUD showSuccessWithStatus:@"All set!"];
+                    [self setState];
+                    [self startTimer];
+                    
                 }else{
                     [SVProgressHUD showErrorWithStatus:@"Something went wrong, please try again or contact administrator"];
                 }
@@ -368,10 +369,34 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
     self.coachLabel.alpha = 0;
     self.coachImageView.alpha = 0;
     self.primaryActionButton.alpha = 0;
-    self.secondaryActionButton.alpha = 0;
     self.primaryActionButton.hidden = NO;
     
-    if ([self clockingIn]) {
+    if ([self isClockedIn]) {
+        [self setTimecardValues];
+        //show middle view
+        self.middleView.hidden = NO;
+        self.statusArrowImageView.image = [UIImage imageNamed:@"green-arrow-icon"];
+        self.secondaryActionButton.hidden = self.projects.count == 0;
+        [self.secondaryActionButton setTitle:@"assign project" forState:UIControlStateNormal];
+        [self.primaryActionButton setTitle:@"clock out" forState:UIControlStateNormal];
+        UIImage *greenButtonImage = [UIImage imageNamed:@"red-btn"];
+        UIImage *stretchableGreenButton = [greenButtonImage
+                                           stretchableImageWithLeftCapWidth:22 topCapHeight:0];
+        [self.primaryActionButton setBackgroundImage:stretchableGreenButton
+                                            forState:UIControlStateNormal];
+        
+        [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            //hide coach element outside view
+            self.coachLabel.frame = CGRectOffset(self.coachLabel.frame, -xOffset, 0);
+            self.coachImageView.frame = CGRectOffset(self.coachImageView.frame, 0, yOffset);
+            self.coachLabel.alpha = 0;
+            self.coachImageView.alpha = 0;
+            
+            //make visible
+            self.primaryActionButton.alpha = 1;
+            self.middleView.alpha = 1;
+        } completion:nil];
+    }else{
         //set date value
         [self setDateTime:[NSDate date]];
         
@@ -392,8 +417,7 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
         
         
         self.middleView.hidden = YES;
-        self.secondaryActionButton.hidden = YES;
-        [self.secondaryActionButton setTitle:@"assign project" forState:UIControlStateNormal];
+        self.secondaryActionButton.hidden =  YES;
         self.statusArrowImageView.image = [UIImage imageNamed:@"red-arrow-icon"];
         UIImage *greenButtonImage = [UIImage imageNamed:@"green-btn"];
         UIImage *stretchableGreenButton = [greenButtonImage
@@ -421,32 +445,6 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
             self.coachLabel.alpha = 1;
             self.coachImageView.alpha = 1;
             self.primaryActionButton.alpha = 1;
-            self.secondaryActionButton.alpha = 1;
-        } completion:nil];
-    }else{
-        [self setTimecardValues];
-        //show middle view
-        self.middleView.hidden = NO;
-        self.statusArrowImageView.image = [UIImage imageNamed:@"green-arrow-icon"];
-        self.secondaryActionButton.hidden = [self clockingIn] && self.projects && self.projects.count > 0;
-        [self.primaryActionButton setTitle:@"clock out" forState:UIControlStateNormal];
-        UIImage *greenButtonImage = [UIImage imageNamed:@"red-btn"];
-        UIImage *stretchableGreenButton = [greenButtonImage
-                                           stretchableImageWithLeftCapWidth:22 topCapHeight:0];
-        [self.primaryActionButton setBackgroundImage:stretchableGreenButton
-                                            forState:UIControlStateNormal];
-        
-        [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            //hide coach element outside view
-            self.coachLabel.frame = CGRectOffset(self.coachLabel.frame, -xOffset, 0);
-            self.coachImageView.frame = CGRectOffset(self.coachImageView.frame, 0, yOffset);
-            self.coachLabel.alpha = 0;
-            self.coachImageView.alpha = 0;
-            
-            //make visible
-            self.secondaryActionButton.alpha = 1;
-            self.primaryActionButton.alpha = 1;
-            self.middleView.alpha = 1;
         } completion:nil];
     }
 }
@@ -474,11 +472,11 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
 - (void)setTimecardValues
 {
     //set avatar image
-    UIImage *img = ![self clockingIn] ? self.timecard.photoIn : self.timecard.photoOut;
+    UIImage *img = [self isClockedIn] ? self.timecard.photoIn : self.timecard.photoOut;
     [self addRoundAvatar:img];
     
     //set time values
-    NSDate *date = ![self clockingIn] ? self.timecard.timestampIn : self.timecard.timestampOut;
+    NSDate *date = [self isClockedIn] ? self.timecard.timestampIn : self.timecard.timestampOut;
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"h:mm"];
     self.timeLabel.text = [formatter stringFromDate:date];
@@ -502,7 +500,7 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
 -(void)setTimeCounter
 {
     //set counter value
-    NSDate *date = ![self clockingIn] ? self.timecard.timestampIn : self.timecard.timestampOut;
+    NSDate *date = [self isClockedIn] ? self.timecard.timestampIn : self.timecard.timestampOut;
     if (date) {
         NSDate *now = [NSDate date];
         NSCalendar *c = [NSCalendar currentCalendar];
@@ -523,35 +521,21 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
     }
 }
 
-#pragma mark - UIPicker Methods
+#pragma mark UIAlert delegate
 
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    return self.projects.count;
-}
-
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
-{
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
-    title.backgroundColor = [UIColor clearColor];
-    title.textAlignment = NSTextAlignmentCenter;
-    NSString *text = [(JAFProject*)self.projects[row] name];
-    title.text = text;
-    title.font = [UIFont fontWithName:@"OpenSans-Light" size:18];
-    title.textColor = [UIColor whiteColor];
-    
-    return title;
-}
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-    NSLog(@"%i", row);
-    [pickerView selectRow:row inComponent:component animated:YES];
+    switch (buttonIndex) {
+        case 0: {//sign out
+            self.timecard = nil; //clear timecard
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setBool:NO forKey:@"logged_in"];
+            [self showLoginController];
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 @end

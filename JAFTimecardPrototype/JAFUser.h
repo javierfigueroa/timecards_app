@@ -16,9 +16,10 @@
 @property (nonatomic, strong) NSString *ID;
 @property (nonatomic, strong) NSString *authToken;
 @property (nonatomic, strong) NSString *password;
+@property (nonatomic, strong) NSString *company;
 
 - (id)initWithAttributes:(NSDictionary*)data;
 
-+ (void)login:(NSString*)username andPassword:(NSString*)password completion:(void (^)(JAFUser *user, NSError *error))block;
++ (void)login:(NSString*)username andPassword:(NSString*)password andCompany:(NSString*)company completion:(void (^)(JAFUser *user, NSError *error))block;
 
 @end

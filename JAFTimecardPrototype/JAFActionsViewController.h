@@ -13,7 +13,8 @@ extern NSString *const kStopLocationServicesNotification;
 extern NSString *const kStartLocationServicesNotification;
 extern NSString *const kLocationDidChangeNotification;
 
-@interface JAFActionsViewController : UIViewController<UINavigationControllerDelegate, UIImagePickerControllerDelegate, CLLocationManagerDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+@class JAFProject;
+@interface JAFActionsViewController : UIViewController<UINavigationControllerDelegate, UIImagePickerControllerDelegate, CLLocationManagerDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -37,13 +38,14 @@ extern NSString *const kLocationDidChangeNotification;
 @property (weak, nonatomic) IBOutlet UIButton *pickerCancelButton;
 @property (weak, nonatomic) IBOutlet UIButton *pickerAssignButton;
 
+@property (strong, nonatomic) JAFProject *project;
+
 + (JAFActionsViewController*)controller;
 
 - (IBAction)didPressPrimaryAction:(id)sender;
 - (IBAction)didPressSecondaryAction:(id)sender;
 - (IBAction)didPressSignOut:(id)sender;
 - (IBAction)didPressCancelPicker:(id)sender;
-- (IBAction)didAssignProject:(id)sender;
 
 
 @end
