@@ -47,7 +47,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "126"
             endingLineNumber = "126"
-            landmarkName = "-getTimecard"
+            landmarkName = "-configureView"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -79,7 +79,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "120"
             endingLineNumber = "120"
-            landmarkName = "-getTimecard"
+            landmarkName = "-configureView"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -296,11 +296,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JAFTimecardPrototype/JAFActionsViewController.m"
-            timestampString = "406181758.99584"
+            timestampString = "414265404.140055"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "504"
-            endingLineNumber = "504"
+            startingLineNumber = "505"
+            endingLineNumber = "505"
             landmarkName = "-setTimeCounter"
             landmarkType = "5">
          </BreakpointContent>
@@ -333,7 +333,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "127"
             endingLineNumber = "127"
-            landmarkName = "-getTimecard"
+            landmarkName = "-configureView"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -376,12 +376,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JAFTimecardPrototype/JAFActionsViewController.m"
-            timestampString = "406181758.99584"
+            timestampString = "414265404.140055"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "534"
-            endingLineNumber = "534"
-            landmarkName = "-pickerView:numberOfRowsInComponent:"
+            startingLineNumber = "535"
+            endingLineNumber = "535"
+            landmarkName = "-actionSheet:clickedButtonAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -392,13 +392,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JAFTimecardPrototype/JAFActionsViewController.m"
-            timestampString = "406181758.99584"
+            timestampString = "414265404.140055"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "552"
-            endingLineNumber = "552"
-            landmarkName = "-pickerView:didSelectRow:inComponent:"
-            landmarkType = "5">
+            startingLineNumber = "553"
+            endingLineNumber = "553">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -470,13 +468,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JAFTimecardPrototype/JAFActionsViewController.m"
-            timestampString = "406181758.99584"
+            timestampString = "414265404.140055"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "553"
-            endingLineNumber = "553"
-            landmarkName = "-pickerView:didSelectRow:inComponent:"
-            landmarkType = "5">
+            startingLineNumber = "554"
+            endingLineNumber = "554">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -486,12 +482,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JAFTimecardPrototype/JAFActionsViewController.m"
-            timestampString = "406181758.99584"
+            timestampString = "414265404.140055"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "199"
-            endingLineNumber = "199"
-            landmarkName = "-didPressCancelPicker:"
+            startingLineNumber = "198"
+            endingLineNumber = "198"
+            landmarkName = "-didPressPrimaryAction:"
             landmarkType = "5">
             <Locations>
                <Location
@@ -537,7 +533,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "144"
             endingLineNumber = "144"
-            landmarkName = "-getProjects"
+            landmarkName = "-getTimecard"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -553,7 +549,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "143"
             endingLineNumber = "143"
-            landmarkName = "-getProjects"
+            landmarkName = "-getTimecard"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -564,13 +560,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JAFTimecardPrototype/JAFActionsViewController.m"
-            timestampString = "406181758.99584"
+            timestampString = "414265404.140055"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
-            landmarkName = "-didPressCancelPicker:"
-            landmarkType = "5">
+            startingLineNumber = "199"
+            endingLineNumber = "199"
+            landmarkName = "@implementation JAFActionsViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -585,7 +581,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "122"
             endingLineNumber = "122"
-            landmarkName = "-getTimecard"
+            landmarkName = "-configureView"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -601,7 +597,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "119"
             endingLineNumber = "119"
-            landmarkName = "-getTimecard"
+            landmarkName = "-configureView"
             landmarkType = "5">
             <Locations>
                <Location

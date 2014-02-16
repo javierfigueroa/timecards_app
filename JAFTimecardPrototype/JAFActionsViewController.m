@@ -148,7 +148,6 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
         }
         
         [self setState];
-        [self configureSecondaryButton];
     }];
 }
 
@@ -447,6 +446,8 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
             self.primaryActionButton.alpha = 1;
         } completion:nil];
     }
+    
+    [self configureSecondaryButton];
 }
 
 - (void)addRoundAvatar:(UIImage *)img
