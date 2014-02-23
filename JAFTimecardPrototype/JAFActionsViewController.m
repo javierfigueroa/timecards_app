@@ -21,6 +21,7 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
 @interface JAFActionsViewController ()
 {
     NSTimer *timer;
+    UIAlertView *_locationServicesAlert;
 }
 @property (nonatomic, strong) CLLocation *location;
 @property (nonatomic, strong) CLLocationManager *locationManager;
@@ -260,6 +261,11 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
 {
 	self.location = newLocation;
     
+    if (_locationServicesAlert) {
+        [_locationServicesAlert dismissWithClickedButtonIndex:0 animated:YES];
+        _locationServicesAlert = nil;
+    }
+    
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithCapacity:2];
     [userInfo setObject:[NSNumber numberWithDouble:self.location.coordinate.latitude] forKey:@"latitude"];
     [userInfo setObject:[NSNumber numberWithDouble:self.location.coordinate.longitude] forKey:@"longitude"];
@@ -276,9 +282,13 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
 
 - (void)showLocationServicesDisabledAlert
 {
-	if ((self.location.coordinate.latitude == 0) &&
-		(self.location.coordinate.longitude == 0)) {
-		[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Disabled Location Services", @"Disabled Location Services") message:NSLocalizedString(@"Please enable Location Services \n for AnglerTrack, go to: \n Privacy -> Location -> AnglerTrack", @"Please enable Location Services \n for AnglerTrack, go to: \n Privacy -> Location -> AnglerTrack") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"OK") otherButtonTitles:nil] show];
+	if ((self.locationManager.location.coordinate.latitude == 0) &&
+		(self.locationManager.location.coordinate.longitude == 0)) {
+        NSString *app = NSBundle.mainBundle.infoDictionary  [@"CFBundleDisplayName"];
+        NSString *message = [NSString stringWithFormat:@"Please enable Location \n Services for %@, go to: \n Privacy -> Location -> %@", app, app];
+        
+		_locationServicesAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Disabled Location Services", @"Disabled Location Services") message:NSLocalizedString(message, message) delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+        [_locationServicesAlert show];
 	}
 }
 
