@@ -10,7 +10,7 @@
 #import "SVProgressHUD.h"
 #import "JAFAPIClient.h"
 #import "JAFUser.h"
-
+#import "JAFForgotPasswordViewController.h"
 
 @interface JAFLoginViewController ()
 
@@ -41,11 +41,6 @@
     [super viewDidLoad];
     
     self.navigationController.navigationBarHidden = YES;
-//    self.originalCompanyTextFrame = self.companyCodeTextField.frame;
-//    self.originalUsernameTextFrame = self.usernameTextField.frame;
-//    self.originalPasswordTextFrame = self.passwordTextField.frame;
-    
-    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSData *myEncodedObject = [userDefaults objectForKey:@"user"];
     JAFUser *user = [NSKeyedUnarchiver unarchiveObjectWithData: myEncodedObject];
@@ -59,6 +54,11 @@
     UIImage *greenButtonImage = [UIImage imageNamed:@"green-btn"];
     UIImage *stretchableGreenButton = [greenButtonImage stretchableImageWithLeftCapWidth:22 topCapHeight:0];
     [self.signInButton setBackgroundImage:stretchableGreenButton forState:UIControlStateNormal];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 
@@ -99,7 +99,8 @@
 }
 
 - (IBAction)didPressForgot:(id)sender {
-    [[[UIAlertView alloc] initWithTitle:@"Not Available" message:@"This feature is not available yet" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    JAFForgotPasswordViewController *passwordController = [[JAFForgotPasswordViewController alloc] initWithNibName:@"JAFForgotPasswordViewController" bundle:nil];
+    [self.navigationController pushViewController:passwordController animated:YES];
 }
 
 - (void)registerForKeyboardNotifications

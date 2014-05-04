@@ -24,7 +24,6 @@
     return self;
 }
 
-
 + (void)login:(NSString*)username andPassword:(NSString*)password andCompany:(NSString *)company completion:(void (^)(JAFUser *, NSError *))block
 {
     
@@ -54,6 +53,35 @@
         
         if (block) {
             block(user, nil);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (block) {
+            block(nil, error);
+        }
+    }];
+}
+
+
++ (void)resetPassword:(NSString*)username andCompany:(NSString *)company completion:(void (^)(JAFUser *, NSError *))block
+{
+    NSString *cleanDomain = [company stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    [JAFAPIClient setAPIDomain:cleanDomain];
+    
+    NSDictionary *parameters = @{@"user[email]":username, @"user[company_name]":company};
+    [[JAFAPIClient sharedClient] POST:@"users/password" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //        {
+        //            "last_name": "a1",
+        //            "id": 2,
+        //            "token": "b7bUNK4LLShKkKdR1nU9",
+        //            "email": "a1@example.com",
+        //            "first_name": "a1"
+        //        }
+        
+        [JAFAPIClient resetInstance];
+        
+        if (block) {
+            block(nil, nil);
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

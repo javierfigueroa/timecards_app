@@ -38,6 +38,8 @@
 		3B3BE34F179DB81C0085E74D /* JAFAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3BE34E179DB81C0085E74D /* JAFAPIClient.m */; };
 		3B3BE357179DBC0F0085E74D /* JAFTimecard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3BE356179DBC0F0085E74D /* JAFTimecard.m */; };
 		3B3BE35A179DC6AF0085E74D /* JAFUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3BE359179DC6AF0085E74D /* JAFUser.m */; };
+		3B5B81471916A3330018AE0D /* JAFForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5B81451916A3330018AE0D /* JAFForgotPasswordViewController.m */; };
+		3B5B81481916A3330018AE0D /* JAFForgotPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B5B81461916A3330018AE0D /* JAFForgotPasswordViewController.xib */; };
 		3B641B80178D05F7002D33D4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B641B7F178D05F7002D33D4 /* UIKit.framework */; };
 		3B641B82178D05F7002D33D4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B641B81178D05F7002D33D4 /* Foundation.framework */; };
 		3B641B84178D05F7002D33D4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B641B83178D05F7002D33D4 /* CoreGraphics.framework */; };
@@ -101,6 +103,9 @@
 		3B3BE356179DBC0F0085E74D /* JAFTimecard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAFTimecard.m; sourceTree = "<group>"; };
 		3B3BE358179DC6AF0085E74D /* JAFUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAFUser.h; sourceTree = "<group>"; };
 		3B3BE359179DC6AF0085E74D /* JAFUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAFUser.m; sourceTree = "<group>"; };
+		3B5B81441916A3330018AE0D /* JAFForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAFForgotPasswordViewController.h; sourceTree = "<group>"; };
+		3B5B81451916A3330018AE0D /* JAFForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAFForgotPasswordViewController.m; sourceTree = "<group>"; };
+		3B5B81461916A3330018AE0D /* JAFForgotPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JAFForgotPasswordViewController.xib; sourceTree = "<group>"; };
 		3B641B7C178D05F7002D33D4 /* JAFTimecardPrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JAFTimecardPrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B641B7F178D05F7002D33D4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3B641B81178D05F7002D33D4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -246,6 +251,9 @@
 				C66BBC101891BF9700C7502B /* JAFProjectsViewController.h */,
 				C66BBC111891BF9700C7502B /* JAFProjectsViewController.m */,
 				C66BBC131891C2F200C7502B /* ProjectsViewController.xib */,
+				3B5B81441916A3330018AE0D /* JAFForgotPasswordViewController.h */,
+				3B5B81451916A3330018AE0D /* JAFForgotPasswordViewController.m */,
+				3B5B81461916A3330018AE0D /* JAFForgotPasswordViewController.xib */,
 			);
 			path = JAFTimecardPrototype;
 			sourceTree = "<group>";
@@ -339,6 +347,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B5B81481916A3330018AE0D /* JAFForgotPasswordViewController.xib in Resources */,
 				3B1EDE3518303B8F00C258F6 /* red-btn-right@2x.png in Resources */,
 				3B1EDE3218303B8F00C258F6 /* red-arrow-icon@2x.png in Resources */,
 				3B1EDE2918303B8F00C258F6 /* green-btn-middle@2x.png in Resources */,
@@ -425,6 +434,7 @@
 				3B641BA0178D0633002D33D4 /* JAFLoginViewController.m in Sources */,
 				3BF11BA71835BDBA00F1737F /* JAFTitleLabel.m in Sources */,
 				3BF11BAA1835C38A00F1737F /* JAFButton.m in Sources */,
+				3B5B81471916A3330018AE0D /* JAFForgotPasswordViewController.m in Sources */,
 				3B641BA5178D0704002D33D4 /* JAFActionsViewController.m in Sources */,
 				3BF11BA41835BC3E00F1737F /* JAFTextField.m in Sources */,
 				3B3BE34F179DB81C0085E74D /* JAFAPIClient.m in Sources */,
