@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+#define kUserLoggedInNotification @"timecards.io.loggedin"
+
+
 @interface JAFUser : NSObject<NSCoding>
 
 @property (nonatomic, strong) NSString *username;
@@ -21,6 +24,8 @@
 - (id)initWithAttributes:(NSDictionary*)data;
 
 + (void)login:(NSString*)username andPassword:(NSString*)password andCompany:(NSString*)company completion:(void (^)(JAFUser *user, NSError *error))block;
+
++ (void)signupWithUsername:(NSString*)username password:(NSString*)password firstName:(NSString *)firstName lastName:(NSString *)lastName company:(NSString *)company completion:(void (^)(JAFUser *, NSError *))block;
 
 + (void)resetPassword:(NSString*)username andCompany:(NSString *)company completion:(void (^)(JAFUser *, NSError *))block;
 

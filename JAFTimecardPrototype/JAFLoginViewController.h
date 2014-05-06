@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#define kUserLoggedInNotification @"timecards.io.loggedin"
-
 @interface JAFLoginViewController : UIViewController<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *companyCodeTextField;
@@ -27,5 +25,6 @@
 
 - (IBAction)didPressGo:(id)sender;
 - (IBAction)didPressForgot:(id)sender;
+- (IBAction)didPressSignup:(id)sender;
 
 @end

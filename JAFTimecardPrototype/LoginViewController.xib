@@ -9,7 +9,6 @@
             <connections>
                 <outlet property="companyCodeBg" destination="63u-3M-mg4" id="fUr-Xf-KWW"/>
                 <outlet property="companyCodeTextField" destination="LXn-cL-wbY" id="1Yt-uw-H6A"/>
-                <outlet property="forgotButton" destination="O7V-pa-je7" id="Mi8-bp-EbL"/>
                 <outlet property="logoImageView" destination="vdI-m7-p8t" id="rg5-pB-pMf"/>
                 <outlet property="passwordBg" destination="roN-gr-lGN" id="pyP-9D-9pa"/>
                 <outlet property="passwordTextField" destination="CYc-Vi-y6f" id="rUC-Ko-Pe6"/>
@@ -56,10 +55,10 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O7V-pa-je7" customClass="JAFButton">
-                    <rect key="frame" x="18" y="509" width="174" height="30"/>
+                    <rect key="frame" x="67" y="509" width="76" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="174" id="iLd-bD-Rie"/>
+                        <constraint firstAttribute="width" constant="76" id="iLd-bD-Rie"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <state key="normal" title="sign up">
@@ -67,15 +66,15 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="didPressForgot:" destination="-1" eventType="touchUpInside" id="L6d-sN-OXR"/>
+                        <action selector="didPressSignup:" destination="-1" eventType="touchUpInside" id="kVa-jx-cKE"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2pi-Za-UXt" customClass="JAFButton">
-                    <rect key="frame" x="109" y="509" width="174" height="30"/>
+                    <rect key="frame" x="151" y="509" width="103" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="Gci-hn-lXc"/>
-                        <constraint firstAttribute="width" constant="174" id="qLI-Gh-yOz"/>
+                        <constraint firstAttribute="width" constant="103" id="qLI-Gh-yOz"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <state key="normal" title="reset password">
@@ -131,10 +130,10 @@
             <color key="backgroundColor" red="0.13333333333333333" green="0.17254901960784313" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="3Yk-6t-iUn" firstAttribute="leading" secondItem="CYc-Vi-y6f" secondAttribute="leading" id="0A5-Ni-vAz"/>
-                <constraint firstAttribute="trailing" secondItem="2pi-Za-UXt" secondAttribute="trailing" constant="37" id="2XB-MY-fws"/>
+                <constraint firstAttribute="trailing" secondItem="2pi-Za-UXt" secondAttribute="trailing" constant="66" id="2XB-MY-fws"/>
                 <constraint firstItem="3Yk-6t-iUn" firstAttribute="leading" secondItem="LXn-cL-wbY" secondAttribute="leading" id="5s3-lt-MbV"/>
                 <constraint firstItem="3Yk-6t-iUn" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="85" id="7fp-kI-oAr"/>
-                <constraint firstItem="O7V-pa-je7" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="18" id="9Jr-zq-wxn"/>
+                <constraint firstItem="O7V-pa-je7" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="67" id="9Jr-zq-wxn"/>
                 <constraint firstItem="CYc-Vi-y6f" firstAttribute="top" secondItem="3Yk-6t-iUn" secondAttribute="bottom" constant="4" id="AH6-EY-viP"/>
                 <constraint firstItem="vdI-m7-p8t" firstAttribute="top" relation="lessThanOrEqual" secondItem="1" secondAttribute="top" constant="131" id="ASj-pa-Xo2"/>
                 <constraint firstItem="6lB-3N-pGw" firstAttribute="top" secondItem="63u-3M-mg4" secondAttribute="bottom" constant="5" id="BJ2-33-dm9"/>

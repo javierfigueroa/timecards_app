@@ -32,13 +32,6 @@
     
     NSDictionary *parameters = @{@"user[email]":username, @"user[password]":password};
     [[JAFAPIClient sharedClient] POST:@"users/sign_in.json" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //        {
-        //            "last_name": "a1",
-        //            "id": 2,
-        //            "token": "b7bUNK4LLShKkKdR1nU9",
-        //            "email": "a1@example.com",
-        //            "first_name": "a1"
-        //        }
         
         NSDictionary *JSON = (NSDictionary*)responseObject;
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -62,6 +55,50 @@
     }];
 }
 
++ (void)signupWithUsername:(NSString*)username password:(NSString*)password firstName:(NSString *)firstName lastName:(NSString *)lastName company:(NSString *)company completion:(void (^)(JAFUser *, NSError *))block
+{
+    [JAFAPIClient setAPIDomain:@"www"];
+    
+    NSDictionary *parameters = @{@"user[email]":username,
+                                 @"user[password]":password,
+                                 @"user[first_name]":firstName,
+                                 @"user[last_name]":lastName,
+                                 @"user[company_name]":company};
+    
+    [[JAFAPIClient sharedClient] POST:@"users?plan=silver" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *JSON = (NSDictionary*)responseObject;
+        
+        
+        NSError *error = nil;
+        JAFUser *user = nil;
+        
+        if (JSON[@"errors"]) {
+            NSDictionary *userInfo = [NSDictionary dictionaryWithDictionary: JSON[@"errors"]];
+            error = [[NSError alloc] initWithDomain:@"" code:400 userInfo:userInfo];
+        }else{
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            JAFUser *user = [[JAFUser alloc] initWithAttributes:JSON];
+            user.password = password;
+            user.company = company;
+            
+            NSData *myEncodedUser = [NSKeyedArchiver archivedDataWithRootObject:user];
+            [defaults setObject:myEncodedUser forKey:@"user"];
+        }
+        
+        [JAFAPIClient resetInstance];
+        
+        if (block) {
+            block(user, error);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (block) {
+            block(nil, error);
+        }
+    }];
+}
+
 
 + (void)resetPassword:(NSString*)username andCompany:(NSString *)company completion:(void (^)(JAFUser *, NSError *))block
 {
@@ -70,20 +107,11 @@
     
     NSDictionary *parameters = @{@"user[email]":username, @"user[company_name]":company};
     [[JAFAPIClient sharedClient] POST:@"users/password" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //        {
-        //            "last_name": "a1",
-        //            "id": 2,
-        //            "token": "b7bUNK4LLShKkKdR1nU9",
-        //            "email": "a1@example.com",
-        //            "first_name": "a1"
-        //        }
-        
         [JAFAPIClient resetInstance];
         
         if (block) {
             block(nil, nil);
         }
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
             block(nil, error);

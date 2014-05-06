@@ -40,6 +40,8 @@
 		3B3BE35A179DC6AF0085E74D /* JAFUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3BE359179DC6AF0085E74D /* JAFUser.m */; };
 		3B5B81471916A3330018AE0D /* JAFForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5B81451916A3330018AE0D /* JAFForgotPasswordViewController.m */; };
 		3B5B81481916A3330018AE0D /* JAFForgotPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B5B81461916A3330018AE0D /* JAFForgotPasswordViewController.xib */; };
+		3B5B814C1916DD740018AE0D /* JAFSignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5B814A1916DD740018AE0D /* JAFSignupViewController.m */; };
+		3B5B814D1916DD740018AE0D /* JAFSignupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B5B814B1916DD740018AE0D /* JAFSignupViewController.xib */; };
 		3B641B80178D05F7002D33D4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B641B7F178D05F7002D33D4 /* UIKit.framework */; };
 		3B641B82178D05F7002D33D4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B641B81178D05F7002D33D4 /* Foundation.framework */; };
 		3B641B84178D05F7002D33D4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B641B83178D05F7002D33D4 /* CoreGraphics.framework */; };
@@ -106,6 +108,9 @@
 		3B5B81441916A3330018AE0D /* JAFForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAFForgotPasswordViewController.h; sourceTree = "<group>"; };
 		3B5B81451916A3330018AE0D /* JAFForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAFForgotPasswordViewController.m; sourceTree = "<group>"; };
 		3B5B81461916A3330018AE0D /* JAFForgotPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JAFForgotPasswordViewController.xib; sourceTree = "<group>"; };
+		3B5B81491916DD740018AE0D /* JAFSignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAFSignupViewController.h; sourceTree = "<group>"; };
+		3B5B814A1916DD740018AE0D /* JAFSignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAFSignupViewController.m; sourceTree = "<group>"; };
+		3B5B814B1916DD740018AE0D /* JAFSignupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JAFSignupViewController.xib; sourceTree = "<group>"; };
 		3B641B7C178D05F7002D33D4 /* JAFTimecardPrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JAFTimecardPrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B641B7F178D05F7002D33D4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3B641B81178D05F7002D33D4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -254,6 +259,9 @@
 				3B5B81441916A3330018AE0D /* JAFForgotPasswordViewController.h */,
 				3B5B81451916A3330018AE0D /* JAFForgotPasswordViewController.m */,
 				3B5B81461916A3330018AE0D /* JAFForgotPasswordViewController.xib */,
+				3B5B81491916DD740018AE0D /* JAFSignupViewController.h */,
+				3B5B814A1916DD740018AE0D /* JAFSignupViewController.m */,
+				3B5B814B1916DD740018AE0D /* JAFSignupViewController.xib */,
 			);
 			path = JAFTimecardPrototype;
 			sourceTree = "<group>";
@@ -352,6 +360,7 @@
 				3B1EDE3218303B8F00C258F6 /* red-arrow-icon@2x.png in Resources */,
 				3B1EDE2918303B8F00C258F6 /* green-btn-middle@2x.png in Resources */,
 				3B1EDE2F18303B8F00C258F6 /* green-outlined-right@2x.png in Resources */,
+				3B5B814D1916DD740018AE0D /* JAFSignupViewController.xib in Resources */,
 				3BF11B9F1835BB8100F1737F /* OpenSans-Light.ttf in Resources */,
 				3B1EDE3818303B8F00C258F6 /* red-outlined-left@2x.png in Resources */,
 				3B1EDE2618303B8F00C258F6 /* form-text-field@2x.png in Resources */,
@@ -428,6 +437,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B5B814C1916DD740018AE0D /* JAFSignupViewController.m in Sources */,
 				3B641B8C178D05F7002D33D4 /* main.m in Sources */,
 				3B641B90178D05F7002D33D4 /* JAFAppDelegate.m in Sources */,
 				C66BBC121891BF9700C7502B /* JAFProjectsViewController.m in Sources */,

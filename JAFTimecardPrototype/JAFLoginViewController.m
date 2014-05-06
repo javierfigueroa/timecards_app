@@ -11,6 +11,7 @@
 #import "JAFAPIClient.h"
 #import "JAFUser.h"
 #import "JAFForgotPasswordViewController.h"
+#import "JAFSignupViewController.h"
 
 @interface JAFLoginViewController ()
 
@@ -94,13 +95,16 @@
             [SVProgressHUD showErrorWithStatus:@"Error logging in, check your username and password and try again"];
         }
     }];
-    
-    
 }
 
 - (IBAction)didPressForgot:(id)sender {
     JAFForgotPasswordViewController *passwordController = [[JAFForgotPasswordViewController alloc] initWithNibName:@"JAFForgotPasswordViewController" bundle:nil];
     [self.navigationController pushViewController:passwordController animated:YES];
+}
+
+- (IBAction)didPressSignup:(id)sender {
+    JAFSignupViewController *signupController = [[JAFSignupViewController alloc] initWithNibName:@"JAFSignupViewController" bundle:nil];
+    [self.navigationController pushViewController:signupController animated:YES];
 }
 
 - (void)registerForKeyboardNotifications
