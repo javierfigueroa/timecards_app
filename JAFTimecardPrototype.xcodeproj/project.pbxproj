@@ -200,6 +200,48 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		3B5B814E1919DEA30018AE0D /* Xibs */ = {
+			isa = PBXGroup;
+			children = (
+				3BEC8ECC182D0F8F0075FD26 /* LoginViewController.xib */,
+				3BEC8ECE182D11940075FD26 /* TimecardViewController.xib */,
+				C66BBC131891C2F200C7502B /* ProjectsViewController.xib */,
+				3B5B81461916A3330018AE0D /* JAFForgotPasswordViewController.xib */,
+				3B5B814B1916DD740018AE0D /* JAFSignupViewController.xib */,
+			);
+			name = Xibs;
+			sourceTree = "<group>";
+		};
+		3B5B814F1919DEC00018AE0D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3B641B9D178D0633002D33D4 /* JAFLoginViewController.h */,
+				3B641B9E178D0633002D33D4 /* JAFLoginViewController.m */,
+				3B641BA2178D0704002D33D4 /* JAFActionsViewController.h */,
+				3B641BA3178D0704002D33D4 /* JAFActionsViewController.m */,
+				C66BBC101891BF9700C7502B /* JAFProjectsViewController.h */,
+				C66BBC111891BF9700C7502B /* JAFProjectsViewController.m */,
+				3B5B81441916A3330018AE0D /* JAFForgotPasswordViewController.h */,
+				3B5B81451916A3330018AE0D /* JAFForgotPasswordViewController.m */,
+				3B5B81491916DD740018AE0D /* JAFSignupViewController.h */,
+				3B5B814A1916DD740018AE0D /* JAFSignupViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		3B5B81501919DED30018AE0D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3B3BE355179DBC0F0085E74D /* JAFTimecard.h */,
+				3B3BE356179DBC0F0085E74D /* JAFTimecard.m */,
+				3B3BE358179DC6AF0085E74D /* JAFUser.h */,
+				3B3BE359179DC6AF0085E74D /* JAFUser.m */,
+				3B1EDE05182FF08A00C258F6 /* JAFProject.h */,
+				3B1EDE06182FF08A00C258F6 /* JAFProject.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		3B641B73178D05F7002D33D4 = {
 			isa = PBXGroup;
 			children = (
@@ -233,35 +275,17 @@
 		3B641B85178D05F7002D33D4 /* JAFTimecardPrototype */ = {
 			isa = PBXGroup;
 			children = (
+				3B5B81501919DED30018AE0D /* Models */,
+				3B5B814F1919DEC00018AE0D /* Controllers */,
+				3B5B814E1919DEA30018AE0D /* Xibs */,
 				3B1EDE0A18303B8F00C258F6 /* Images */,
 				3B641B86178D05F7002D33D4 /* Supporting Files */,
 				3BF11BA11835BC2B00F1737F /* Views */,
 				3B641B8E178D05F7002D33D4 /* JAFAppDelegate.h */,
 				3B641B8F178D05F7002D33D4 /* JAFAppDelegate.m */,
-				3B641B9D178D0633002D33D4 /* JAFLoginViewController.h */,
-				3B641B9E178D0633002D33D4 /* JAFLoginViewController.m */,
-				3B641BA2178D0704002D33D4 /* JAFActionsViewController.h */,
-				3B641BA3178D0704002D33D4 /* JAFActionsViewController.m */,
 				3B3BE34D179DB81C0085E74D /* JAFAPIClient.h */,
 				3B3BE34E179DB81C0085E74D /* JAFAPIClient.m */,
-				3B3BE355179DBC0F0085E74D /* JAFTimecard.h */,
-				3B3BE356179DBC0F0085E74D /* JAFTimecard.m */,
-				3B3BE358179DC6AF0085E74D /* JAFUser.h */,
-				3B3BE359179DC6AF0085E74D /* JAFUser.m */,
-				3BEC8ECC182D0F8F0075FD26 /* LoginViewController.xib */,
-				3BEC8ECE182D11940075FD26 /* TimecardViewController.xib */,
-				3B1EDE05182FF08A00C258F6 /* JAFProject.h */,
-				3B1EDE06182FF08A00C258F6 /* JAFProject.m */,
 				3B1EDE0818303AC900C258F6 /* Images.xcassets */,
-				C66BBC101891BF9700C7502B /* JAFProjectsViewController.h */,
-				C66BBC111891BF9700C7502B /* JAFProjectsViewController.m */,
-				C66BBC131891C2F200C7502B /* ProjectsViewController.xib */,
-				3B5B81441916A3330018AE0D /* JAFForgotPasswordViewController.h */,
-				3B5B81451916A3330018AE0D /* JAFForgotPasswordViewController.m */,
-				3B5B81461916A3330018AE0D /* JAFForgotPasswordViewController.xib */,
-				3B5B81491916DD740018AE0D /* JAFSignupViewController.h */,
-				3B5B814A1916DD740018AE0D /* JAFSignupViewController.m */,
-				3B5B814B1916DD740018AE0D /* JAFSignupViewController.xib */,
 			);
 			path = JAFTimecardPrototype;
 			sourceTree = "<group>";

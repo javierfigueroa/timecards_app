@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3522A5ED6AA0420C9B433744"
-               BuildableName = "libPods-SVProgressHUD.a"
-               BlueprintName = "Pods-SVProgressHUD"
+               BlueprintIdentifier = "DBC7346436BF40769B029F7B"
+               BuildableName = "libPods-TPKeyboardAvoiding.a"
+               BlueprintName = "Pods-TPKeyboardAvoiding"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

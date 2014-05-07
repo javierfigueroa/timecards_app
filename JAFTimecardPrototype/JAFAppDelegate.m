@@ -20,6 +20,7 @@
     JAFActionsViewController *actionsController = [JAFActionsViewController controller];
     UINavigationController *actionsNavController = [[UINavigationController alloc]initWithRootViewController:actionsController];
     [actionsNavController setNavigationBarHidden:YES];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     UIColor *backgroundColor = [UIColor colorWithRed:28.0/255.0 green:35.0/255.0 blue:41.0/255.0 alpha:1];
     UIColor *textColor = [UIColor colorWithRed:170.0/255.0 green:179.0/255.0 blue:188.0/255.0 alpha:1];
@@ -65,3 +66,18 @@
 }
 
 @end
+
+// This is a workaround just enables white text colour in status bar in iOS7, iOS7.1
+// Dont touch it until things break
+// Despite this category says "draw white", colour automatically becomes black on white background w/o additional code
+@interface UINavigationController (StatusBarStyle)
+
+@end
+
+@implementation UINavigationController (StatusBarStyle)
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+@end
+// Place at the bottom of your AppDelegate.m
+// Magic!

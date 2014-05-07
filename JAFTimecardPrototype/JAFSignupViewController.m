@@ -59,7 +59,7 @@
         return;
     }
     
-    [SVProgressHUD showWithStatus:@"Logging in" maskType:SVProgressHUDMaskTypeGradient];
+    [SVProgressHUD showWithStatus:@"Signing up" maskType:SVProgressHUDMaskTypeGradient];
     [JAFUser signupWithUsername:self.emailTextField.text password:self.passwordTextField.text firstName:self.firstNameTextField.text lastName:self.lastNameTextField.text company:self.companyNameTextField.text completion:^(JAFUser *user, NSError *error) {
         
         [SVProgressHUD dismiss];

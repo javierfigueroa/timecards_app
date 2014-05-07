@@ -20,7 +20,7 @@ static AFHTTPRequestOperationManager *_sharedClient = nil;
 
 + (void)setAPIDomain:(NSString*)domain
 {
-    NSString *url = [NSString stringWithFormat:@"http://%@.%@", domain, @"timecards.dev:3000"];
+    NSString *url = [NSString stringWithFormat:@"http://%@.%@", domain, @"firehound.co:3000"];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setValue:url forKey:@"service_url"];
     [[self class] resetInstance];

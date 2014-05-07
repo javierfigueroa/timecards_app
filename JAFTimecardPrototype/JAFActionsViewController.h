@@ -31,12 +31,6 @@ extern NSString *const kLocationDidChangeNotification;
 @property (weak, nonatomic) IBOutlet UIImageView *timeLoggedBackgroundImage;
 
 @property (strong, nonatomic) IBOutlet UILabel *coachLabel;
-@property (strong, nonatomic) IBOutlet UIImageView *coachImageView;
-@property (weak, nonatomic) IBOutlet UIPickerView *projectsPicker;
-@property (weak, nonatomic) IBOutlet UIView *pickerContainerView;
-@property (weak, nonatomic) IBOutlet UILabel *pickerTitleLabel;
-@property (weak, nonatomic) IBOutlet UIButton *pickerCancelButton;
-@property (weak, nonatomic) IBOutlet UIButton *pickerAssignButton;
 
 @property (strong, nonatomic) JAFProject *project;
 
@@ -45,7 +39,6 @@ extern NSString *const kLocationDidChangeNotification;
 - (IBAction)didPressPrimaryAction:(id)sender;
 - (IBAction)didPressSecondaryAction:(id)sender;
 - (IBAction)didPressSignOut:(id)sender;
-- (IBAction)didPressCancelPicker:(id)sender;
 
 
 @end

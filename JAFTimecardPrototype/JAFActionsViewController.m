@@ -46,7 +46,6 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
         if (!error) {
             [SVProgressHUD showSuccessWithStatus:@"Project assigned"];
             [self.secondaryActionButton setTitle:project.name forState:UIControlStateNormal];
-            [self didPressCancelPicker:nil];
         }else{
             [[[UIAlertView alloc] initWithTitle:@"Project not assigned" message:@"Something went wrong, try again later" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }
@@ -214,15 +213,6 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
     [alert showInView:self.view];
 }
 
-- (IBAction)didPressCancelPicker:(id)sender {
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        self.pickerContainerView.alpha = 0;
-    } completion:^(BOOL finished) {
-        
-        self.pickerContainerView.hidden = YES;
-    }];
-}
-
 #pragma mark - Accessors
 
 - (CLLocationManager *)locationManager
@@ -371,12 +361,8 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
     JAFUser *user = [NSKeyedUnarchiver unarchiveObjectWithData: myEncodedObject];
     self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
     
-    int xOffset = 600;
-    int yOffset = 800;
-    
     //make invisible
     self.coachLabel.alpha = 0;
-    self.coachImageView.alpha = 0;
     self.primaryActionButton.alpha = 0;
     self.primaryActionButton.hidden = NO;
     
@@ -395,12 +381,7 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
                                             forState:UIControlStateNormal];
         
         [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            //hide coach element outside view
-            self.coachLabel.frame = CGRectOffset(self.coachLabel.frame, -xOffset, 0);
-            self.coachImageView.frame = CGRectOffset(self.coachImageView.frame, 0, yOffset);
             self.coachLabel.alpha = 0;
-            self.coachImageView.alpha = 0;
-            
             //make visible
             self.primaryActionButton.alpha = 1;
             self.middleView.alpha = 1;
@@ -412,18 +393,7 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
         //Add coach elements if not existent
         if (![self.view.subviews containsObject:self.coachLabel]) {
             [self.view addSubview:self.coachLabel];
-            [self.view addSubview:self.coachImageView];
         }
-        
-        //set label off screen to the left
-        CGRect middleFrame = self.middleView.frame;
-        CGRect labelFrame = CGRectMake(-xOffset, middleFrame.origin.y, self.coachLabel.frame.size.width, self.coachLabel.frame.size.height);
-        self.coachLabel.frame = labelFrame;
-        
-        //set image off screen to the top
-        CGRect screenRect = [[UIScreen mainScreen] bounds];
-        self.coachImageView.frame = CGRectMake((screenRect.size.width / 2) - (self.coachImageView.frame.size.width/2), -yOffset, self.coachImageView.frame.size.width, self.coachImageView.frame.size.height);
-        
         
         self.middleView.hidden = YES;
         self.secondaryActionButton.hidden =  YES;
@@ -435,24 +405,18 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
         [self.primaryActionButton setBackgroundImage:stretchableGreenButton
                                             forState:UIControlStateNormal];
         
+        //show coach elements below date
+        CGRect middleFrame = self.middleView.frame;
+        CGRect screenRect = [[UIScreen mainScreen] bounds];
+        //set label in the middle of the screen
+        CGRect labelFrame = CGRectMake((screenRect.size.width / 2) - (self.coachLabel.frame.size.width/2), middleFrame.origin.y, self.coachLabel.frame.size.width, self.coachLabel.frame.size.height);
+        self.coachLabel.frame = labelFrame;
+        
         [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             //hide time view
             self.middleView.alpha = 0;
-            
-            //show coach elements below date
-            CGRect middleFrame = self.middleView.frame;
-            CGRect screenRect = [[UIScreen mainScreen] bounds];
-            
-            //set label in the middle of the screen
-            CGRect labelFrame = CGRectMake((screenRect.size.width / 2) - (self.coachLabel.frame.size.width/2), middleFrame.origin.y, self.coachLabel.frame.size.width, self.coachLabel.frame.size.height);
-            self.coachLabel.frame = labelFrame;
-            
-            //set image in the middle of the screen
-            self.coachImageView.frame = CGRectMake((screenRect.size.width / 2) - (self.coachImageView.frame.size.width/2), labelFrame.origin.y + labelFrame.size.height + 20, self.coachImageView.frame.size.width, self.coachImageView.frame.size.height);
-            
             //make visible
             self.coachLabel.alpha = 1;
-            self.coachImageView.alpha = 1;
             self.primaryActionButton.alpha = 1;
         } completion:nil];
     }

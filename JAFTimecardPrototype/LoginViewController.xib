@@ -55,7 +55,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O7V-pa-je7" customClass="JAFButton">
-                    <rect key="frame" x="67" y="509" width="76" height="30"/>
+                    <rect key="frame" x="57" y="509" width="76" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="76" id="iLd-bD-Rie"/>
@@ -133,7 +133,7 @@
                 <constraint firstAttribute="trailing" secondItem="2pi-Za-UXt" secondAttribute="trailing" constant="66" id="2XB-MY-fws"/>
                 <constraint firstItem="3Yk-6t-iUn" firstAttribute="leading" secondItem="LXn-cL-wbY" secondAttribute="leading" id="5s3-lt-MbV"/>
                 <constraint firstItem="3Yk-6t-iUn" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="85" id="7fp-kI-oAr"/>
-                <constraint firstItem="O7V-pa-je7" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="67" id="9Jr-zq-wxn"/>
+                <constraint firstItem="O7V-pa-je7" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="57" id="9Jr-zq-wxn"/>
                 <constraint firstItem="CYc-Vi-y6f" firstAttribute="top" secondItem="3Yk-6t-iUn" secondAttribute="bottom" constant="4" id="AH6-EY-viP"/>
                 <constraint firstItem="vdI-m7-p8t" firstAttribute="top" relation="lessThanOrEqual" secondItem="1" secondAttribute="top" constant="131" id="ASj-pa-Xo2"/>
                 <constraint firstItem="6lB-3N-pGw" firstAttribute="top" secondItem="63u-3M-mg4" secondAttribute="bottom" constant="5" id="BJ2-33-dm9"/>
