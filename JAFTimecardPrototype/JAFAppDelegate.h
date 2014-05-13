@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "REFrostedViewController.h"
 
-
 @interface JAFAppDelegate : UIResponder <UIApplicationDelegate, REFrostedViewControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) UINavigationController *actionsController;
 
 - (void)showLoginController;
 

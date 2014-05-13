@@ -9,10 +9,25 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>Pods-GroundControl.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>Pods-REFrostedViewController.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
 		<key>Pods-SVProgressHUD.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>2</integer>
+		</dict>
+		<key>Pods-TPKeyboardAvoiding.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
@@ -27,12 +42,42 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>122B6C266AF74FD096FBBBB1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>33F83EF26DA846C19D48989C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>902DBEE6B5D542C8A2F3D2B0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>A0D6BE8C2258422CA7261CC2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>A857D9E8097C4FA480EB7BDF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AAF84ED05DAD441CB6DC4EBC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BAB6B9687D5946FDA01EEA29</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D9933ED46BF44B7D94D97D62</key>
 		<dict>
 			<key>primary</key>
 			<true/>

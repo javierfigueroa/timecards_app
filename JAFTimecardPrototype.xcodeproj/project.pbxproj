@@ -73,6 +73,12 @@
 		3BF11BB01835D6FB00F1737F /* white-btn-left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BF11BAF1835D6FB00F1737F /* white-btn-left@2x.png */; };
 		C66BBC121891BF9700C7502B /* JAFProjectsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C66BBC111891BF9700C7502B /* JAFProjectsViewController.m */; };
 		C66BBC141891C2F200C7502B /* ProjectsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C66BBC131891C2F200C7502B /* ProjectsViewController.xib */; };
+		C6B832771922793F0098093C /* JAFSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6B832761922793F0098093C /* JAFSettingsTableViewController.m */; };
+		C6B8327A192297AA0098093C /* UIViewController+SideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C6B83279192297AA0098093C /* UIViewController+SideMenu.m */; };
+		C6B8327C192298940098093C /* JAFSettingsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6B8327B192298940098093C /* JAFSettingsTableViewController.xib */; };
+		C6B8328019229E6A0098093C /* UIColor+Timecards.m in Sources */ = {isa = PBXBuildFile; fileRef = C6B8327F19229E6A0098093C /* UIColor+Timecards.m */; };
+		C6B832831922A2810098093C /* JAFSettingsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C6B832821922A2810098093C /* JAFSettingsCell.m */; };
+		C6B832861922A67A0098093C /* JAFSettingsService.m in Sources */ = {isa = PBXBuildFile; fileRef = C6B832851922A67A0098093C /* JAFSettingsService.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -161,6 +167,17 @@
 		C66BBC101891BF9700C7502B /* JAFProjectsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAFProjectsViewController.h; sourceTree = "<group>"; };
 		C66BBC111891BF9700C7502B /* JAFProjectsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAFProjectsViewController.m; sourceTree = "<group>"; };
 		C66BBC131891C2F200C7502B /* ProjectsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProjectsViewController.xib; sourceTree = "<group>"; };
+		C6B832751922793F0098093C /* JAFSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAFSettingsTableViewController.h; sourceTree = "<group>"; };
+		C6B832761922793F0098093C /* JAFSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAFSettingsTableViewController.m; sourceTree = "<group>"; };
+		C6B83278192297AA0098093C /* UIViewController+SideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SideMenu.h"; sourceTree = "<group>"; };
+		C6B83279192297AA0098093C /* UIViewController+SideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SideMenu.m"; sourceTree = "<group>"; };
+		C6B8327B192298940098093C /* JAFSettingsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JAFSettingsTableViewController.xib; sourceTree = "<group>"; };
+		C6B8327E19229E6A0098093C /* UIColor+Timecards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Timecards.h"; sourceTree = "<group>"; };
+		C6B8327F19229E6A0098093C /* UIColor+Timecards.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Timecards.m"; sourceTree = "<group>"; };
+		C6B832811922A2810098093C /* JAFSettingsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAFSettingsCell.h; sourceTree = "<group>"; };
+		C6B832821922A2810098093C /* JAFSettingsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAFSettingsCell.m; sourceTree = "<group>"; };
+		C6B832841922A67A0098093C /* JAFSettingsService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAFSettingsService.h; sourceTree = "<group>"; };
+		C6B832851922A67A0098093C /* JAFSettingsService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAFSettingsService.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +242,7 @@
 				C66BBC131891C2F200C7502B /* ProjectsViewController.xib */,
 				3B5B81461916A3330018AE0D /* JAFForgotPasswordViewController.xib */,
 				3B5B814B1916DD740018AE0D /* JAFSignupViewController.xib */,
+				C6B8327B192298940098093C /* JAFSettingsTableViewController.xib */,
 			);
 			name = Xibs;
 			sourceTree = "<group>";
@@ -244,6 +262,8 @@
 				3B5B814A1916DD740018AE0D /* JAFSignupViewController.m */,
 				3BC292B3191F2AB500DE5B9C /* JAFLeftMenuViewController.h */,
 				3BC292B4191F2AB500DE5B9C /* JAFLeftMenuViewController.m */,
+				C6B832751922793F0098093C /* JAFSettingsTableViewController.h */,
+				C6B832761922793F0098093C /* JAFSettingsTableViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -266,6 +286,8 @@
 			children = (
 				3B5B8152191B19AD0018AE0D /* JAFTimecardService.h */,
 				3B5B8153191B19AD0018AE0D /* JAFTimecardService.m */,
+				C6B832841922A67A0098093C /* JAFSettingsService.h */,
+				C6B832851922A67A0098093C /* JAFSettingsService.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -303,6 +325,7 @@
 		3B641B85178D05F7002D33D4 /* JAFTimecardPrototype */ = {
 			isa = PBXGroup;
 			children = (
+				C6B8327D19229E4B0098093C /* Categories */,
 				3B5B8151191B19670018AE0D /* Services */,
 				3B5B81501919DED30018AE0D /* Models */,
 				3B5B814F1919DEC00018AE0D /* Controllers */,
@@ -346,8 +369,21 @@
 				3BF11BA61835BDBA00F1737F /* JAFTitleLabel.m */,
 				3BF11BA81835C38A00F1737F /* JAFButton.h */,
 				3BF11BA91835C38A00F1737F /* JAFButton.m */,
+				C6B832811922A2810098093C /* JAFSettingsCell.h */,
+				C6B832821922A2810098093C /* JAFSettingsCell.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		C6B8327D19229E4B0098093C /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				C6B83278192297AA0098093C /* UIViewController+SideMenu.h */,
+				C6B83279192297AA0098093C /* UIViewController+SideMenu.m */,
+				C6B8327E19229E6A0098093C /* UIColor+Timecards.h */,
+				C6B8327F19229E6A0098093C /* UIColor+Timecards.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -381,6 +417,11 @@
 				CLASSPREFIX = JAF;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Javier Figueroa";
+				TargetAttributes = {
+					3B641B7B178D05F7002D33D4 = {
+						DevelopmentTeam = RND85PHW7R;
+					};
+				};
 			};
 			buildConfigurationList = 3B641B77178D05F7002D33D4 /* Build configuration list for PBXProject "JAFTimecardPrototype" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -428,6 +469,7 @@
 				3B1EDE2A18303B8F00C258F6 /* green-btn-right@2x.png in Resources */,
 				3B1EDE2818303B8F00C258F6 /* green-btn-left@2x.png in Resources */,
 				3B1EDE2318303B8F00C258F6 /* calendar-icon@2x.png in Resources */,
+				C6B8327C192298940098093C /* JAFSettingsTableViewController.xib in Resources */,
 				3B641B8A178D05F7002D33D4 /* InfoPlist.strings in Resources */,
 				3B1EDE3118303B8F00C258F6 /* Profile-Avatar.png in Resources */,
 				3B1EDE3318303B8F00C258F6 /* red-btn-left@2x.png in Resources */,
@@ -490,21 +532,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6B8327A192297AA0098093C /* UIViewController+SideMenu.m in Sources */,
+				C6B832771922793F0098093C /* JAFSettingsTableViewController.m in Sources */,
 				3B5B814C1916DD740018AE0D /* JAFSignupViewController.m in Sources */,
 				3B641B8C178D05F7002D33D4 /* main.m in Sources */,
 				3B641B90178D05F7002D33D4 /* JAFAppDelegate.m in Sources */,
 				C66BBC121891BF9700C7502B /* JAFProjectsViewController.m in Sources */,
+				C6B832831922A2810098093C /* JAFSettingsCell.m in Sources */,
 				3B641BA0178D0633002D33D4 /* JAFLoginViewController.m in Sources */,
 				3B5B8154191B19AD0018AE0D /* JAFTimecardService.m in Sources */,
 				3BC292B5191F2AB500DE5B9C /* JAFLeftMenuViewController.m in Sources */,
 				3BF11BA71835BDBA00F1737F /* JAFTitleLabel.m in Sources */,
 				3BF11BAA1835C38A00F1737F /* JAFButton.m in Sources */,
+				C6B832861922A67A0098093C /* JAFSettingsService.m in Sources */,
 				3B5B81471916A3330018AE0D /* JAFForgotPasswordViewController.m in Sources */,
 				3B641BA5178D0704002D33D4 /* JAFActionsViewController.m in Sources */,
 				3BF11BA41835BC3E00F1737F /* JAFTextField.m in Sources */,
 				3B3BE34F179DB81C0085E74D /* JAFAPIClient.m in Sources */,
 				3B3BE357179DBC0F0085E74D /* JAFTimecard.m in Sources */,
 				3B3BE35A179DC6AF0085E74D /* JAFUser.m in Sources */,
+				C6B8328019229E6A0098093C /* UIColor+Timecards.m in Sources */,
 				3B1EDE07182FF08A00C258F6 /* JAFProject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -585,12 +632,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Javier Figueroa (B957FHX2SD)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JAFTimecardPrototype/JAFTimecardPrototype-Prefix.pch";
 				INFOPLIST_FILE = "JAFTimecardPrototype/JAFTimecardPrototype-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "F6EB56A3-3B0F-42D4-9942-471B05B747EC";
+				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "${PODS_PUBLIC_HEADERS_SEARCH_PATHS}";
 				WRAPPER_EXTENSION = app;
 			};
@@ -602,12 +650,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Javier Figueroa (RND85PHW7R)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JAFTimecardPrototype/JAFTimecardPrototype-Prefix.pch";
 				INFOPLIST_FILE = "JAFTimecardPrototype/JAFTimecardPrototype-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6922483A-E1A4-4C94-8CFB-98EB65BD7B49";
+				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "${PODS_PUBLIC_HEADERS_SEARCH_PATHS}";
 				WRAPPER_EXTENSION = app;
 			};

@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JAFTimecardPrototype/JAFActionsViewController.m"
-            timestampString = "412208474.637196"
+            timestampString = "421701537.471115"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "-setProject:"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "+controller"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JAFTimecardPrototype/JAFActionsViewController.m"
-            timestampString = "412213483.945998"
+            timestampString = "421701537.471115"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "372"
-            endingLineNumber = "372"
+            startingLineNumber = "296"
+            endingLineNumber = "296"
             landmarkName = "-setState"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,12 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JAFTimecardPrototype/JAFActionsViewController.m"
-            timestampString = "412210207.782362"
+            timestampString = "421701537.471115"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "-viewDidLoad"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "-initWithNibName:bundle:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -136,12 +136,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JAFTimecardPrototype/JAFActionsViewController.m"
-            timestampString = "412212339.356991"
+            timestampString = "421701537.471115"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
-            landmarkName = "-getTimecard"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "-configureView"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -152,13 +152,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JAFTimecardPrototype/JAFActionsViewController.m"
-            timestampString = "412212372.67528"
+            timestampString = "421701537.471115"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
-            landmarkName = "-getTimecard"
-            landmarkType = "5">
+            startingLineNumber = "133"
+            endingLineNumber = "133"
+            landmarkName = "@implementation JAFActionsViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -205,8 +205,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "77"
             endingLineNumber = "77"
-            landmarkName = "-didPressGo:"
-            landmarkType = "5">
+            landmarkName = "@implementation JAFLoginViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -222,6 +222,22 @@
             startingLineNumber = "60"
             endingLineNumber = "60"
             landmarkName = "+login:andPassword:andCompany:completion:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JAFTimecardPrototype/JAFSettingsTableViewController.m"
+            timestampString = "421701823.961795"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
+            landmarkName = "-didSwitchGPS:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

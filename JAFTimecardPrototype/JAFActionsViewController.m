@@ -17,19 +17,17 @@
 #import "JAFTimecardService.h"
 #import "REFrostedViewController.h"
 #import "UIViewController+REFrostedViewController.h"
+#import "UIViewController+SideMenu.h"
 #import "JAFAppDelegate.h"
+#import "JAFSettingsService.h"
+#import <CoreLocation/CoreLocation.h>
 
-NSString *const kStartLocationServicesNotification = @"kStartLocationServicesNotification";
-NSString *const kStopLocationServicesNotification = @"kStopLocationServicesNotification";
-NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotification";
+
 @interface JAFActionsViewController ()
 {
     NSTimer *timer;
-    UIAlertView *_locationServicesAlert;
 }
 
-@property (nonatomic, strong) CLLocation *location;
-@property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) JAFTimecardService *timecardService;
 
 @end
@@ -71,7 +69,7 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.location = self.locationManager.location;
+    [JAFSettingsService service];
     [self configureView];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -108,10 +106,7 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
 - (void)configureView
 {
     [self.navigationItem setTitleView:self.userDetailsView];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu-icon"]
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(presentLeftMenuViewController:)];
+    [self setSideMenu];
     
     UIImage *greenButtonImage = [UIImage imageNamed:@"green-btn"];
     UIImage *stretchableGreenButton = [greenButtonImage stretchableImageWithLeftCapWidth:22 topCapHeight:0];
@@ -191,79 +186,7 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
     }
 }
 
-- (IBAction)presentLeftMenuViewController:(id)sender
-{
-    [self.frostedViewController presentMenuViewController];
-}
-
 #pragma mark - Accessors
-
-- (CLLocationManager *)locationManager
-{
-    if (!_locationManager && [CLLocationManager locationServicesEnabled]) {
-		_locationManager = [[CLLocationManager alloc] init];
-		[_locationManager setDelegate:self];
-		[_locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
-        
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopLocationServices:) name:kStopLocationServicesNotification object:nil];
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resumeLocationServices:) name:kStartLocationServicesNotification object:nil];
-        
-		NSAssert(_locationManager != nil, @"Datasource should have a location manager if location services are enabled");
-	}
-    
-    return _locationManager;
-}
-
-#pragma mark - CLLocation Manage Delegate
-
-- (void)stopLocationServices:(NSNotification *)notification
-{
-	NSLog(@"Stopping location services");
-	[self.locationManager stopMonitoringSignificantLocationChanges];
-}
-
-- (void)resumeLocationServices:(NSNotificationCenter *)notification
-{
-	NSLog(@"Resuming location services");
-	[self.locationManager startMonitoringSignificantLocationChanges];
-    
-	NSLog(@"%@", self.locationManager.location);
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
-{
-	self.location = newLocation;
-    
-    if (_locationServicesAlert) {
-        [_locationServicesAlert dismissWithClickedButtonIndex:0 animated:YES];
-        _locationServicesAlert = nil;
-    }
-    
-    NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithCapacity:2];
-    [userInfo setObject:[NSNumber numberWithDouble:self.location.coordinate.latitude] forKey:@"latitude"];
-    [userInfo setObject:[NSNumber numberWithDouble:self.location.coordinate.longitude] forKey:@"longitude"];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:kLocationDidChangeNotification object:self userInfo:userInfo];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
-	if (error.code == kCLErrorDenied) {
-		[self showLocationServicesDisabledAlert];
-	}
-}
-
-- (void)showLocationServicesDisabledAlert
-{
-	if ((self.locationManager.location.coordinate.latitude == 0) &&
-		(self.locationManager.location.coordinate.longitude == 0)) {
-        NSString *app = NSBundle.mainBundle.infoDictionary  [@"CFBundleDisplayName"];
-        NSString *message = [NSString stringWithFormat:@"Please enable Location \n Services for %@, go to: \n Privacy -> Location -> %@", app, app];
-        
-		_locationServicesAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Disabled Location Services", @"Disabled Location Services") message:NSLocalizedString(message, message) delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
-        [_locationServicesAlert show];
-	}
-}
 
 - (void)openImagePickerControllerWithType:(UIImagePickerControllerSourceType)type inController:(UIViewController*)controller
 {
@@ -294,7 +217,8 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
     [picker dismissViewControllerAnimated:YES completion:^{
         [SVProgressHUD showWithStatus:([self.timecardService clockedIn] ? @"Clocking out..." : @"Clocking in...") maskType:SVProgressHUDMaskTypeGradient];
         
-        [self.timecardService clockWithLocation:self.location picture:image andBlock:^(JAFTimecard *timecard, NSError *error) {
+        CLLocation *location = [[JAFSettingsService service] location];
+        [self.timecardService clockWithLocation:location picture:image andBlock:^(JAFTimecard *timecard, NSError *error) {
             if (!error) {
                 [SVProgressHUD showSuccessWithStatus:@"All set!"];
                 

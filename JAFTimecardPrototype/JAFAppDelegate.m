@@ -10,6 +10,7 @@
 #import "JAFLeftMenuViewController.h"
 #import "JAFActionsViewController.h"
 #import "JAFLoginViewController.h"
+#import "JAFSettingsService.h"
 
 @implementation JAFAppDelegate
 
@@ -19,8 +20,8 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
-    JAFActionsViewController *actionsController = [JAFActionsViewController controller];
-    UINavigationController *actionsNavController = [[UINavigationController alloc]initWithRootViewController:actionsController];
+    JAFActionsViewController *controller = [JAFActionsViewController controller];
+    self.actionsController = [[UINavigationController alloc]initWithRootViewController:controller];
     JAFLeftMenuViewController *leftMenuController = [[JAFLeftMenuViewController alloc] init];
     
     UIColor *backgroundColor = [UIColor colorWithRed:28.0/255.0 green:35.0/255.0 blue:41.0/255.0 alpha:1];
@@ -29,7 +30,7 @@
     [[UINavigationBar appearance] setBarTintColor:backgroundColor];
     // Create frosted view controller
     //
-    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:actionsNavController menuViewController:leftMenuController];
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:self.actionsController menuViewController:leftMenuController];
     frostedViewController.direction = REFrostedViewControllerDirectionLeft;
     frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
     frostedViewController.liveBlur = YES;

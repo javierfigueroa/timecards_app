@@ -13,6 +13,7 @@
 #import "JAFTimecardService.h"
 #import "JAFLoginViewController.h"
 #import "JAFAppDelegate.h"
+#import "JAFSettingsTableViewController.h"
 
 @interface JAFLeftMenuViewController ()
 
@@ -99,23 +100,26 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.row) {
-        case 0:
-            self.frostedViewController.contentViewController = [[UINavigationController alloc] initWithRootViewController:[JAFActionsViewController controller]];
+        case 0:{
+            //timecard
+            JAFAppDelegate *appDelegate = (JAFAppDelegate*)[[UIApplication sharedApplication] delegate];
+            self.frostedViewController.contentViewController = appDelegate.actionsController;
             [self.frostedViewController hideMenuViewController];
             break;
+        }
         case 1:
-//            [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[[DEMOSecondViewController alloc] init]]
-//                                                         animated:YES];
+            //history
             [self.frostedViewController hideMenuViewController];
             break;
-        case 2:
-            //            [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[[DEMOSecondViewController alloc] init]]
-            //                                                         animated:YES];
+        case 2:{
+            //settings
+            UINavigationController *settingsController = [[UINavigationController alloc] initWithRootViewController:[[JAFSettingsTableViewController alloc] init]];
+            self.frostedViewController.contentViewController = settingsController;
             [self.frostedViewController hideMenuViewController];
             break;
+        }
         case 3:
-            //            [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:[[DEMOSecondViewController alloc] init]]
-            //                                                         animated:YES];
+            //sign out
             [self.frostedViewController hideMenuViewController];
             [self didPressSignOut];
             break;
@@ -150,11 +154,6 @@
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-//        cell.backgroundColor = [UIColor clearColor];
-//        cell.textLabel.font = [UIFont fontWithName:@"OpenSans-Bold" size:21];
-//        cell.textLabel.textColor = [UIColor whiteColor];
-//        cell.textLabel.highlightedTextColor = [UIColor lightGrayColor];
-//        cell.selectedBackgroundView = [[UIView alloc] init];
     }
     
     NSArray *titles = @[@"Timecard", @"History", @"Settings", @"Sign out"];
