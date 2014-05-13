@@ -33,15 +33,16 @@
     // Do any additional setup after loading the view from its nib.
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     
+    
     UIImage *greenButtonImage = [UIImage imageNamed:@"green-btn"];
     UIImage *stretchableGreenButton = [greenButtonImage stretchableImageWithLeftCapWidth:22 topCapHeight:0];
     [self.signupButton setBackgroundImage:stretchableGreenButton forState:UIControlStateNormal];
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    return UIStatusBarStyleLightContent;
-}
+//- (UIStatusBarStyle)preferredStatusBarStyle
+//{
+//    return UIStatusBarStyleLightContent;
+//}
 
 - (void)didReceiveMemoryWarning
 {

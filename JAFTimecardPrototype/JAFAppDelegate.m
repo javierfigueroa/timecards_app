@@ -7,28 +7,41 @@
 //
 
 #import "JAFAppDelegate.h"
+#import "JAFLeftMenuViewController.h"
 #import "JAFActionsViewController.h"
+#import "JAFLoginViewController.h"
 
 @implementation JAFAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+{    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
     JAFActionsViewController *actionsController = [JAFActionsViewController controller];
     UINavigationController *actionsNavController = [[UINavigationController alloc]initWithRootViewController:actionsController];
-    [actionsNavController setNavigationBarHidden:YES];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    JAFLeftMenuViewController *leftMenuController = [[JAFLeftMenuViewController alloc] init];
     
     UIColor *backgroundColor = [UIColor colorWithRed:28.0/255.0 green:35.0/255.0 blue:41.0/255.0 alpha:1];
     UIColor *textColor = [UIColor colorWithRed:170.0/255.0 green:179.0/255.0 blue:188.0/255.0 alpha:1];
     [[UINavigationBar appearance] setTintColor:textColor];
     [[UINavigationBar appearance] setBarTintColor:backgroundColor];
-    [[UINavigationBar appearance] setBackgroundColor:[UIColor clearColor]];
+    // Create frosted view controller
+    //
+    REFrostedViewController *frostedViewController = [[REFrostedViewController alloc] initWithContentViewController:actionsNavController menuViewController:leftMenuController];
+    frostedViewController.direction = REFrostedViewControllerDirectionLeft;
+    frostedViewController.liveBlurBackgroundStyle = REFrostedViewControllerLiveBackgroundStyleLight;
+    frostedViewController.liveBlur = YES;
+    frostedViewController.delegate = self;
     
-    self.window.rootViewController = actionsNavController;
+    // Make it a root controller
+    //
+    self.window.rootViewController = frostedViewController;
+    self.window.backgroundColor = [UIColor whiteColor];
+
+//    
+//    self.window.rootViewController = actionsNavController;// sideMenuViewController;
     [self.window makeKeyAndVisible];
     
     return YES;
@@ -65,6 +78,41 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void)showLoginController
+{
+    JAFLoginViewController *loginController = [JAFLoginViewController controller];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginController];
+    [self.window.rootViewController presentViewController:navController animated:YES completion:nil];
+}
+
+#pragma mark -
+#pragma mark RESideMenu Delegate
+
+- (void)frostedViewController:(REFrostedViewController *)frostedViewController didRecognizePanGesture:(UIPanGestureRecognizer *)recognizer
+{
+    
+}
+
+- (void)frostedViewController:(REFrostedViewController *)frostedViewController willShowMenuViewController:(UIViewController *)menuViewController
+{
+    NSLog(@"willShowMenuViewController");
+}
+
+- (void)frostedViewController:(REFrostedViewController *)frostedViewController didShowMenuViewController:(UIViewController *)menuViewController
+{
+    NSLog(@"didShowMenuViewController");
+}
+
+- (void)frostedViewController:(REFrostedViewController *)frostedViewController willHideMenuViewController:(UIViewController *)menuViewController
+{
+    NSLog(@"willHideMenuViewController");
+}
+
+- (void)frostedViewController:(REFrostedViewController *)frostedViewController didHideMenuViewController:(UIViewController *)menuViewController
+{
+    NSLog(@"didHideMenuViewController");
+}
+
 @end
 
 // This is a workaround just enables white text colour in status bar in iOS7, iOS7.1
@@ -75,6 +123,13 @@
 @end
 
 @implementation UINavigationController (StatusBarStyle)
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.navigationBar.translucent = NO;
+}
+
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }

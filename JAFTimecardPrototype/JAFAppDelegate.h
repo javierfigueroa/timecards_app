@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "REFrostedViewController.h"
 
-@interface JAFAppDelegate : UIResponder <UIApplicationDelegate>
+
+@interface JAFAppDelegate : UIResponder <UIApplicationDelegate, REFrostedViewControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+- (void)showLoginController;
 
 @end

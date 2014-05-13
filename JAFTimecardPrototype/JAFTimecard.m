@@ -9,6 +9,7 @@
 #import "JAFTimecard.h"
 #import "JAFAPIClient.h"
 #import "JAFUser.h"
+#import "JAFProject.h"
 #import "AFHTTPRequestOperationManager.h"
 
 @implementation JAFTimecard
@@ -21,7 +22,12 @@
         formatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.SSSZZZ";
         self.ID = [NSNumber numberWithInt:[data[@"id"] intValue]];
         self.timestampIn = [formatter dateFromString:data[@"timestamp_in"]];
-        self.projectID = data[@"project_id"];
+        
+        if (data[@"project"] && data[@"project"] != (id)[NSNull null]) {
+            self.project = [[JAFProject alloc] initWithAttributes:data[@"project"]];
+        }else{
+            self.project = [[JAFProject alloc] initWithAttributes:@{@"name":@"assign project", @"id": @"0"}];
+        }
 
         self.photoIn = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:data[@"photo_in_url"]]]];
 
@@ -84,9 +90,8 @@
         NSLog(@"%@", responseObject);
 #endif
         if ([responseObject isKindOfClass:[NSDictionary class]]) {
-            // response is ok
-            
-            
+            NSDictionary *JSON = (NSDictionary*)responseObject;
+            JAFTimecard *timecard = [[JAFTimecard alloc] initWithAttributes:JSON];
             if (block) {
                 block(timecard, nil);
             }
@@ -107,11 +112,11 @@
     parameters[@"timecard[project_id]"] = @"0";
     
     NSDateComponents *components = [[self class] componentsFromDate:timecard.timestampIn];
-    parameters[@"timecard[timestamp_in(1i)]"] = [NSString stringWithFormat:@"%i", components.year];
-    parameters[@"timecard[timestamp_in(2i)]"] = [NSString stringWithFormat:@"%i", components.month];
-    parameters[@"timecard[timestamp_in(3i)]"] = [NSString stringWithFormat:@"%i", components.day];
-    parameters[@"timecard[timestamp_in(4i)]"] = [NSString stringWithFormat:@"%i", components.hour];
-    parameters[@"timecard[timestamp_in(5i)]"] = [NSString stringWithFormat:@"%i", components.minute];
+    parameters[@"timecard[timestamp_in(1i)]"] = [NSString stringWithFormat:@"%li", (long)components.year];
+    parameters[@"timecard[timestamp_in(2i)]"] = [NSString stringWithFormat:@"%li", (long)components.month];
+    parameters[@"timecard[timestamp_in(3i)]"] = [NSString stringWithFormat:@"%li", (long)components.day];
+    parameters[@"timecard[timestamp_in(4i)]"] = [NSString stringWithFormat:@"%li", (long)components.hour];
+    parameters[@"timecard[timestamp_in(5i)]"] = [NSString stringWithFormat:@"%li", (long)components.minute];
     
 #ifdef DEBUG
     NSLog(@"%@", parameters);
@@ -157,11 +162,11 @@
     parameters[@"timecard[longitude_out]"] = timecard.longitudeOut;
     
     NSDateComponents *components = [[self class] componentsFromDate:timecard.timestampOut];
-    parameters[@"timecard[timestamp_out(1i)"] = [NSString stringWithFormat:@"%i", components.year];
-    parameters[@"timecard[timestamp_out(2i)"] = [NSString stringWithFormat:@"%i", components.month];
-    parameters[@"timecard[timestamp_out(3i)"] = [NSString stringWithFormat:@"%i", components.day];
-    parameters[@"timecard[timestamp_out(4i)"] = [NSString stringWithFormat:@"%i", components.hour];
-    parameters[@"timecard[timestamp_out(5i)"] = [NSString stringWithFormat:@"%i", components.minute];
+    parameters[@"timecard[timestamp_out(1i)"] = [NSString stringWithFormat:@"%li", (long)components.year];
+    parameters[@"timecard[timestamp_out(2i)"] = [NSString stringWithFormat:@"%li", (long)components.month];
+    parameters[@"timecard[timestamp_out(3i)"] = [NSString stringWithFormat:@"%li", (long)components.day];
+    parameters[@"timecard[timestamp_out(4i)"] = [NSString stringWithFormat:@"%li", (long)components.hour];
+    parameters[@"timecard[timestamp_out(5i)"] = [NSString stringWithFormat:@"%li", (long)components.minute];
     
 #ifdef DEBUG
     NSLog(@"%@", parameters);

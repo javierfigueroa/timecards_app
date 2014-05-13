@@ -12,6 +12,9 @@
 #import "JAFUser.h"
 #import "JAFForgotPasswordViewController.h"
 #import "JAFSignupViewController.h"
+#import "NSUserDefaults+GroundControl.h"
+
+static NSString * const GroundControlDefaultsURLString = @"https://s3.amazonaws.com/timecards_ios/defaults.plist";
 
 @interface JAFLoginViewController ()
 
@@ -59,6 +62,16 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    
+    [[NSUserDefaults standardUserDefaults] registerDefaultsWithURL:[NSURL URLWithString:GroundControlDefaultsURLString]
+                                                           success:^(NSDictionary *defaults) {
+                                                               // ...
+                                                               NSLog(@"%@",defaults);
+                                                               [JAFAPIClient resetInstance];
+                                                           } failure:^(NSError *error) {
+                                                               // ...
+                                                           }];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 

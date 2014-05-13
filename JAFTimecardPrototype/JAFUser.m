@@ -77,10 +77,14 @@
             NSDictionary *userInfo = [NSDictionary dictionaryWithDictionary: JSON[@"errors"]];
             error = [[NSError alloc] initWithDomain:@"" code:400 userInfo:userInfo];
         }else{
+            
+            NSString *cleanDomain = [company stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            [JAFAPIClient setAPIDomain:cleanDomain];
+            
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
             JAFUser *user = [[JAFUser alloc] initWithAttributes:JSON];
             user.password = password;
-            user.company = company;
+            user.company = cleanDomain;
             
             NSData *myEncodedUser = [NSKeyedArchiver archivedDataWithRootObject:user];
             [defaults setObject:myEncodedUser forKey:@"user"];

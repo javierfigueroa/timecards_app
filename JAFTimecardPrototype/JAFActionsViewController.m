@@ -14,6 +14,10 @@
 #import "JAFUser.h"
 #import "JAFProject.h"
 #import "JAFProjectsViewController.h"
+#import "JAFTimecardService.h"
+#import "REFrostedViewController.h"
+#import "UIViewController+REFrostedViewController.h"
+#import "JAFAppDelegate.h"
 
 NSString *const kStartLocationServicesNotification = @"kStartLocationServicesNotification";
 NSString *const kStopLocationServicesNotification = @"kStopLocationServicesNotification";
@@ -23,10 +27,10 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
     NSTimer *timer;
     UIAlertView *_locationServicesAlert;
 }
+
 @property (nonatomic, strong) CLLocation *location;
 @property (nonatomic, strong) CLLocationManager *locationManager;
-@property (nonatomic, strong) JAFTimecard *timecard;
-@property (nonatomic, strong) NSArray *projects;
+@property (nonatomic, strong) JAFTimecardService *timecardService;
 
 @end
 
@@ -38,16 +42,19 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
     return [[JAFActionsViewController alloc] initWithNibName:@"TimecardViewController" bundle:nil];
 }
 
+- (JAFTimecardService *)timecardService
+{
+    return [JAFTimecardService service];
+}
+
 - (void)setProject:(JAFProject *)project
 {
-    _project = project;
-    
-    [JAFTimecard assignProject:self.timecard projectID:project.ID completion:^(JAFTimecard *timecard, NSError *error) {
+    [self.timecardService assignProject:project andBlock:^(JAFTimecard *timecard, NSError *error) {
         if (!error) {
             [SVProgressHUD showSuccessWithStatus:@"Project assigned"];
-            [self.secondaryActionButton setTitle:project.name forState:UIControlStateNormal];
+            [self configureSecondaryButton];
         }else{
-            [[[UIAlertView alloc] initWithTitle:@"Project not assigned" message:@"Something went wrong, try again later" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            [SVProgressHUD showErrorWithStatus:@"Something went wrong, try again later"];
         }
     }];
 }
@@ -64,9 +71,7 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.timecard = [[JAFTimecard alloc] init];
     self.location = self.locationManager.location;
-    
     [self configureView];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -75,7 +80,6 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
         [self showLoginController];
     }else{
         [self getTimecard];
-        [self getProjects];
         [self startTimer];
     }
     
@@ -90,7 +94,6 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self getProjects];
 }
 
@@ -104,6 +107,11 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
 
 - (void)configureView
 {
+    [self.navigationItem setTitleView:self.userDetailsView];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu-icon"]
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:self
+                                                                            action:@selector(presentLeftMenuViewController:)];
     
     UIImage *greenButtonImage = [UIImage imageNamed:@"green-btn"];
     UIImage *stretchableGreenButton = [greenButtonImage stretchableImageWithLeftCapWidth:22 topCapHeight:0];
@@ -130,65 +138,40 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
 
 - (void)getTimecard
 {
-    if (![self isClockedIn] && self.timecard) {
+    if (![self.timecardService clockedIn]) {
         [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
     }
     
-    [JAFTimecard getTodaysTimecardWithCompletion:^(JAFTimecard *timecard, NSError *error) {
+    [self.timecardService getTimecardWithBlock:^(JAFTimecard *timecard, NSError *error) {
         [SVProgressHUD dismiss];
-        
-        if (error) {
-            [SVProgressHUD showErrorWithStatus:@"Server unavailable, try again later"];
-        }
-        
-        if (!timecard) {
-            self.timecard = [[JAFTimecard alloc] init];
-        }else{
-            self.timecard = timecard;
-        }
-        
         [self setState];
     }];
 }
 
 - (void)getProjects
 {
-    [JAFProject getProjectsWithCompletion:^(NSArray *projects, NSError *error) {
-        if (!error) {
-            self.projects = [NSArray arrayWithArray:projects];
-            [self configureSecondaryButton];
-        }
+    [self.timecardService getProjectsWithBlock:^{
+        [self configureSecondaryButton];
     }];
 }
 
 - (void)configureSecondaryButton
 {
-    if ([self isClockedIn] && self.projects.count > 0) {
+    if ([self.timecardService clockedIn] && [self.timecardService hasProjects]) {
         self.secondaryActionButton.hidden = NO;
         self.secondaryActionButton.alpha = 1;
     }
     
-    if (self.timecard.projectID != (id)[NSNull null] && [self.timecard.projectID intValue] > 0) {
-        for(JAFProject *project in self.projects) {
-            BOOL exists = self.project ? [project.ID intValue] == [self.project.ID intValue] : [project.ID intValue] == [self.timecard.projectID intValue];
-            if (exists) {
-                [self.secondaryActionButton setTitle:project.name forState:UIControlStateNormal];
-                break;
-            }
-        }
+    if ([self.timecardService hasProject]) {
+        [self.secondaryActionButton setTitle:[self.timecardService getProjectName]
+                                    forState:UIControlStateNormal];
     }
-}
-
-- (BOOL)isClockedIn
-{
-    return self.timecard.timestampIn != nil;
 }
 
 - (void)showLoginController
 {
-    JAFLoginViewController *loginController = [JAFLoginViewController controller];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginController];
-    [self presentViewController:navController animated:YES completion:nil];
+    JAFAppDelegate *appDelegate = (JAFAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate showLoginController];
 }
 
 #pragma mark - Actions
@@ -198,19 +181,19 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
 }
 
 - (IBAction)didPressSecondaryAction:(id)sender {
-    if (self.projects.count == 0) {
+    if (![self.timecardService hasProjects]) {
         [self getProjects];
     }else{
-        JAFProjectsViewController *projectsController = [[JAFProjectsViewController alloc] initWithProjects:self.projects];
+        JAFProjectsViewController *projectsController = [[JAFProjectsViewController alloc]
+                                                         initWithProjects:[self.timecardService getProjects]];
         projectsController.actionsController = self;
         [self.navigationController pushViewController:projectsController animated:YES];
     }
 }
 
-
-- (IBAction)didPressSignOut:(id)sender {
-    UIActionSheet *alert = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:NSLocalizedString(@"Sign Out", nil) otherButtonTitles:nil];
-    [alert showInView:self.view];
+- (IBAction)presentLeftMenuViewController:(id)sender
+{
+    [self.frostedViewController presentMenuViewController];
 }
 
 #pragma mark - Accessors
@@ -309,46 +292,23 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
     
     // Remove views
     [picker dismissViewControllerAnimated:YES completion:^{
-        [SVProgressHUD showWithStatus:([self isClockedIn] ? @"Clocking out..." : @"Clocking in...") maskType:SVProgressHUDMaskTypeGradient];
-        if ([self isClockedIn]) {
-            self.timecard.timestampOut = [NSDate date];
-            self.timecard.latitudeOut = [NSNumber numberWithDouble:self.location.coordinate.latitude];
-            self.timecard.longitudeOut = [NSNumber numberWithDouble:self.location.coordinate.longitude];
-            self.timecard.photoOut = image;
-            
-            [JAFTimecard clockOut:self.timecard completion:^(JAFTimecard *timecard, NSError *error) {
-                [SVProgressHUD dismiss];
-                if (!error) {
-                    self.timecard.timestampIn = nil;
-                    self.timecard.timestampOut = nil;
-                    [SVProgressHUD showSuccessWithStatus:@"All set!"];
-                    [self setState];
-                    if (timer) {
-                        [timer invalidate];
-                    }
+        [SVProgressHUD showWithStatus:([self.timecardService clockedIn] ? @"Clocking out..." : @"Clocking in...") maskType:SVProgressHUDMaskTypeGradient];
+        
+        [self.timecardService clockWithLocation:self.location picture:image andBlock:^(JAFTimecard *timecard, NSError *error) {
+            if (!error) {
+                [SVProgressHUD showSuccessWithStatus:@"All set!"];
+                
+                [self setState];
+                
+                if (timer) {
+                    [timer invalidate];
                 }else{
-                    [SVProgressHUD showErrorWithStatus:@"Something went wrong, please try again or contact administrator"];
-                }
-            }];
-        }else{
-            self.timecard.timestampIn = [NSDate date];
-            self.timecard.latitudeIn = [NSNumber numberWithDouble:self.location.coordinate.latitude];
-            self.timecard.longitudeIn = [NSNumber numberWithDouble:self.location.coordinate.longitude];
-            self.timecard.photoIn = image;
-            
-            [JAFTimecard clockIn:self.timecard completion:^(JAFTimecard *timecard, NSError *error) {
-                [SVProgressHUD dismiss];
-                if (!error) {
-                    self.timecard = timecard;
-                    [SVProgressHUD showSuccessWithStatus:@"All set!"];
-                    [self setState];
                     [self startTimer];
-                    
-                }else{
-                    [SVProgressHUD showErrorWithStatus:@"Something went wrong, please try again or contact administrator"];
                 }
-            }];
-        }
+            }else{
+                [SVProgressHUD showErrorWithStatus:@"Something went wrong, please try again or contact administrator"];
+            }
+        }];
     }];
 }
 
@@ -356,22 +316,18 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
 
 - (void)setState
 {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSData *myEncodedObject = [userDefaults objectForKey:@"user"];
-    JAFUser *user = [NSKeyedUnarchiver unarchiveObjectWithData: myEncodedObject];
-    self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
+    self.nameLabel.text = [self.timecardService getName];
     
     //make invisible
     self.coachLabel.alpha = 0;
-    self.primaryActionButton.alpha = 0;
-    self.primaryActionButton.hidden = NO;
+    self.calendarIcon.hidden = NO;
     
-    if ([self isClockedIn]) {
-        [self setTimecardValues];
+    [self setTimecardValues];
+    
+    if ([self.timecardService clockedIn]) {
         //show middle view
-        self.middleView.hidden = NO;
         self.statusArrowImageView.image = [UIImage imageNamed:@"green-arrow-icon"];
-        self.secondaryActionButton.hidden = self.projects.count == 0;
+        self.secondaryActionButton.hidden = ![self.timecardService hasProjects];
         [self.secondaryActionButton setTitle:@"assign project" forState:UIControlStateNormal];
         [self.primaryActionButton setTitle:@"clock out" forState:UIControlStateNormal];
         UIImage *greenButtonImage = [UIImage imageNamed:@"red-btn"];
@@ -383,13 +339,13 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
         [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             self.coachLabel.alpha = 0;
             //make visible
-            self.primaryActionButton.alpha = 1;
             self.middleView.alpha = 1;
+            self.primaryActionButton.hidden = NO;
+            self.userDetailsView.hidden = NO;
+            self.dateView.hidden = NO;
+            self.middleView.hidden = NO;
         } completion:nil];
     }else{
-        //set date value
-        [self setDateTime:[NSDate date]];
-        
         //Add coach elements if not existent
         if (![self.view.subviews containsObject:self.coachLabel]) {
             [self.view addSubview:self.coachLabel];
@@ -418,6 +374,9 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
             //make visible
             self.coachLabel.alpha = 1;
             self.primaryActionButton.alpha = 1;
+            self.primaryActionButton.hidden = NO;
+            self.userDetailsView.hidden = NO;
+            self.dateView.hidden = NO;
         } completion:nil];
     }
     
@@ -447,45 +406,22 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
 - (void)setTimecardValues
 {
     //set avatar image
-    UIImage *img = [self isClockedIn] ? self.timecard.photoIn : self.timecard.photoOut;
-    [self addRoundAvatar:img];
+    [self addRoundAvatar:[self.timecardService getAvatar]];
     
     //set time values
-    NSDate *date = [self isClockedIn] ? self.timecard.timestampIn : self.timecard.timestampOut;
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"h:mm"];
-    self.timeLabel.text = [formatter stringFromDate:date];
-    [formatter setDateFormat:@"a"];
-    self.amPmLabel.text = [formatter stringFromDate:date];
+    self.timeLabel.text = [self.timecardService getTimeValue];
+    self.amPmLabel.text = [self.timecardService getAbbrevValue];
     
     //set date value
-    [self setDateTime:date];
+    self.dayOfTheWeekLabel.text = [self.timecardService getDayOfTheWeekValue];
+    self.dateLabel.text = [self.timecardService getDateValue];
     [self setTimeCounter];
 }
 
-- (void)setDateTime:(NSDate*)date
-{
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"EEEE"];
-    self.dayOfTheWeekLabel.text = [dateFormatter stringFromDate:date];
-    [dateFormatter setDateFormat:@"MMM d, yyyy"];
-    self.dateLabel.text = [dateFormatter stringFromDate:date];
-}
 
 -(void)setTimeCounter
 {
-    //set counter value
-    NSDate *date = [self isClockedIn] ? self.timecard.timestampIn : self.timecard.timestampOut;
-    if (date) {
-        NSDate *now = [NSDate date];
-        NSCalendar *c = [NSCalendar currentCalendar];
-        NSDateComponents *components = [c components:NSCalendarUnitHour fromDate:date toDate:now options:0];
-        NSInteger hours = components.hour;
-        components = [c components:NSCalendarUnitMinute fromDate:date toDate:now options:0];
-        NSInteger minutes = components.minute - (hours * 60);
-        
-        self.counterLabel.text = [NSString stringWithFormat:@"%ih:%im", hours, minutes];
-    }
+    self.counterLabel.text = [self.timecardService getLoggedTimeValue];
 }
 
 - (void)startTimer
@@ -495,22 +431,4 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
         [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
     }
 }
-
-#pragma mark UIAlert delegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    switch (buttonIndex) {
-        case 0: {//sign out
-            self.timecard = nil; //clear timecard
-            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            [userDefaults setBool:NO forKey:@"logged_in"];
-            [self showLoginController];
-            break;
-        }
-        default:
-            break;
-    }
-}
-
 @end

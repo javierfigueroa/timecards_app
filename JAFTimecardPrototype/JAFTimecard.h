@@ -31,6 +31,7 @@
 //    "photo_out_url": "http://s3.amazonaws.com/timecards_photos/tenant_1/user_2/photo_out.jpg?1374527225"
 //}
 
+@class JAFProject;
 @interface JAFTimecard : NSObject
 
 @property (nonatomic, strong) NSDate *timestampIn;
@@ -40,9 +41,9 @@
 @property (nonatomic, strong) NSNumber *latitudeIn;
 @property (nonatomic, strong) NSNumber *latitudeOut;
 @property (nonatomic, strong) NSNumber *ID;
-@property (nonatomic, strong) NSString *projectID;
 @property (nonatomic, strong) UIImage *photoIn;
 @property (nonatomic, strong) UIImage *photoOut;
+@property (nonatomic, strong) JAFProject *project;
 
 - (id)initWithAttributes:(NSDictionary*)data;
 
