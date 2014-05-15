@@ -172,7 +172,11 @@
 #pragma mark - Actions
 
 - (IBAction)didPressPrimaryAction:(id)sender {
-    [self openImagePickerControllerWithType:UIImagePickerControllerSourceTypeCamera inController:self];
+    if ([[JAFSettingsService service] isPhotoEnabled]) {
+        [self openImagePickerControllerWithType:UIImagePickerControllerSourceTypeCamera inController:self];
+    }else{
+        [self clock:nil];
+    }
 }
 
 - (IBAction)didPressSecondaryAction:(id)sender {
@@ -184,6 +188,28 @@
         projectsController.actionsController = self;
         [self.navigationController pushViewController:projectsController animated:YES];
     }
+}
+
+- (void)clock:(UIImage *)image
+{
+    [SVProgressHUD showWithStatus:([self.timecardService clockedIn] ? @"Clocking out..." : @"Clocking in...") maskType:SVProgressHUDMaskTypeGradient];
+    
+    CLLocation *location = [[JAFSettingsService service] location];
+    [self.timecardService clockWithLocation:location picture:image andBlock:^(JAFTimecard *timecard, NSError *error) {
+        if (!error) {
+            [SVProgressHUD showSuccessWithStatus:@"All set!"];
+            
+            [self setState];
+            
+            if (timer) {
+                [timer invalidate];
+            }else{
+                [self startTimer];
+            }
+        }else{
+            [SVProgressHUD showErrorWithStatus:@"Something went wrong, please try again or contact administrator"];
+        }
+    }];
 }
 
 #pragma mark - Accessors
@@ -215,24 +241,7 @@
     
     // Remove views
     [picker dismissViewControllerAnimated:YES completion:^{
-        [SVProgressHUD showWithStatus:([self.timecardService clockedIn] ? @"Clocking out..." : @"Clocking in...") maskType:SVProgressHUDMaskTypeGradient];
-        
-        CLLocation *location = [[JAFSettingsService service] location];
-        [self.timecardService clockWithLocation:location picture:image andBlock:^(JAFTimecard *timecard, NSError *error) {
-            if (!error) {
-                [SVProgressHUD showSuccessWithStatus:@"All set!"];
-                
-                [self setState];
-                
-                if (timer) {
-                    [timer invalidate];
-                }else{
-                    [self startTimer];
-                }
-            }else{
-                [SVProgressHUD showErrorWithStatus:@"Something went wrong, please try again or contact administrator"];
-            }
-        }];
+        [self clock:image];
     }];
 }
 

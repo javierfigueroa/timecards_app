@@ -104,6 +104,57 @@
 }
 
 
++ (void)updateWithPassword:(NSString*)password newPassword:(NSString*)newPassword firstName:(NSString *)firstName lastName:(NSString *)lastName email:(NSString *)email completion:(void (^)(JAFUser *, NSError *))block
+{
+//    [JAFAPIClient setAPIDomain:@"www"];
+    
+    NSDictionary *parameters = @{@"user[email]":email,
+                                 @"user[password]":newPassword,
+                                 @"user[password_confirmation]":newPassword,
+                                 @"user[current_password]":password,
+                                 @"user[first_name]":firstName,
+                                 @"user[last_name]":lastName};
+    
+//    NSString *url = [NSString stringWithFormat:@"users", ID];
+    [[JAFAPIClient sharedClient] PUT:@"users" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *JSON = (NSDictionary*)responseObject;
+        
+        
+        NSError *error = nil;
+        JAFUser *user = nil;
+        
+        if (JSON[@"errors"]) {
+            NSDictionary *userInfo = [NSDictionary dictionaryWithDictionary: JSON[@"errors"]];
+            error = [[NSError alloc] initWithDomain:@"" code:400 userInfo:userInfo];
+        }else{
+            
+//            NSString *cleanDomain = [company stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+//            [JAFAPIClient setAPIDomain:cleanDomain];
+//            
+//            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//            JAFUser *user = [[JAFUser alloc] initWithAttributes:JSON];
+//            user.password = password;
+//            user.company = cleanDomain;
+//            
+//            NSData *myEncodedUser = [NSKeyedArchiver archivedDataWithRootObject:user];
+//            [defaults setObject:myEncodedUser forKey:@"user"];
+        }
+        
+//        [JAFAPIClient resetInstance];
+        
+        if (block) {
+            block(user, error);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (block) {
+            block(nil, error);
+        }
+    }];
+}
+
+
 + (void)resetPassword:(NSString*)username andCompany:(NSString *)company completion:(void (^)(JAFUser *, NSError *))block
 {
     NSString *cleanDomain = [company stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];

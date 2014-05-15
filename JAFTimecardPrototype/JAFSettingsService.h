@@ -20,7 +20,11 @@ extern NSString *const kLocationDidChangeNotification;
 
 + (JAFSettingsService *)service;
 
-- (BOOL) isTrackingLocation;
+- (BOOL)isTrackingLocation;
+
+- (BOOL)isPhotoEnabled;
+
+- (void)setPhotoEnabled:(BOOL)value;
 
 - (void)stopLocationServices:(NSNotification *)notification;
 

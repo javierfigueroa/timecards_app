@@ -123,15 +123,21 @@
 #endif
     
     AFHTTPRequestOperationManager *manager = [JAFAPIClient sharedClient];
-    NSMutableURLRequest *request = [manager.requestSerializer multipartFormRequestWithMethod:@"POST" URLString:[[NSURL URLWithString:@"timecards" relativeToURL:manager.baseURL] absoluteString] parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:UIImageJPEGRepresentation(timecard.photoIn, 0)
-                                    name:@"timecard[photo_in]"
-                                fileName:@"clock_in.jpeg"
-                                mimeType:@"image/jpeg"];
-#ifdef DEBUG
-        NSLog(@"%@", formData);
-#endif
-    }];
+    NSString *url = [[NSURL URLWithString:@"timecards" relativeToURL:manager.baseURL] absoluteString];
+    NSMutableURLRequest *request = nil;
+    if (!timecard.photoIn) {
+        request = [manager.requestSerializer requestWithMethod:@"POST" URLString:url parameters:parameters];
+    }else{
+        request = [manager.requestSerializer multipartFormRequestWithMethod:@"POST" URLString:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            [formData appendPartWithFileData:UIImageJPEGRepresentation(timecard.photoIn, 0)
+                                        name:@"timecard[photo_in]"
+                                    fileName:@"clock_in.jpeg"
+                                    mimeType:@"image/jpeg"];
+    #ifdef DEBUG
+            NSLog(@"%@", formData);
+    #endif
+        }];
+    }
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
 #ifdef DEBUG
@@ -174,15 +180,22 @@
     
     NSString *url = [NSString stringWithFormat:@"timecards/%@", timecard.ID];
     AFHTTPRequestOperationManager *manager = [JAFAPIClient sharedClient];
-    NSMutableURLRequest *request = [manager.requestSerializer multipartFormRequestWithMethod:@"PUT" URLString:[[NSURL URLWithString:url relativeToURL:manager.baseURL] absoluteString] parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:UIImageJPEGRepresentation(timecard.photoOut, 0)
-                                    name:@"timecard[photo_out]"
-                                fileName:@"clock_out.jpeg"
-                                mimeType:@"image/jpeg"];
-#ifdef DEBUG
-        NSLog(@"%@", formData);
-#endif
-    }];
+    url = [[NSURL URLWithString:url relativeToURL:manager.baseURL] absoluteString];
+    
+    NSMutableURLRequest *request = nil;
+    if (!timecard.photoOut) {
+        request = [manager.requestSerializer requestWithMethod:@"PUT" URLString:url parameters:parameters];
+    }else{
+        request = [manager.requestSerializer multipartFormRequestWithMethod:@"PUT" URLString:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            [formData appendPartWithFileData:UIImageJPEGRepresentation(timecard.photoOut, 0)
+                                        name:@"timecard[photo_out]"
+                                    fileName:@"clock_out.jpeg"
+                                    mimeType:@"image/jpeg"];
+    #ifdef DEBUG
+            NSLog(@"%@", formData);
+    #endif
+        }];
+    }
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
 #ifdef DEBUG

@@ -27,6 +27,8 @@
 
 + (void)signupWithUsername:(NSString*)username password:(NSString*)password firstName:(NSString *)firstName lastName:(NSString *)lastName company:(NSString *)company completion:(void (^)(JAFUser *, NSError *))block;
 
++ (void)updateWithPassword:(NSString*)password newPassword:(NSString*)newPassword firstName:(NSString *)firstName lastName:(NSString *)lastName email:(NSString *)email completion:(void (^)(JAFUser *, NSError *))block;
+
 + (void)resetPassword:(NSString*)username andCompany:(NSString *)company completion:(void (^)(JAFUser *, NSError *))block;
 
 @end

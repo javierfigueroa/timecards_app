@@ -156,7 +156,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     
-    NSArray *titles = @[@"Timecard", @"History", @"Settings", @"Sign out"];
+    NSArray *titles = @[@"Timecard", @"Pay Stubs", @"Settings", @"Sign out"];
     NSArray *images = @[@"IconHome", @"IconCalendar", @"IconSettings", @"IconEmpty"];
     cell.textLabel.text = titles[indexPath.row];
     cell.imageView.image = [UIImage imageNamed:images[indexPath.row]];

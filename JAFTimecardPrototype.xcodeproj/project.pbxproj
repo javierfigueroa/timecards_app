@@ -57,6 +57,8 @@
 		3B641BAD178E10F4002D33D4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B641BAC178E10F4002D33D4 /* CoreLocation.framework */; };
 		3BA753FC192081A2008D5B8D /* menu-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BA753FA192081A2008D5B8D /* menu-icon.png */; };
 		3BA753FD192081A2008D5B8D /* menu-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BA753FB192081A2008D5B8D /* menu-icon@2x.png */; };
+		3BA753FF192461A8008D5B8D /* JAFProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BA753FE192461A8008D5B8D /* JAFProfileViewController.xib */; };
+		3BA7540219246201008D5B8D /* JAFProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA7540119246201008D5B8D /* JAFProfileViewController.m */; };
 		3BC292B5191F2AB500DE5B9C /* JAFLeftMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC292B4191F2AB500DE5B9C /* JAFLeftMenuViewController.m */; };
 		3BC292B7191F2D4500DE5B9C /* MenuBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BC292B6191F2D4500DE5B9C /* MenuBackground@2x.png */; };
 		3BC292B9191F2F9A00DE5B9C /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BC292B8191F2F9A00DE5B9C /* defaults.plist */; };
@@ -145,6 +147,9 @@
 		3B641BAC178E10F4002D33D4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3BA753FA192081A2008D5B8D /* menu-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-icon.png"; sourceTree = "<group>"; };
 		3BA753FB192081A2008D5B8D /* menu-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-icon@2x.png"; sourceTree = "<group>"; };
+		3BA753FE192461A8008D5B8D /* JAFProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JAFProfileViewController.xib; sourceTree = "<group>"; };
+		3BA7540019246201008D5B8D /* JAFProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAFProfileViewController.h; sourceTree = "<group>"; };
+		3BA7540119246201008D5B8D /* JAFProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAFProfileViewController.m; sourceTree = "<group>"; };
 		3BC292B3191F2AB500DE5B9C /* JAFLeftMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAFLeftMenuViewController.h; sourceTree = "<group>"; };
 		3BC292B4191F2AB500DE5B9C /* JAFLeftMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAFLeftMenuViewController.m; sourceTree = "<group>"; };
 		3BC292B6191F2D4500DE5B9C /* MenuBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MenuBackground@2x.png"; sourceTree = "<group>"; };
@@ -243,6 +248,7 @@
 				3B5B81461916A3330018AE0D /* JAFForgotPasswordViewController.xib */,
 				3B5B814B1916DD740018AE0D /* JAFSignupViewController.xib */,
 				C6B8327B192298940098093C /* JAFSettingsTableViewController.xib */,
+				3BA753FE192461A8008D5B8D /* JAFProfileViewController.xib */,
 			);
 			name = Xibs;
 			sourceTree = "<group>";
@@ -264,6 +270,8 @@
 				3BC292B4191F2AB500DE5B9C /* JAFLeftMenuViewController.m */,
 				C6B832751922793F0098093C /* JAFSettingsTableViewController.h */,
 				C6B832761922793F0098093C /* JAFSettingsTableViewController.m */,
+				3BA7540019246201008D5B8D /* JAFProfileViewController.h */,
+				3BA7540119246201008D5B8D /* JAFProfileViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -449,6 +457,7 @@
 				3B1EDE3518303B8F00C258F6 /* red-btn-right@2x.png in Resources */,
 				3BA753FD192081A2008D5B8D /* menu-icon@2x.png in Resources */,
 				3B1EDE3218303B8F00C258F6 /* red-arrow-icon@2x.png in Resources */,
+				3BA753FF192461A8008D5B8D /* JAFProfileViewController.xib in Resources */,
 				3B1EDE2918303B8F00C258F6 /* green-btn-middle@2x.png in Resources */,
 				3B1EDE2F18303B8F00C258F6 /* green-outlined-right@2x.png in Resources */,
 				3B5B814D1916DD740018AE0D /* JAFSignupViewController.xib in Resources */,
@@ -548,6 +557,7 @@
 				3B5B81471916A3330018AE0D /* JAFForgotPasswordViewController.m in Sources */,
 				3B641BA5178D0704002D33D4 /* JAFActionsViewController.m in Sources */,
 				3BF11BA41835BC3E00F1737F /* JAFTextField.m in Sources */,
+				3BA7540219246201008D5B8D /* JAFProfileViewController.m in Sources */,
 				3B3BE34F179DB81C0085E74D /* JAFAPIClient.m in Sources */,
 				3B3BE357179DBC0F0085E74D /* JAFTimecard.m in Sources */,
 				3B3BE35A179DC6AF0085E74D /* JAFUser.m in Sources */,

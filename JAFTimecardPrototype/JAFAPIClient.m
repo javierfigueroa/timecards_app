@@ -21,7 +21,7 @@ static AFHTTPRequestOperationManager *_sharedClient = nil;
 + (void)setAPIDomain:(NSString*)domain
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *baseUrl = [defaults valueForKey:@"server"];
+    NSString *baseUrl = @"timecards.dev:3000";// [defaults valueForKey:@"server"];
     NSString *url = [NSString stringWithFormat:@"http://%@.%@", domain, baseUrl ? baseUrl : @"timecards.io"];
     [defaults setValue:url forKey:@"service_url"];
     [[self class] resetInstance];
