@@ -14,10 +14,12 @@
 #import "JAFLoginViewController.h"
 #import "JAFAppDelegate.h"
 #import "JAFSettingsTableViewController.h"
+#import "JAFSettingsService.h"
 
 @interface JAFLeftMenuViewController ()
 
-//@property (strong, readwrite, nonatomic) UITableView *tableView;
+@property (strong, readwrite, nonatomic) UIImageView *avatar;
+@property (strong, readwrite, nonatomic) UILabel *name;
 
 @end
 
@@ -31,32 +33,42 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.opaque = NO;
+//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.tableHeaderView = ({
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 184.0f)];
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 40, 100, 100)];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 140.0f)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 30, 60, 60)];
         imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         imageView.image = [[JAFTimecardService service] getAvatar];
         imageView.layer.masksToBounds = YES;
-        imageView.layer.cornerRadius = 50.0;
+        imageView.layer.cornerRadius = 30.0;
         imageView.layer.borderColor = [UIColor whiteColor].CGColor;
         imageView.layer.borderWidth = 3.0f;
         imageView.layer.rasterizationScale = [UIScreen mainScreen].scale;
         imageView.layer.shouldRasterize = YES;
         imageView.clipsToBounds = YES;
         
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
-        label.text = [[JAFTimecardService service] getName];
-        label.font = [UIFont fontWithName:@"OpenSans-Bold" size:21];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 100, 0, 200)];
+        label.text = [[JAFSettingsService service] getLoggedUserName];
+        label.font = [UIFont fontWithName:@"OpenSans-Bold" size:14];
         label.backgroundColor = [UIColor clearColor];
         label.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
         [label sizeToFit];
         label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         
+        self.avatar = imageView;
         [view addSubview:imageView];
+        self.name = label;
         [view addSubview:label];
         view;
     });
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.avatar.image = [[JAFTimecardService service] getAvatar];
+    self.name.text = [[JAFSettingsService service] getLoggedUserName];
 }
 
 #pragma mark -
@@ -107,18 +119,18 @@
             [self.frostedViewController hideMenuViewController];
             break;
         }
-        case 1:
-            //history
-            [self.frostedViewController hideMenuViewController];
-            break;
-        case 2:{
+//        case 1:
+//            //history
+//            [self.frostedViewController hideMenuViewController];
+//            break;
+        case 1:{
             //settings
             UINavigationController *settingsController = [[UINavigationController alloc] initWithRootViewController:[[JAFSettingsTableViewController alloc] init]];
             self.frostedViewController.contentViewController = settingsController;
             [self.frostedViewController hideMenuViewController];
             break;
         }
-        case 3:
+        case 2:
             //sign out
             [self.frostedViewController hideMenuViewController];
             [self didPressSignOut];
@@ -143,7 +155,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
 {
-    return 4;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -156,10 +168,10 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     
-    NSArray *titles = @[@"Timecard", @"Pay Stubs", @"Settings", @"Sign out"];
-    NSArray *images = @[@"IconHome", @"IconCalendar", @"IconSettings", @"IconEmpty"];
+    NSArray *titles = @[@"Timecard", @"Settings", @"Sign out"];
+//    NSArray *images = @[@"IconHome", @"IconSettings", @"IconEmpty"];
     cell.textLabel.text = titles[indexPath.row];
-    cell.imageView.image = [UIImage imageNamed:images[indexPath.row]];
+  //  cell.imageView.image = [UIImage imageNamed:images[indexPath.row]];
     
     return cell;
 }

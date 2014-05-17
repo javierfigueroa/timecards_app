@@ -14,6 +14,7 @@ extern NSString *const kStopLocationServicesNotification;
 extern NSString *const kStartLocationServicesNotification;
 extern NSString *const kLocationDidChangeNotification;
 
+@class JAFUser;
 @interface JAFSettingsService : NSObject<CLLocationManagerDelegate>
 
 @property (nonatomic, strong) CLLocation *location;
@@ -23,6 +24,12 @@ extern NSString *const kLocationDidChangeNotification;
 - (BOOL)isTrackingLocation;
 
 - (BOOL)isPhotoEnabled;
+
+- (JAFUser*)getLoggedUser;
+
+- (void)setLoggedUser:(JAFUser*)user;
+
+- (NSString *)getLoggedUserName;
 
 - (void)setPhotoEnabled:(BOOL)value;
 

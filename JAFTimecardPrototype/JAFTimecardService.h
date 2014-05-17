@@ -35,8 +35,6 @@
 
 - (NSString *)getLoggedTimeValue;
 
-- (NSString *)getName;
-
 - (BOOL)hasProjects;
 
 - (void)clearTimecard;

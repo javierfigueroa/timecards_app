@@ -22,7 +22,7 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.font = [UIFont fontWithName:@"OpenSans-Light" size:24];
+    self.font = [UIFont fontWithName:@"OpenSans-Light" size:self.font.pointSize];
 }
 
 /*

@@ -249,7 +249,7 @@
 
 - (void)setState
 {
-    self.nameLabel.text = [self.timecardService getName];
+    self.nameLabel.text = [[JAFSettingsService service] getLoggedUserName];
     
     //make invisible
     self.coachLabel.alpha = 0;

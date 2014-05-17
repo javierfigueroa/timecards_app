@@ -8,6 +8,7 @@
 
 #import "JAFUser.h"
 #import "JAFAPIClient.h"
+#import "JAFSettingsService.h"
 
 @implementation JAFUser
 
@@ -17,9 +18,10 @@
     if (self) {
         self.lastName = data[@"last_name"];
         self.firstName = data[@"first_name"];
-        self.authToken = data[@"token"];
+        self.authToken = data[@"token"] ? data[@"token"] : data[@"authentication_token"];
         self.username = data[@"email"];
         self.ID = data[@"id"];
+        self.company = data[@"company_name"];
     }
     return self;
 }
@@ -34,14 +36,12 @@
     [[JAFAPIClient sharedClient] POST:@"users/sign_in.json" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *JSON = (NSDictionary*)responseObject;
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        
         JAFUser *user = [[JAFUser alloc] initWithAttributes:JSON];
         user.password = password;
         user.company = cleanDomain;
         
-        NSData *myEncodedUser = [NSKeyedArchiver archivedDataWithRootObject:user];
-        [defaults setObject:myEncodedUser forKey:@"user"];
-
+        [[JAFSettingsService service] setLoggedUser:user];
         [JAFAPIClient resetInstance];
         
         if (block) {
@@ -81,13 +81,11 @@
             NSString *cleanDomain = [company stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
             [JAFAPIClient setAPIDomain:cleanDomain];
             
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
             JAFUser *user = [[JAFUser alloc] initWithAttributes:JSON];
             user.password = password;
             user.company = cleanDomain;
             
-            NSData *myEncodedUser = [NSKeyedArchiver archivedDataWithRootObject:user];
-            [defaults setObject:myEncodedUser forKey:@"user"];
+            [[JAFSettingsService service] setLoggedUser:user];
         }
         
         [JAFAPIClient resetInstance];
@@ -106,17 +104,15 @@
 
 + (void)updateWithPassword:(NSString*)password newPassword:(NSString*)newPassword firstName:(NSString *)firstName lastName:(NSString *)lastName email:(NSString *)email completion:(void (^)(JAFUser *, NSError *))block
 {
-//    [JAFAPIClient setAPIDomain:@"www"];
-    
     NSDictionary *parameters = @{@"user[email]":email,
                                  @"user[password]":newPassword,
                                  @"user[password_confirmation]":newPassword,
                                  @"user[current_password]":password,
                                  @"user[first_name]":firstName,
-                                 @"user[last_name]":lastName};
+                                 @"user[last_name]":lastName,
+                                 @"_method":@"put"};
     
-//    NSString *url = [NSString stringWithFormat:@"users", ID];
-    [[JAFAPIClient sharedClient] PUT:@"users" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[JAFAPIClient sharedClient] POST:@"users" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *JSON = (NSDictionary*)responseObject;
         
@@ -128,20 +124,9 @@
             NSDictionary *userInfo = [NSDictionary dictionaryWithDictionary: JSON[@"errors"]];
             error = [[NSError alloc] initWithDomain:@"" code:400 userInfo:userInfo];
         }else{
-            
-//            NSString *cleanDomain = [company stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-//            [JAFAPIClient setAPIDomain:cleanDomain];
-//            
-//            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//            JAFUser *user = [[JAFUser alloc] initWithAttributes:JSON];
-//            user.password = password;
-//            user.company = cleanDomain;
-//            
-//            NSData *myEncodedUser = [NSKeyedArchiver archivedDataWithRootObject:user];
-//            [defaults setObject:myEncodedUser forKey:@"user"];
+            JAFUser *user = [[JAFUser alloc] initWithAttributes:JSON];
+            [[JAFSettingsService service] setLoggedUser:user];
         }
-        
-//        [JAFAPIClient resetInstance];
         
         if (block) {
             block(user, error);
@@ -149,6 +134,10 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block) {
+            NSString *response = [operation responseString];
+            NSDictionary *userInfo = [NSJSONSerialization JSONObjectWithData:[response dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+            
+            error = [[NSError alloc] initWithDomain:@"" code:400 userInfo:userInfo];
             block(nil, error);
         }
     }];

@@ -9,7 +9,6 @@
 #import "JAFTimecardService.h"
 #import "JAFTimecard.h"
 #import "JAFProject.h"
-#import "JAFUser.h"
 
 static JAFTimecardService *_sharedService = nil;
 
@@ -166,14 +165,6 @@ static JAFTimecardService *_sharedService = nil;
     NSInteger minutes = components.minute - (hours * 60);
     
     return [NSString stringWithFormat:@"%lih:%lim",(long) hours, (long)minutes];
-}
-
-- (NSString *)getName
-{
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSData *myEncodedObject = [userDefaults objectForKey:@"user"];
-    JAFUser *user = [NSKeyedUnarchiver unarchiveObjectWithData: myEncodedObject];
-    return [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
 }
 
 - (void)clearTimecard

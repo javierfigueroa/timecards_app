@@ -10,6 +10,7 @@
 #import "JAFButton.h"
 #import "JAFTextField.h"
 #import "JAFUser.h"
+#import "JAFAppDelegate.h"
 
 @interface JAFProfileViewController ()
 
@@ -73,10 +74,42 @@
 
 - (IBAction)didPressSave:(id)sender {
     
+    if (self.firstNameTextField.text.length == 0 ||
+        self.lastNameTextField.text.length == 0 ||
+        self.passwordTextField.text.length == 0) {
+        [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Name and password fields are required", nil)];
+        return;
+    }
+    
     JAFUser *user = [self user];
+    
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
     [JAFUser updateWithPassword:self.passwordTextField.text newPassword:self.updatePasswordTextField.text firstName:self.firstNameTextField.text lastName:self.lastNameTextField.text email:user.username completion:^(JAFUser *user, NSError *error) {
         
-        
+        [SVProgressHUD dismiss];
+        if (!error) {
+            JAFAppDelegate *appDelegate = (JAFAppDelegate *)[[UIApplication sharedApplication] delegate];
+            [appDelegate showLoginController];
+        }else{
+            NSMutableString *message = [[NSMutableString alloc] init];
+            NSArray *passwordErrors = error.userInfo[@"errors"][@"password"];
+            if (passwordErrors) {
+                [message appendString:@"Password:\n"];
+                for (NSString* passwordError in passwordErrors) {
+                    [message appendString:[NSString stringWithFormat:@"%@\n", passwordError]];
+                }
+            }
+
+            NSArray *currentPasswordErrors = error.userInfo[@"errors"][@"current_password"];
+            if (currentPasswordErrors) {
+                [message appendString:@"Current Password:\n"];
+                for (NSString* passwordError in currentPasswordErrors) {
+                    [message appendString:[NSString stringWithFormat:@"%@\n", passwordError]];
+                }
+            }
+
+            [SVProgressHUD showErrorWithStatus:message];
+        }
     }];
 }
 @end

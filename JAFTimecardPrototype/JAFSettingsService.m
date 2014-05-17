@@ -7,7 +7,7 @@
 //
 
 #import "JAFSettingsService.h"
-
+#import "JAFUser.h"
 
 NSString *const kStartLocationServicesNotification = @"kStartLocationServicesNotification";
 NSString *const kStopLocationServicesNotification = @"kStopLocationServicesNotification";
@@ -55,6 +55,27 @@ static JAFSettingsService *_sharedService = nil;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     BOOL locationEnabled = [defaults boolForKey:@"location_enabled"];
     return [CLLocationManager locationServicesEnabled] && locationEnabled;
+}
+
+- (JAFUser *)getLoggedUser
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSData *myEncodedObject = [userDefaults objectForKey:@"user"];
+    return [NSKeyedUnarchiver unarchiveObjectWithData: myEncodedObject];
+}
+
+- (void)setLoggedUser:(JAFUser*)user
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *myEncodedUser = [NSKeyedArchiver archivedDataWithRootObject:user];
+    [defaults setObject:myEncodedUser forKey:@"user"];
+    [defaults synchronize];
+}
+
+- (NSString *)getLoggedUserName
+{
+    JAFUser* user = [self getLoggedUser];
+    return [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
 }
 
 - (CLLocationManager *)locationManager
