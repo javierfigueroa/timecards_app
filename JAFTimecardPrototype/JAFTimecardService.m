@@ -164,7 +164,9 @@ static JAFTimecardService *_sharedService = nil;
     components = [c components:NSCalendarUnitMinute fromDate:date toDate:now options:0];
     NSInteger minutes = components.minute - (hours * 60);
     
-    return [NSString stringWithFormat:@"%lih:%lim",(long) hours, (long)minutes];
+    NSString *time = [NSString stringWithFormat:@"%lih:%lim",(long) hours, (long)minutes];
+//    NSLog(@"%@", time);
+    return time;
 }
 
 - (void)clearTimecard

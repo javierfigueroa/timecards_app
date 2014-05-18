@@ -48,7 +48,7 @@
         imageView.layer.shouldRasterize = YES;
         imageView.clipsToBounds = YES;
         
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 100, 0, 200)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 100, 0, 320)];
         label.text = [[JAFSettingsService service] getLoggedUserName];
         label.font = [UIFont fontWithName:@"OpenSans-Bold" size:14];
         label.backgroundColor = [UIColor clearColor];

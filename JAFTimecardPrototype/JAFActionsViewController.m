@@ -78,7 +78,6 @@
         [self showLoginController];
     }else{
         [self getTimecard];
-        [self startTimer];
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getTimecard) name:kUserLoggedInNotification object:nil];
@@ -93,6 +92,7 @@
 {
     [super viewWillAppear:animated];
     [self getProjects];
+    [self startTimer];
 }
 
 - (void)didReceiveMemoryWarning
