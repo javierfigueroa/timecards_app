@@ -11,6 +11,8 @@
 #import "JAFUser.h"
 #import "JAFProject.h"
 #import "AFHTTPRequestOperationManager.h"
+#import "JAFUser.h"
+#import "JAFSummary.h"
 
 @implementation JAFTimecard
 
@@ -39,16 +41,24 @@
             self.timestampOut = [formatter dateFromString:data[@"timestamp_out"]];
         }
         
-        self.latitudeIn = [NSNumber numberWithDouble:[data[@"latitude_in"] doubleValue]];
+        if (data[@"latitude_in"] != (id)[NSNull null]) {
+            self.latitudeIn = [NSNumber numberWithDouble:[data[@"latitude_in"] doubleValue]];
+        }
         
         if (data[@"latitude_out"] != (id)[NSNull null]) {
             self.latitudeOut = [NSNumber numberWithDouble:[data[@"latitude_out"] doubleValue]];
         }
         
-        self.longitudeIn = [NSNumber numberWithDouble:[data[@"longitude_in"] doubleValue]];
+        if (data[@"longitude_in"] != (id)[NSNull null]) {
+            self.longitudeIn = [NSNumber numberWithDouble:[data[@"longitude_in"] doubleValue]];
+        }
         
         if (data[@"longitude_out"] != (id)[NSNull null]) {
             self.longitudeOut = [NSNumber numberWithDouble:[data[@"longitude_out"] doubleValue]];
+        }
+        
+        if (data[@"user"] && data[@"user"] != (id)[NSNull null]) {
+            self.user = [[JAFUser alloc] initWithAttributes:data[@"user"]];
         }
     }
     return self;
@@ -219,6 +229,42 @@
         
     }];
     [manager.operationQueue addOperation:operation];
+}
+
++ (void)getTimecardsFrom:(NSDate *)from to:(NSDate *)to forUserId:(NSString *)userId andCompletion:(void (^)(NSArray *, JAFSummary *, NSError *))block{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MM-dd-yyyy"];
+    NSString *fromFormatted = [formatter stringFromDate:from];
+    NSString *toFormatted = [formatter stringFromDate:to];
+    NSString *url = [NSString stringWithFormat:@"/app/timecards/%@/%@", fromFormatted, toFormatted];
+    
+    [[JAFAPIClient sharedClient] GET:url parameters:@{@"user_id": userId} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+#ifdef DEBUG
+        NSLog(@"%@", responseObject);
+#endif
+        NSArray *JSONtimecards = (NSArray*)responseObject;
+        NSMutableArray *timecards = [[NSMutableArray alloc] initWithCapacity:JSONtimecards.count];
+        JAFSummary *summary = [[JAFSummary alloc] init];
+        
+        for (NSDictionary *JSONtimecard in JSONtimecards) {
+            JAFTimecard *timecard = [[JAFTimecard alloc] initWithAttributes:JSONtimecard];
+            [timecards addObject:timecard];
+            [summary addTimeFrom:timecard.timestampIn to:timecard.timestampOut];
+            [summary addEarningsFrom:timecard.timestampIn to:timecard.timestampOut wage:timecard.user.wage];
+        }
+        
+        if (block) {
+            block([NSArray arrayWithArray:timecards], summary, nil);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        if (block) {
+            block(nil, nil, [NSError errorWithDomain:[error localizedDescription] code:operation.response.statusCode userInfo:nil]);
+        }
+    }];
+    
 }
 
 + (NSDateComponents*)componentsFromDate:(NSDate*)date

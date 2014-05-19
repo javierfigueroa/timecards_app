@@ -18,10 +18,26 @@
     if (self) {
         self.lastName = data[@"last_name"];
         self.firstName = data[@"first_name"];
-        self.authToken = data[@"token"] ? data[@"token"] : data[@"authentication_token"];
-        self.username = data[@"email"];
-        self.ID = data[@"id"];
-        self.company = data[@"company_name"];
+        
+        if (data[@"token"]) {
+            self.authToken = data[@"token"] ? data[@"token"] : data[@"authentication_token"];
+        }
+        
+        if (data[@"email"]) {
+            self.username = data[@"email"];
+        }
+        
+        if (data[@"id"]) {
+            self.ID = data[@"id"];
+        }
+        
+        if (data[@"company_name"]) {
+            self.company = data[@"company_name"];
+        }
+        
+        if (data[@"wage"]) {
+            self.wage = [NSNumber numberWithFloat:[data[@"wage"] floatValue]];
+        }
     }
     return self;
 }

@@ -15,6 +15,7 @@
 #import "JAFAppDelegate.h"
 #import "JAFSettingsTableViewController.h"
 #import "JAFSettingsService.h"
+#import "JAFSummaryViewController.h"
 
 @interface JAFLeftMenuViewController ()
 
@@ -33,7 +34,6 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.opaque = NO;
-//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.tableHeaderView = ({
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 140.0f)];
@@ -79,6 +79,11 @@
     cell.backgroundColor = [UIColor clearColor];
     cell.textLabel.textColor = [UIColor colorWithRed:34/255.0f green:44/255.0f blue:51/255.0f alpha:1.0f];
     cell.textLabel.font = [UIFont fontWithName:@"OpenSans-Regular" size:17];
+    
+    NSArray *titles = @[@"Timecard", @"Summary", @"Settings", @"Sign out"];
+//    NSArray *images = @[@"clock-icon", @"calendar-icon", @"calendar-icon", @"logout-icon-50"];
+    cell.textLabel.text = titles[indexPath.row];
+//    cell.imageView.image = [UIImage imageNamed:images[indexPath.row]];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)sectionIndex
@@ -119,18 +124,21 @@
             [self.frostedViewController hideMenuViewController];
             break;
         }
-//        case 1:
-//            //history
-//            [self.frostedViewController hideMenuViewController];
-//            break;
         case 1:{
+            //summary
+            UINavigationController *summaryController = [[UINavigationController alloc] initWithRootViewController:[JAFSummaryViewController controller]];
+            self.frostedViewController.contentViewController = summaryController;
+            [self.frostedViewController hideMenuViewController];
+            break;
+        }
+        case 2:{
             //settings
             UINavigationController *settingsController = [[UINavigationController alloc] initWithRootViewController:[[JAFSettingsTableViewController alloc] init]];
             self.frostedViewController.contentViewController = settingsController;
             [self.frostedViewController hideMenuViewController];
             break;
         }
-        case 2:
+        case 3:
             //sign out
             [self.frostedViewController hideMenuViewController];
             [self didPressSignOut];
@@ -155,7 +163,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
 {
-    return 3;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -167,11 +175,6 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
-    
-    NSArray *titles = @[@"Timecard", @"Settings", @"Sign out"];
-//    NSArray *images = @[@"IconHome", @"IconSettings", @"IconEmpty"];
-    cell.textLabel.text = titles[indexPath.row];
-  //  cell.imageView.image = [UIImage imageNamed:images[indexPath.row]];
     
     return cell;
 }

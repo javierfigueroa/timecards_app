@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-@class JAFTimecard, JAFProject;
+@class JAFTimecard, JAFProject, JAFSummary;
 @interface JAFTimecardService : NSObject
 
 
@@ -44,6 +44,8 @@
 - (void)getProjectsWithBlock:(void (^)(void))block;
 
 - (NSArray *)getProjects;
+
+- (void)getSummaryFrom:(NSDate*)from to:(NSDate*)to forUserId:(NSString*)userId andCompletion:(void (^)(JAFSummary *summary, NSError *error))block;
 
 - (void)clockWithLocation:(CLLocation*)location
                   picture:(UIImage *)picture

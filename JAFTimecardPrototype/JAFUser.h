@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSString *authToken;
 @property (nonatomic, strong) NSString *password;
 @property (nonatomic, strong) NSString *company;
+@property (nonatomic, strong) NSNumber *wage;
 
 - (id)initWithAttributes:(NSDictionary*)data;
 
