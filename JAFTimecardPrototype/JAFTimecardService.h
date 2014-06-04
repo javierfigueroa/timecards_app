@@ -9,9 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-@class JAFTimecard, JAFProject, JAFSummary;
+@class JAFTimecard, JAFProject, JAFSummary, JAFUser;
 @interface JAFTimecardService : NSObject
 
+@property (nonatomic, strong) JAFSummary *thisPeriod;
+@property (nonatomic, strong) JAFSummary *yearToDate;
 
 + (JAFTimecardService *)service;
 
@@ -53,4 +55,6 @@
 
 - (void)assignProject:(JAFProject *)project
              andBlock:(void (^)(JAFTimecard *timecard, NSError *error))block;
+
+- (void)getSummaryForUser:(JAFUser*)user;
 @end

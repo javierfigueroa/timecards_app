@@ -20,6 +20,8 @@
 
 - (NSDate*)twoWeeksAgo;
 
+- (NSDate*)nextDay;
+
 - (NSDate*)yearToDate;
 
 @end

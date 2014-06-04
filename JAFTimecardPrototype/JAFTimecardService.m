@@ -241,11 +241,30 @@ static JAFTimecardService *_sharedService = nil;
     }];
 }
 
+- (void)getSummaryForUser:(JAFUser*)user
+{
+    NSDate *now = [[NSDate new] nextDay];
+    NSDate *twoWeeksAgo = [now twoWeeksAgo];
+    NSDate *yearStart = [now yearToDate];
+    
+    [self getSummaryFrom:twoWeeksAgo to:now forUserId:user.ID andCompletion:^(JAFSummary *summary, NSError *error) {
+        self.thisPeriod = summary;
+    }];
+    
+    
+    [self getSummaryFrom:yearStart to:now forUserId:user.ID andCompletion:^(JAFSummary *summary, NSError *error) {
+        self.yearToDate = summary;
+    }];
+
+}
+
 - (void)getSummaryFrom:(NSDate *)from to:(NSDate *)to forUserId:(NSString *)userId andCompletion:(void (^)(JAFSummary *, NSError *))block
 {
     [JAFTimecard getTimecardsFrom:from to:to forUserId:userId andCompletion:^(NSArray *timecards, JAFSummary *summary, NSError *error) {
         if (!error) {            
             if (block) {
+                summary.from = from;
+                summary.to = to;
                 block(summary, nil);
             }
         }else{

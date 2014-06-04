@@ -239,24 +239,27 @@
     NSString *url = [NSString stringWithFormat:@"/app/timecards/%@/%@", fromFormatted, toFormatted];
     
     [[JAFAPIClient sharedClient] GET:url parameters:@{@"user_id": userId} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 #ifdef DEBUG
-        NSLog(@"%@", responseObject);
+            NSLog(@"%@", responseObject);
 #endif
-        NSArray *JSONtimecards = (NSArray*)responseObject;
-        NSMutableArray *timecards = [[NSMutableArray alloc] initWithCapacity:JSONtimecards.count];
-        JAFSummary *summary = [[JAFSummary alloc] init];
-        
-        for (NSDictionary *JSONtimecard in JSONtimecards) {
-            JAFTimecard *timecard = [[JAFTimecard alloc] initWithAttributes:JSONtimecard];
-            [timecards addObject:timecard];
-            [summary addTimeFrom:timecard.timestampIn to:timecard.timestampOut];
-            [summary addEarningsFrom:timecard.timestampIn to:timecard.timestampOut wage:timecard.user.wage];
-        }
-        
-        if (block) {
-            block([NSArray arrayWithArray:timecards], summary, nil);
-        }
+            NSArray *JSONtimecards = (NSArray*)responseObject;
+            NSMutableArray *timecards = [[NSMutableArray alloc] initWithCapacity:JSONtimecards.count];
+            JAFSummary *summary = [[JAFSummary alloc] init];
+            
+            for (NSDictionary *JSONtimecard in JSONtimecards) {
+                JAFTimecard *timecard = [[JAFTimecard alloc] initWithAttributes:JSONtimecard];
+                [timecards addObject:timecard];
+                [summary addTimeFrom:timecard.timestampIn to:timecard.timestampOut];
+                [summary addEarningsFrom:timecard.timestampIn to:timecard.timestampOut wage:timecard.user.wage];
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^(void) {
+                if (block) {
+                    block([NSArray arrayWithArray:timecards], summary, nil);
+                }
+            });
+        });
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);

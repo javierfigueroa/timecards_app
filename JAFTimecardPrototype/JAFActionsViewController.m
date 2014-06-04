@@ -201,7 +201,7 @@
             
             [self setState];
             
-            if (timer) {
+            if ([self.timecardService clockedIn]) {
                 [timer invalidate];
             }else{
                 [self startTimer];
@@ -359,8 +359,8 @@
 
 - (void)startTimer
 {
-    if (!timer) {
-        timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(setTimeCounter) userInfo:nil repeats:YES];
+    if (timer == nil) {
+        timer = [NSTimer timerWithTimeInterval:10.0 target:self selector:@selector(setTimeCounter) userInfo:nil repeats:YES];
         [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
     }
 }

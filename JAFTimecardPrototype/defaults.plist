@@ -5,6 +5,6 @@
 	<key>protocol</key>
 	<string>http</string>
 	<key>server</key>
-	<string>firehound.co:3000</string>
+	<string>timecards.io</string>
 </dict>
 </plist>

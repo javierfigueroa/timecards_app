@@ -19,6 +19,15 @@
     return [c dateFromComponents:components];
 }
 
+- (NSDate*)nextDay
+{
+    NSCalendar *c = [NSCalendar currentCalendar];
+    NSDateComponents *components = [c components:(NSWeekdayCalendarUnit | NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:self];
+    
+    [components setDay:([components day] + 1)];
+    return [c dateFromComponents:components];
+}
+
 - (NSDate*)yearToDate
 {
     NSCalendar *c = [NSCalendar currentCalendar];

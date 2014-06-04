@@ -17,7 +17,8 @@
 #import "JAFUser.h"
 
 @interface JAFSummaryViewController ()
-
+@property (nonatomic, strong) JAFSummary *thisPeriod;
+@property (nonatomic, strong) JAFSummary *yearToDate;
 @end
 
 @implementation JAFSummaryViewController
@@ -26,6 +27,16 @@
 + (JAFSummaryViewController *)controller
 {
     return [[JAFSummaryViewController alloc] initWithNibName:@"JAFSummaryViewController" bundle:nil];
+}
+
+- (JAFSummary *)thisPeriod
+{
+    return [[JAFTimecardService service] thisPeriod];
+}
+
+- (JAFSummary *)yearToDate
+{
+    return [[JAFTimecardService service] yearToDate];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -44,7 +55,14 @@
     [self setSideMenu];
     self.navigationItem.titleView = self.segmentedControl;
    
-    [self setThisPeriodSummary];
+    UIBarButtonItem *refresh = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(didSelectSegment:)];
+    self.navigationItem.rightBarButtonItem = refresh;
+    
+    if (self.thisPeriod == nil) {
+        [self setThisPeriodSummary];
+    }else{
+        [self setSummaryView:self.thisPeriod];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -53,15 +71,28 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)refresh
+{
+    
+}
 
 - (IBAction)didSelectSegment:(id)sender {
+    BOOL refresh = [sender isKindOfClass:[UIBarButtonItem class]];
     switch (self.segmentedControl.selectedSegmentIndex) {
         case 0:{
-            [self setThisPeriodSummary];
+            if (refresh || self.thisPeriod == nil) {
+                [self setThisPeriodSummary];
+            }else{
+                [self setSummaryView:self.thisPeriod];
+            }
             break;
         }
         case 1: {
-            [self setYearToDateSummary];
+            if (refresh || self.yearToDate == nil) {
+                [self setYearToDateSummary];
+            }else{
+                [self setSummaryView:self.yearToDate];
+            }
             break;
         }
         default:
@@ -71,39 +102,54 @@
 
 - (void)setThisPeriodSummary
 {
-    NSDate *now = [NSDate new];
+    NSDate *now = [[NSDate new] nextDay];
     NSDate *twoWeeksAgo = [now twoWeeksAgo];
     JAFUser *user = [[JAFSettingsService service] getLoggedUser];
-    [self getSummaryFrom:now to:twoWeeksAgo forUser:user];
+    
+    [self getSummaryFrom:twoWeeksAgo to:now forUser:user andCompletion:^(JAFSummary *summary) {
+        self.thisPeriod = summary;
+    }];
 }
 
 - (void)setYearToDateSummary
 {
     
-    NSDate *now = [NSDate new];
+    NSDate *now = [[NSDate new] nextDay];
     NSDate *yearStart = [now yearToDate];
     JAFUser *user = [[JAFSettingsService service] getLoggedUser];
     
-    [self getSummaryFrom:now to:yearStart forUser:user];
+    [self getSummaryFrom:yearStart to:now forUser:user andCompletion:^(JAFSummary *summary) {
+        self.yearToDate = summary;
+    }];
 
 }
 
-- (void)getSummaryFrom:(NSDate *)from to:(NSDate *)to forUser:(JAFUser *)user
+- (void)getSummaryFrom:(NSDate *)from to:(NSDate *)to forUser:(JAFUser *)user andCompletion:(void (^)(JAFSummary *))block
 {
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
-    [[JAFTimecardService service] getSummaryFrom:to to:from forUserId:user.ID andCompletion:^(JAFSummary *summary, NSError *error) {
+    [[JAFTimecardService service] getSummaryFrom:from to:to forUserId:user.ID andCompletion:^(JAFSummary *summary, NSError *error) {
         [SVProgressHUD dismiss];
         if (!error) {
-            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            [formatter setDateFormat:@"MM/dd/yy"];
-            
-            self.fromLabel.text = [formatter stringFromDate:to];
-            self.toLabel.text = [formatter stringFromDate:from];
-            self.hoursLabel.text = [summary getTimeString];
-            self.earningsLabel.text = [NSString stringWithFormat:@"%.02f", summary.earnings];
+            summary.from = from;
+            summary.to = to;
+            [self setSummaryView:summary];
+            if(block) {
+                block(summary);
+            }
         }
         
     }];
+}
+
+- (void)setSummaryView:(JAFSummary*)summary
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MM/dd/yy"];
+    
+    self.fromLabel.text = [formatter stringFromDate:summary.from];
+    self.toLabel.text = [formatter stringFromDate:summary.to];
+    self.hoursLabel.text = [summary getTimeString];
+    self.earningsLabel.text = [NSString stringWithFormat:@"%.02f", summary.earnings];
 }
 
 @end
