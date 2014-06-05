@@ -108,6 +108,7 @@
     
     [self getSummaryFrom:twoWeeksAgo to:now forUser:user andCompletion:^(JAFSummary *summary) {
         self.thisPeriod = summary;
+        [[JAFTimecardService service] setThisPeriod:summary];
     }];
 }
 
@@ -120,6 +121,7 @@
     
     [self getSummaryFrom:yearStart to:now forUser:user andCompletion:^(JAFSummary *summary) {
         self.yearToDate = summary;
+        [[JAFTimecardService service] setYearToDate:summary];
     }];
 
 }

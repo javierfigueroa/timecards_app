@@ -201,8 +201,9 @@
             
             [self setState];
             
-            if ([self.timecardService clockedIn]) {
+            if (![self.timecardService clockedIn]) {
                 [timer invalidate];
+                timer = nil;
             }else{
                 [self startTimer];
             }
