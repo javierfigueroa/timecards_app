@@ -7,7 +7,7 @@
 //
 
 #import "JAFSettingsService.h"
-
+#import "JAFUser.h"
 
 NSString *const kStartLocationServicesNotification = @"kStartLocationServicesNotification";
 NSString *const kStopLocationServicesNotification = @"kStopLocationServicesNotification";
@@ -16,6 +16,9 @@ NSString *const kLocationDidChangeNotification = @"kLocationDidChangeNotificatio
 static JAFSettingsService *_sharedService = nil;
 
 @interface JAFSettingsService()
+{
+    UIAlertView *_locationServicesAlert;
+}
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
 
@@ -34,9 +37,45 @@ static JAFSettingsService *_sharedService = nil;
     return _sharedService;
 }
 
-- (BOOL) isTrackingLocation
+- (BOOL)isPhotoEnabled
 {
-    return [CLLocationManager locationServicesEnabled];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults boolForKey:@"photo_enabled"];
+}
+
+- (void)setPhotoEnabled:(BOOL)value
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:value forKey:@"photo_enabled"];
+    [defaults synchronize];
+}
+
+- (BOOL)isTrackingLocation
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL locationEnabled = [defaults boolForKey:@"location_enabled"];
+    return [CLLocationManager locationServicesEnabled] && locationEnabled;
+}
+
+- (JAFUser *)getLoggedUser
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSData *myEncodedObject = [userDefaults objectForKey:@"user"];
+    return [NSKeyedUnarchiver unarchiveObjectWithData: myEncodedObject];
+}
+
+- (void)setLoggedUser:(JAFUser*)user
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *myEncodedUser = [NSKeyedArchiver archivedDataWithRootObject:user];
+    [defaults setObject:myEncodedUser forKey:@"user"];
+    [defaults synchronize];
+}
+
+- (NSString *)getLoggedUserName
+{
+    JAFUser* user = [self getLoggedUser];
+    return [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
 }
 
 - (CLLocationManager *)locationManager
@@ -61,6 +100,12 @@ static JAFSettingsService *_sharedService = nil;
 {
 	NSLog(@"Stopping location services");
 	[self.locationManager stopMonitoringSignificantLocationChanges];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:NO forKey:@"location_enabled"];
+    [defaults synchronize];
+    
+    self.location = nil;
 }
 
 - (void)resumeLocationServices:(NSNotificationCenter *)notification
@@ -68,6 +113,9 @@ static JAFSettingsService *_sharedService = nil;
 	NSLog(@"Resuming location services");
 	[self.locationManager startMonitoringSignificantLocationChanges];
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:YES forKey:@"location_enabled"];
+    [defaults synchronize];
 	NSLog(@"%@", self.locationManager.location);
 }
 
@@ -82,12 +130,28 @@ static JAFSettingsService *_sharedService = nil;
     [[NSNotificationCenter defaultCenter] postNotificationName:kLocationDidChangeNotification object:self userInfo:userInfo];
 }
 
+
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
 	if (error.code == kCLErrorDenied) {
-        
+		[self showLocationServicesDisabledAlert];
 	}
 }
+
+- (void)showLocationServicesDisabledAlert
+{
+	if ((self.locationManager.location.coordinate.latitude == 0) &&
+		(self.locationManager.location.coordinate.longitude == 0)) {
+        NSString *app = NSBundle.mainBundle.infoDictionary  [@"CFBundleDisplayName"];
+        NSString *message = [NSString stringWithFormat:@"Please enable Location \n Services for %@, go to: \n Privacy -> Location -> %@", app, app];
+        
+		_locationServicesAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Disabled Location Services", @"Disabled Location Services") message:NSLocalizedString(message, message) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [_locationServicesAlert show];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kStopLocationServicesNotification object:self userInfo:nil];
+	}
+}
+
 
 
 

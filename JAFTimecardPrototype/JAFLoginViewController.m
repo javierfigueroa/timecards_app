@@ -95,7 +95,7 @@ static NSString * const GroundControlDefaultsURLString = @"https://s3.amazonaws.
         return;
     }
     
-    [SVProgressHUD showWithStatus:@"Logging in" maskType:SVProgressHUDMaskTypeGradient];
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
     [JAFUser login:self.usernameTextField.text andPassword:self.passwordTextField.text andCompany:self.companyCodeTextField.text completion:^(JAFUser *user, NSError *error) {
         [SVProgressHUD dismiss];
         if (!error) {
@@ -105,7 +105,7 @@ static NSString * const GroundControlDefaultsURLString = @"https://s3.amazonaws.
             [[NSNotificationCenter defaultCenter] postNotificationName:kUserLoggedInNotification object:nil];
             
         }else{
-            [SVProgressHUD showErrorWithStatus:@"Error logging in, check your username and password and try again"];
+            [SVProgressHUD showErrorWithStatus:@"Error signing in, check your username and password and try again"];
         }
     }];
 }

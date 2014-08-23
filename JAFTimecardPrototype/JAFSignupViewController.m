@@ -39,11 +39,6 @@
     [self.signupButton setBackgroundImage:stretchableGreenButton forState:UIControlStateNormal];
 }
 
-//- (UIStatusBarStyle)preferredStatusBarStyle
-//{
-//    return UIStatusBarStyleLightContent;
-//}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

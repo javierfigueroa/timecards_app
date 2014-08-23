@@ -9,7 +9,9 @@
 #import "JAFTimecardService.h"
 #import "JAFTimecard.h"
 #import "JAFProject.h"
+#import "JAFSummary.h"
 #import "JAFUser.h"
+#import "NSDate+Timecards.h"
 
 static JAFTimecardService *_sharedService = nil;
 
@@ -159,21 +161,7 @@ static JAFTimecardService *_sharedService = nil;
     }
     
     NSDate *now = [NSDate date];
-    NSCalendar *c = [NSCalendar currentCalendar];
-    NSDateComponents *components = [c components:NSCalendarUnitHour fromDate:date toDate:now options:0];
-    NSInteger hours = components.hour;
-    components = [c components:NSCalendarUnitMinute fromDate:date toDate:now options:0];
-    NSInteger minutes = components.minute - (hours * 60);
-    
-    return [NSString stringWithFormat:@"%lih:%lim",(long) hours, (long)minutes];
-}
-
-- (NSString *)getName
-{
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSData *myEncodedObject = [userDefaults objectForKey:@"user"];
-    JAFUser *user = [NSKeyedUnarchiver unarchiveObjectWithData: myEncodedObject];
-    return [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
+    return [NSDate timeStringFrom:date to:now];
 }
 
 - (void)clearTimecard
@@ -250,6 +238,41 @@ static JAFTimecardService *_sharedService = nil;
         if (block) {
             block(self.activeTimecard, error);
         }
+    }];
+}
+
+- (void)getSummaryForUser:(JAFUser*)user
+{
+    NSDate *now = [[NSDate new] nextDay];
+    NSDate *twoWeeksAgo = [now twoWeeksAgo];
+    NSDate *yearStart = [now yearToDate];
+    
+    [self getSummaryFrom:twoWeeksAgo to:now forUserId:user.ID andCompletion:^(JAFSummary *summary, NSError *error) {
+        self.thisPeriod = summary;
+    }];
+    
+    
+    [self getSummaryFrom:yearStart to:now forUserId:user.ID andCompletion:^(JAFSummary *summary, NSError *error) {
+        self.yearToDate = summary;
+    }];
+
+}
+
+- (void)getSummaryFrom:(NSDate *)from to:(NSDate *)to forUserId:(NSString *)userId andCompletion:(void (^)(JAFSummary *, NSError *))block
+{
+    [JAFTimecard getTimecardsFrom:from to:to forUserId:userId andCompletion:^(NSArray *timecards, JAFSummary *summary, NSError *error) {
+        if (!error) {            
+            if (block) {
+                summary.from = from;
+                summary.to = to;
+                block(summary, nil);
+            }
+        }else{
+            if (block) {
+                block(nil, error);
+            }
+        }
+        
     }];
 }
 

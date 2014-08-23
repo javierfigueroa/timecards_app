@@ -9,9 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-@class JAFTimecard, JAFProject;
+@class JAFTimecard, JAFProject, JAFSummary, JAFUser;
 @interface JAFTimecardService : NSObject
 
+@property (nonatomic, strong) JAFSummary *thisPeriod;
+@property (nonatomic, strong) JAFSummary *yearToDate;
 
 + (JAFTimecardService *)service;
 
@@ -35,8 +37,6 @@
 
 - (NSString *)getLoggedTimeValue;
 
-- (NSString *)getName;
-
 - (BOOL)hasProjects;
 
 - (void)clearTimecard;
@@ -47,10 +47,14 @@
 
 - (NSArray *)getProjects;
 
+- (void)getSummaryFrom:(NSDate*)from to:(NSDate*)to forUserId:(NSString*)userId andCompletion:(void (^)(JAFSummary *summary, NSError *error))block;
+
 - (void)clockWithLocation:(CLLocation*)location
                   picture:(UIImage *)picture
                  andBlock:(void (^)(JAFTimecard *timecard, NSError *error))block;
 
 - (void)assignProject:(JAFProject *)project
              andBlock:(void (^)(JAFTimecard *timecard, NSError *error))block;
+
+- (void)getSummaryForUser:(JAFUser*)user;
 @end

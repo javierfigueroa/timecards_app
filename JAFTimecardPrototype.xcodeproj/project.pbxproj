@@ -38,6 +38,10 @@
 		3B3BE34F179DB81C0085E74D /* JAFAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3BE34E179DB81C0085E74D /* JAFAPIClient.m */; };
 		3B3BE357179DBC0F0085E74D /* JAFTimecard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3BE356179DBC0F0085E74D /* JAFTimecard.m */; };
 		3B3BE35A179DC6AF0085E74D /* JAFUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3BE359179DC6AF0085E74D /* JAFUser.m */; };
+		3B5ACB0619297DE200208950 /* JAFSummaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B5ACB0519297DE200208950 /* JAFSummaryViewController.xib */; };
+		3B5ACB091929824C00208950 /* JAFSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5ACB081929824C00208950 /* JAFSummaryViewController.m */; };
+		3B5ACB0C19298CC800208950 /* JAFSummary.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5ACB0B19298CC800208950 /* JAFSummary.m */; };
+		3B5ACB0F1929AFCB00208950 /* NSDate+Timecards.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5ACB0E1929AFCB00208950 /* NSDate+Timecards.m */; };
 		3B5B81471916A3330018AE0D /* JAFForgotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5B81451916A3330018AE0D /* JAFForgotPasswordViewController.m */; };
 		3B5B81481916A3330018AE0D /* JAFForgotPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B5B81461916A3330018AE0D /* JAFForgotPasswordViewController.xib */; };
 		3B5B814C1916DD740018AE0D /* JAFSignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5B814A1916DD740018AE0D /* JAFSignupViewController.m */; };
@@ -57,6 +61,8 @@
 		3B641BAD178E10F4002D33D4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B641BAC178E10F4002D33D4 /* CoreLocation.framework */; };
 		3BA753FC192081A2008D5B8D /* menu-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BA753FA192081A2008D5B8D /* menu-icon.png */; };
 		3BA753FD192081A2008D5B8D /* menu-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BA753FB192081A2008D5B8D /* menu-icon@2x.png */; };
+		3BA753FF192461A8008D5B8D /* JAFProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BA753FE192461A8008D5B8D /* JAFProfileViewController.xib */; };
+		3BA7540219246201008D5B8D /* JAFProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA7540119246201008D5B8D /* JAFProfileViewController.m */; };
 		3BC292B5191F2AB500DE5B9C /* JAFLeftMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC292B4191F2AB500DE5B9C /* JAFLeftMenuViewController.m */; };
 		3BC292B7191F2D4500DE5B9C /* MenuBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BC292B6191F2D4500DE5B9C /* MenuBackground@2x.png */; };
 		3BC292B9191F2F9A00DE5B9C /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BC292B8191F2F9A00DE5B9C /* defaults.plist */; };
@@ -117,6 +123,13 @@
 		3B3BE356179DBC0F0085E74D /* JAFTimecard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAFTimecard.m; sourceTree = "<group>"; };
 		3B3BE358179DC6AF0085E74D /* JAFUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAFUser.h; sourceTree = "<group>"; };
 		3B3BE359179DC6AF0085E74D /* JAFUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAFUser.m; sourceTree = "<group>"; };
+		3B5ACB0519297DE200208950 /* JAFSummaryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JAFSummaryViewController.xib; sourceTree = "<group>"; };
+		3B5ACB071929824C00208950 /* JAFSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAFSummaryViewController.h; sourceTree = "<group>"; };
+		3B5ACB081929824C00208950 /* JAFSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAFSummaryViewController.m; sourceTree = "<group>"; };
+		3B5ACB0A19298CC800208950 /* JAFSummary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAFSummary.h; sourceTree = "<group>"; };
+		3B5ACB0B19298CC800208950 /* JAFSummary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAFSummary.m; sourceTree = "<group>"; };
+		3B5ACB0D1929AFCB00208950 /* NSDate+Timecards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Timecards.h"; sourceTree = "<group>"; };
+		3B5ACB0E1929AFCB00208950 /* NSDate+Timecards.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Timecards.m"; sourceTree = "<group>"; };
 		3B5B81441916A3330018AE0D /* JAFForgotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAFForgotPasswordViewController.h; sourceTree = "<group>"; };
 		3B5B81451916A3330018AE0D /* JAFForgotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAFForgotPasswordViewController.m; sourceTree = "<group>"; };
 		3B5B81461916A3330018AE0D /* JAFForgotPasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JAFForgotPasswordViewController.xib; sourceTree = "<group>"; };
@@ -145,6 +158,9 @@
 		3B641BAC178E10F4002D33D4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		3BA753FA192081A2008D5B8D /* menu-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-icon.png"; sourceTree = "<group>"; };
 		3BA753FB192081A2008D5B8D /* menu-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-icon@2x.png"; sourceTree = "<group>"; };
+		3BA753FE192461A8008D5B8D /* JAFProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JAFProfileViewController.xib; sourceTree = "<group>"; };
+		3BA7540019246201008D5B8D /* JAFProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAFProfileViewController.h; sourceTree = "<group>"; };
+		3BA7540119246201008D5B8D /* JAFProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAFProfileViewController.m; sourceTree = "<group>"; };
 		3BC292B3191F2AB500DE5B9C /* JAFLeftMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAFLeftMenuViewController.h; sourceTree = "<group>"; };
 		3BC292B4191F2AB500DE5B9C /* JAFLeftMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAFLeftMenuViewController.m; sourceTree = "<group>"; };
 		3BC292B6191F2D4500DE5B9C /* MenuBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MenuBackground@2x.png"; sourceTree = "<group>"; };
@@ -243,6 +259,8 @@
 				3B5B81461916A3330018AE0D /* JAFForgotPasswordViewController.xib */,
 				3B5B814B1916DD740018AE0D /* JAFSignupViewController.xib */,
 				C6B8327B192298940098093C /* JAFSettingsTableViewController.xib */,
+				3BA753FE192461A8008D5B8D /* JAFProfileViewController.xib */,
+				3B5ACB0519297DE200208950 /* JAFSummaryViewController.xib */,
 			);
 			name = Xibs;
 			sourceTree = "<group>";
@@ -264,6 +282,10 @@
 				3BC292B4191F2AB500DE5B9C /* JAFLeftMenuViewController.m */,
 				C6B832751922793F0098093C /* JAFSettingsTableViewController.h */,
 				C6B832761922793F0098093C /* JAFSettingsTableViewController.m */,
+				3BA7540019246201008D5B8D /* JAFProfileViewController.h */,
+				3BA7540119246201008D5B8D /* JAFProfileViewController.m */,
+				3B5ACB071929824C00208950 /* JAFSummaryViewController.h */,
+				3B5ACB081929824C00208950 /* JAFSummaryViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -277,6 +299,8 @@
 				3B3BE359179DC6AF0085E74D /* JAFUser.m */,
 				3B1EDE05182FF08A00C258F6 /* JAFProject.h */,
 				3B1EDE06182FF08A00C258F6 /* JAFProject.m */,
+				3B5ACB0A19298CC800208950 /* JAFSummary.h */,
+				3B5ACB0B19298CC800208950 /* JAFSummary.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -382,6 +406,8 @@
 				C6B83279192297AA0098093C /* UIViewController+SideMenu.m */,
 				C6B8327E19229E6A0098093C /* UIColor+Timecards.h */,
 				C6B8327F19229E6A0098093C /* UIColor+Timecards.m */,
+				3B5ACB0D1929AFCB00208950 /* NSDate+Timecards.h */,
+				3B5ACB0E1929AFCB00208950 /* NSDate+Timecards.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -449,12 +475,14 @@
 				3B1EDE3518303B8F00C258F6 /* red-btn-right@2x.png in Resources */,
 				3BA753FD192081A2008D5B8D /* menu-icon@2x.png in Resources */,
 				3B1EDE3218303B8F00C258F6 /* red-arrow-icon@2x.png in Resources */,
+				3BA753FF192461A8008D5B8D /* JAFProfileViewController.xib in Resources */,
 				3B1EDE2918303B8F00C258F6 /* green-btn-middle@2x.png in Resources */,
 				3B1EDE2F18303B8F00C258F6 /* green-outlined-right@2x.png in Resources */,
 				3B5B814D1916DD740018AE0D /* JAFSignupViewController.xib in Resources */,
 				3BF11B9F1835BB8100F1737F /* OpenSans-Light.ttf in Resources */,
 				3B1EDE3818303B8F00C258F6 /* red-outlined-left@2x.png in Resources */,
 				3B1EDE2618303B8F00C258F6 /* form-text-field@2x.png in Resources */,
+				3B5ACB0619297DE200208950 /* JAFSummaryViewController.xib in Resources */,
 				3BC292B7191F2D4500DE5B9C /* MenuBackground@2x.png in Resources */,
 				3B1EDE3718303B8F00C258F6 /* red-outlined-btn@2x.png in Resources */,
 				3BA753FC192081A2008D5B8D /* menu-icon.png in Resources */,
@@ -533,10 +561,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6B8327A192297AA0098093C /* UIViewController+SideMenu.m in Sources */,
+				3B5ACB091929824C00208950 /* JAFSummaryViewController.m in Sources */,
 				C6B832771922793F0098093C /* JAFSettingsTableViewController.m in Sources */,
 				3B5B814C1916DD740018AE0D /* JAFSignupViewController.m in Sources */,
 				3B641B8C178D05F7002D33D4 /* main.m in Sources */,
 				3B641B90178D05F7002D33D4 /* JAFAppDelegate.m in Sources */,
+				3B5ACB0C19298CC800208950 /* JAFSummary.m in Sources */,
 				C66BBC121891BF9700C7502B /* JAFProjectsViewController.m in Sources */,
 				C6B832831922A2810098093C /* JAFSettingsCell.m in Sources */,
 				3B641BA0178D0633002D33D4 /* JAFLoginViewController.m in Sources */,
@@ -545,9 +575,11 @@
 				3BF11BA71835BDBA00F1737F /* JAFTitleLabel.m in Sources */,
 				3BF11BAA1835C38A00F1737F /* JAFButton.m in Sources */,
 				C6B832861922A67A0098093C /* JAFSettingsService.m in Sources */,
+				3B5ACB0F1929AFCB00208950 /* NSDate+Timecards.m in Sources */,
 				3B5B81471916A3330018AE0D /* JAFForgotPasswordViewController.m in Sources */,
 				3B641BA5178D0704002D33D4 /* JAFActionsViewController.m in Sources */,
 				3BF11BA41835BC3E00F1737F /* JAFTextField.m in Sources */,
+				3BA7540219246201008D5B8D /* JAFProfileViewController.m in Sources */,
 				3B3BE34F179DB81C0085E74D /* JAFAPIClient.m in Sources */,
 				3B3BE357179DBC0F0085E74D /* JAFTimecard.m in Sources */,
 				3B3BE35A179DC6AF0085E74D /* JAFUser.m in Sources */,
@@ -638,7 +670,7 @@
 				GCC_PREFIX_HEADER = "JAFTimecardPrototype/JAFTimecardPrototype-Prefix.pch";
 				INFOPLIST_FILE = "JAFTimecardPrototype/JAFTimecardPrototype-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "F6EB56A3-3B0F-42D4-9942-471B05B747EC";
 				USER_HEADER_SEARCH_PATHS = "${PODS_PUBLIC_HEADERS_SEARCH_PATHS}";
 				WRAPPER_EXTENSION = app;
 			};
@@ -650,13 +682,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JAFTimecardPrototype/JAFTimecardPrototype-Prefix.pch";
 				INFOPLIST_FILE = "JAFTimecardPrototype/JAFTimecardPrototype-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "6922483A-E1A4-4C94-8CFB-98EB65BD7B49";
 				USER_HEADER_SEARCH_PATHS = "${PODS_PUBLIC_HEADERS_SEARCH_PATHS}";
 				WRAPPER_EXTENSION = app;
 			};

@@ -11,6 +11,8 @@
 #import "JAFUser.h"
 #import "JAFProject.h"
 #import "AFHTTPRequestOperationManager.h"
+#import "JAFUser.h"
+#import "JAFSummary.h"
 
 @implementation JAFTimecard
 
@@ -39,16 +41,24 @@
             self.timestampOut = [formatter dateFromString:data[@"timestamp_out"]];
         }
         
-        self.latitudeIn = [NSNumber numberWithDouble:[data[@"latitude_in"] doubleValue]];
+        if (data[@"latitude_in"] != (id)[NSNull null]) {
+            self.latitudeIn = [NSNumber numberWithDouble:[data[@"latitude_in"] doubleValue]];
+        }
         
         if (data[@"latitude_out"] != (id)[NSNull null]) {
             self.latitudeOut = [NSNumber numberWithDouble:[data[@"latitude_out"] doubleValue]];
         }
         
-        self.longitudeIn = [NSNumber numberWithDouble:[data[@"longitude_in"] doubleValue]];
+        if (data[@"longitude_in"] != (id)[NSNull null]) {
+            self.longitudeIn = [NSNumber numberWithDouble:[data[@"longitude_in"] doubleValue]];
+        }
         
         if (data[@"longitude_out"] != (id)[NSNull null]) {
             self.longitudeOut = [NSNumber numberWithDouble:[data[@"longitude_out"] doubleValue]];
+        }
+        
+        if (data[@"user"] && data[@"user"] != (id)[NSNull null]) {
+            self.user = [[JAFUser alloc] initWithAttributes:data[@"user"]];
         }
     }
     return self;
@@ -123,15 +133,21 @@
 #endif
     
     AFHTTPRequestOperationManager *manager = [JAFAPIClient sharedClient];
-    NSMutableURLRequest *request = [manager.requestSerializer multipartFormRequestWithMethod:@"POST" URLString:[[NSURL URLWithString:@"timecards" relativeToURL:manager.baseURL] absoluteString] parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:UIImageJPEGRepresentation(timecard.photoIn, 0)
-                                    name:@"timecard[photo_in]"
-                                fileName:@"clock_in.jpeg"
-                                mimeType:@"image/jpeg"];
-#ifdef DEBUG
-        NSLog(@"%@", formData);
-#endif
-    }];
+    NSString *url = [[NSURL URLWithString:@"timecards" relativeToURL:manager.baseURL] absoluteString];
+    NSMutableURLRequest *request = nil;
+    if (!timecard.photoIn) {
+        request = [manager.requestSerializer requestWithMethod:@"POST" URLString:url parameters:parameters];
+    }else{
+        request = [manager.requestSerializer multipartFormRequestWithMethod:@"POST" URLString:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            [formData appendPartWithFileData:UIImageJPEGRepresentation(timecard.photoIn, 0)
+                                        name:@"timecard[photo_in]"
+                                    fileName:@"clock_in.jpeg"
+                                    mimeType:@"image/jpeg"];
+    #ifdef DEBUG
+            NSLog(@"%@", formData);
+    #endif
+        }];
+    }
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
 #ifdef DEBUG
@@ -174,15 +190,22 @@
     
     NSString *url = [NSString stringWithFormat:@"timecards/%@", timecard.ID];
     AFHTTPRequestOperationManager *manager = [JAFAPIClient sharedClient];
-    NSMutableURLRequest *request = [manager.requestSerializer multipartFormRequestWithMethod:@"PUT" URLString:[[NSURL URLWithString:url relativeToURL:manager.baseURL] absoluteString] parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:UIImageJPEGRepresentation(timecard.photoOut, 0)
-                                    name:@"timecard[photo_out]"
-                                fileName:@"clock_out.jpeg"
-                                mimeType:@"image/jpeg"];
-#ifdef DEBUG
-        NSLog(@"%@", formData);
-#endif
-    }];
+    url = [[NSURL URLWithString:url relativeToURL:manager.baseURL] absoluteString];
+    
+    NSMutableURLRequest *request = nil;
+    if (!timecard.photoOut) {
+        request = [manager.requestSerializer requestWithMethod:@"PUT" URLString:url parameters:parameters];
+    }else{
+        request = [manager.requestSerializer multipartFormRequestWithMethod:@"PUT" URLString:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            [formData appendPartWithFileData:UIImageJPEGRepresentation(timecard.photoOut, 0)
+                                        name:@"timecard[photo_out]"
+                                    fileName:@"clock_out.jpeg"
+                                    mimeType:@"image/jpeg"];
+    #ifdef DEBUG
+            NSLog(@"%@", formData);
+    #endif
+        }];
+    }
     AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
 #ifdef DEBUG
@@ -206,6 +229,45 @@
         
     }];
     [manager.operationQueue addOperation:operation];
+}
+
++ (void)getTimecardsFrom:(NSDate *)from to:(NSDate *)to forUserId:(NSString *)userId andCompletion:(void (^)(NSArray *, JAFSummary *, NSError *))block{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MM-dd-yyyy"];
+    NSString *fromFormatted = [formatter stringFromDate:from];
+    NSString *toFormatted = [formatter stringFromDate:to];
+    NSString *url = [NSString stringWithFormat:@"/app/timecards/%@/%@", fromFormatted, toFormatted];
+    
+    [[JAFAPIClient sharedClient] GET:url parameters:@{@"user_id": userId} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+#ifdef DEBUG
+            NSLog(@"%@", responseObject);
+#endif
+            NSArray *JSONtimecards = (NSArray*)responseObject;
+            NSMutableArray *timecards = [[NSMutableArray alloc] initWithCapacity:JSONtimecards.count];
+            JAFSummary *summary = [[JAFSummary alloc] init];
+            
+            for (NSDictionary *JSONtimecard in JSONtimecards) {
+                JAFTimecard *timecard = [[JAFTimecard alloc] initWithAttributes:JSONtimecard];
+                [timecards addObject:timecard];
+                [summary addTimeFrom:timecard.timestampIn to:timecard.timestampOut];
+                [summary addEarningsFrom:timecard.timestampIn to:timecard.timestampOut wage:timecard.user.wage];
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^(void) {
+                if (block) {
+                    block([NSArray arrayWithArray:timecards], summary, nil);
+                }
+            });
+        });
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        if (block) {
+            block(nil, nil, [NSError errorWithDomain:[error localizedDescription] code:operation.response.statusCode userInfo:nil]);
+        }
+    }];
+    
 }
 
 + (NSDateComponents*)componentsFromDate:(NSDate*)date

@@ -22,7 +22,8 @@ static AFHTTPRequestOperationManager *_sharedClient = nil;
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *baseUrl = [defaults valueForKey:@"server"];
-    NSString *url = [NSString stringWithFormat:@"http://%@.%@", domain, baseUrl ? baseUrl : @"timecards.io"];
+    NSString *protocol = [defaults valueForKey:@"protocol"];
+    NSString *url = [NSString stringWithFormat:@"%@://%@.%@", protocol, domain, baseUrl ? baseUrl : @"timecards.io"];
     [defaults setValue:url forKey:@"service_url"];
     [[self class] resetInstance];
 }

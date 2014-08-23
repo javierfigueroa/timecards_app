@@ -31,7 +31,7 @@
 //    "photo_out_url": "http://s3.amazonaws.com/timecards_photos/tenant_1/user_2/photo_out.jpg?1374527225"
 //}
 
-@class JAFProject;
+@class JAFProject, JAFUser, JAFSummary;
 @interface JAFTimecard : NSObject
 
 @property (nonatomic, strong) NSDate *timestampIn;
@@ -44,12 +44,15 @@
 @property (nonatomic, strong) UIImage *photoIn;
 @property (nonatomic, strong) UIImage *photoOut;
 @property (nonatomic, strong) JAFProject *project;
+@property (nonatomic, strong) JAFUser *user;
 
 - (id)initWithAttributes:(NSDictionary*)data;
 
 + (void)assignProject:(JAFTimecard*)timecard projectID:(NSNumber*)ID completion:(void (^)(JAFTimecard *timecard, NSError *error))block;
 
 + (void)getTodaysTimecardWithCompletion:(void (^)(JAFTimecard *timecard, NSError *error))block;
+
++ (void)getTimecardsFrom:(NSDate*)from to:(NSDate*)to forUserId:(NSString*)userId andCompletion:(void (^)(NSArray *timecards, JAFSummary *summary, NSError *error))block;
 
 + (void)clockIn:(JAFTimecard*)timecard completion:(void (^)(JAFTimecard *timecard, NSError *error))block;
 

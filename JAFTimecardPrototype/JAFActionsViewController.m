@@ -78,7 +78,6 @@
         [self showLoginController];
     }else{
         [self getTimecard];
-        [self startTimer];
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getTimecard) name:kUserLoggedInNotification object:nil];
@@ -93,6 +92,7 @@
 {
     [super viewWillAppear:animated];
     [self getProjects];
+    [self startTimer];
 }
 
 - (void)didReceiveMemoryWarning
@@ -172,7 +172,11 @@
 #pragma mark - Actions
 
 - (IBAction)didPressPrimaryAction:(id)sender {
-    [self openImagePickerControllerWithType:UIImagePickerControllerSourceTypeCamera inController:self];
+    if ([[JAFSettingsService service] isPhotoEnabled]) {
+        [self openImagePickerControllerWithType:UIImagePickerControllerSourceTypeCamera inController:self];
+    }else{
+        [self clock:nil];
+    }
 }
 
 - (IBAction)didPressSecondaryAction:(id)sender {
@@ -184,6 +188,29 @@
         projectsController.actionsController = self;
         [self.navigationController pushViewController:projectsController animated:YES];
     }
+}
+
+- (void)clock:(UIImage *)image
+{
+    [SVProgressHUD showWithStatus:([self.timecardService clockedIn] ? @"Clocking out..." : @"Clocking in...") maskType:SVProgressHUDMaskTypeGradient];
+    
+    CLLocation *location = [[JAFSettingsService service] location];
+    [self.timecardService clockWithLocation:location picture:image andBlock:^(JAFTimecard *timecard, NSError *error) {
+        if (!error) {
+            [SVProgressHUD showSuccessWithStatus:@"All set!"];
+            
+            [self setState];
+            
+            if (![self.timecardService clockedIn]) {
+                [timer invalidate];
+                timer = nil;
+            }else{
+                [self startTimer];
+            }
+        }else{
+            [SVProgressHUD showErrorWithStatus:@"Something went wrong, please try again or contact administrator"];
+        }
+    }];
 }
 
 #pragma mark - Accessors
@@ -215,24 +242,7 @@
     
     // Remove views
     [picker dismissViewControllerAnimated:YES completion:^{
-        [SVProgressHUD showWithStatus:([self.timecardService clockedIn] ? @"Clocking out..." : @"Clocking in...") maskType:SVProgressHUDMaskTypeGradient];
-        
-        CLLocation *location = [[JAFSettingsService service] location];
-        [self.timecardService clockWithLocation:location picture:image andBlock:^(JAFTimecard *timecard, NSError *error) {
-            if (!error) {
-                [SVProgressHUD showSuccessWithStatus:@"All set!"];
-                
-                [self setState];
-                
-                if (timer) {
-                    [timer invalidate];
-                }else{
-                    [self startTimer];
-                }
-            }else{
-                [SVProgressHUD showErrorWithStatus:@"Something went wrong, please try again or contact administrator"];
-            }
-        }];
+        [self clock:image];
     }];
 }
 
@@ -240,7 +250,7 @@
 
 - (void)setState
 {
-    self.nameLabel.text = [self.timecardService getName];
+    self.nameLabel.text = [[JAFSettingsService service] getLoggedUserName];
     
     //make invisible
     self.coachLabel.alpha = 0;
@@ -350,8 +360,8 @@
 
 - (void)startTimer
 {
-    if (!timer) {
-        timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(setTimeCounter) userInfo:nil repeats:YES];
+    if (timer == nil) {
+        timer = [NSTimer timerWithTimeInterval:10.0 target:self selector:@selector(setTimeCounter) userInfo:nil repeats:YES];
         [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
     }
 }

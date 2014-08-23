@@ -11,6 +11,7 @@
 #import "JAFActionsViewController.h"
 #import "JAFLoginViewController.h"
 #import "JAFSettingsService.h"
+#import "JAFTimecardService.h"
 
 @implementation JAFAppDelegate
 
@@ -19,6 +20,11 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
+    
+    JAFUser *user = [[JAFSettingsService service] getLoggedUser];
+    if (user != nil) {
+        [[JAFTimecardService service] getSummaryForUser:user];
+    }
     
     JAFActionsViewController *controller = [JAFActionsViewController controller];
     self.actionsController = [[UINavigationController alloc]initWithRootViewController:controller];
@@ -41,8 +47,6 @@
     self.window.rootViewController = frostedViewController;
     self.window.backgroundColor = [UIColor whiteColor];
 
-//    
-//    self.window.rootViewController = actionsNavController;// sideMenuViewController;
     [self.window makeKeyAndVisible];
     
     return YES;
@@ -71,7 +75,9 @@
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kStartLocationServicesNotification object:self];
+    if ([[JAFSettingsService service] isTrackingLocation]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kStartLocationServicesNotification object:self];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

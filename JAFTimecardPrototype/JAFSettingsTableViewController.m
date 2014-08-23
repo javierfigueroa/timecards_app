@@ -10,6 +10,7 @@
 #import "UIViewController+SideMenu.h"
 #import "JAFSettingsCell.h"
 #import "JAFSettingsService.h"
+#import "JAFProfileViewController.h"
 
 @interface JAFSettingsTableViewController ()
 
@@ -33,12 +34,9 @@
     
     [self.navigationItem setTitleView:self.settingsTitle];
     
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [[NSNotificationCenter defaultCenter] addObserverForName:kStopLocationServicesNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+        [self.tableView reloadData];        
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -96,6 +94,7 @@
                 case 1: {
                     cell.textLabel.text = NSLocalizedString(@"Photo", nil);
                     UISwitch *photoSwitch = [[UISwitch alloc] init];
+                    [photoSwitch setOn:[[JAFSettingsService service] isPhotoEnabled]];
                     [photoSwitch addTarget:self action:@selector(didSwitchPhoto:) forControlEvents:UIControlEventValueChanged];
                     cell.accessoryView = photoSwitch;
                     break;
@@ -129,6 +128,14 @@
     return nil;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0 && indexPath.row == 0) {
+        JAFProfileViewController *profileController = [JAFProfileViewController controller];
+        [self.navigationController pushViewController:profileController animated:YES];
+    }
+}
+
 - (IBAction)didSwitchGPS:(id)sender
 {
     UISwitch *gpsSwitch = (UISwitch *)sender;
@@ -141,7 +148,12 @@
 
 - (IBAction)didSwitchPhoto:(id)sender
 {
-    
+    UISwitch *photoSwitch = (UISwitch *)sender;
+    if ([photoSwitch isOn]) {
+        [[JAFSettingsService service] setPhotoEnabled:YES];
+    }else{
+        [[JAFSettingsService service] setPhotoEnabled:NO];
+    }
 }
 
 @end

@@ -20,12 +20,15 @@
 @property (nonatomic, strong) NSString *authToken;
 @property (nonatomic, strong) NSString *password;
 @property (nonatomic, strong) NSString *company;
+@property (nonatomic, strong) NSNumber *wage;
 
 - (id)initWithAttributes:(NSDictionary*)data;
 
 + (void)login:(NSString*)username andPassword:(NSString*)password andCompany:(NSString*)company completion:(void (^)(JAFUser *user, NSError *error))block;
 
 + (void)signupWithUsername:(NSString*)username password:(NSString*)password firstName:(NSString *)firstName lastName:(NSString *)lastName company:(NSString *)company completion:(void (^)(JAFUser *, NSError *))block;
+
++ (void)updateWithPassword:(NSString*)password newPassword:(NSString*)newPassword firstName:(NSString *)firstName lastName:(NSString *)lastName email:(NSString *)email completion:(void (^)(JAFUser *, NSError *))block;
 
 + (void)resetPassword:(NSString*)username andCompany:(NSString *)company completion:(void (^)(JAFUser *, NSError *))block;
 
